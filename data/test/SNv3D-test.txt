@@ -1,0 +1,810 @@
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/13_0
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/13_1
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/14_2
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/14
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/19_1
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/19_4
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/29_2
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/29_3
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/29
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/33_4
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/33_5
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/33_2
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/7_0
+2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona/7
+2017-02-26 - 22-45 Villarreal 2 - 3 Real Madrid/12_0
+2017-02-26 - 22-45 Villarreal 2 - 3 Real Madrid/12
+2017-02-26 - 22-45 Villarreal 2 - 3 Real Madrid/29_0
+2017-02-26 - 22-45 Villarreal 2 - 3 Real Madrid/29
+2017-02-26 - 22-45 Villarreal 2 - 3 Real Madrid/30_5
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/10_0
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/10_1
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/10
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/12
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/12_2
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/15_1
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/15
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/16
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/16_1
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/16_0
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/2_4
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/2
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/21
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/21_0
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/22
+2017-02-26 - 23-00 Marseille 1 - 5 Paris SG/22_3
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/1_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/1
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/10_3
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/10_2
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/12
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/12_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/15_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/15
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/16_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/16
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/18
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/18_2
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/18_1
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/20
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/20_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/20_2
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/22
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/22_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/23
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/23_0
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/8
+2017-02-27 - 23-00 Leicester 3 - 1 Liverpool/8_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/10
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/10_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/12_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/12
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/15_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/15
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/18_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/18
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/2
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/2_3
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/20
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/20_4
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/23_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/23
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/26_4
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/26
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/27_0
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/27
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/6_3
+2017-03-01 - 21-30 Barcelona 6 - 1 Gijon/6
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/0_0
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/0_1
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/13_0
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/13
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/2
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/2_3
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/2_4
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/26
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/26_0
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/3
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/37
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/37_0
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/4
+2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas/4_0
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/16_0
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/16_3
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/16
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/7_0
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/7
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/8_4
+2017-03-04 - 17-00 AS Roma 1 - 2 Napoli/8
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/14
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/14_2
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/14_1
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/19
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/19_1
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/27_0
+2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid/27
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/12_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/12
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/14_1
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/14
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/17
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/17_1
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/18_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/18
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/2
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/2_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/20_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/20_1
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/22
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/22_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/23_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/23
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/28
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/28_1
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/29
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/29_1
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/33
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/33_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/38_1
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/38
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/39_0
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/39
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/41
+2017-03-04 - 19-00 Paris SG 1 - 0 Nancy/41_2
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/12_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/12
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/14_4
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/14_3
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/14_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/14
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/19
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/19_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/19_1
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/22
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/22_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/22_1
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/25_1
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/25_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/25
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/26_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/26_4
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/26_5
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/26_2
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/27_1
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/27
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/28_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/28_3
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/28
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/30_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/30
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/32
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/32_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/5_2
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/5_0
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/5
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/8
+2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo/8_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/0_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/10
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/10_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/15
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/15_1
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/19
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/19_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/21
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/21_1
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/22_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/22
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/28
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/28_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/33
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/33_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/41_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/41
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/50
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/50_2
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/6
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/6_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/8
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/8_0
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/9
+2017-03-07 - 22-45 Napoli 1 - 3 Real Madrid/9_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/0_1
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/22_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/22
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/24
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/24_1
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/25_2
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/25
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/27
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/27_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/29
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/29_3
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/30_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/30
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/37
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/37_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/38
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/38_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/42
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/42_0
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/8
+2017-03-08 - 22-45 Barcelona 6 - 1 Paris SG/8_1
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/12
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/12_0
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/18
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/18_0
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/24_0
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/24
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/27
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/27_0
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/3
+2017-03-12 - 17-00 Napoli 3 - 0 Crotone/3_0
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/12_1
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/12
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/20_0
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/20
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/24
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/24_0
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/28_1
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/28
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/9_2
+2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona/9
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/13
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/13_0
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/14
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/14_3
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/14_0
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/17
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/17_1
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/23_1
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/23
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/26_0
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/26
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/28
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/28_3
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/5_0
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/5
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/7
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/7_0
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/7_4
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/8_0
+2017-03-12 - 22-45 Real Madrid 2 - 1 Betis/8
+2017-03-12 - 23-00 Lorient 1 - 2 Paris SG/14_0
+2017-03-12 - 23-00 Lorient 1 - 2 Paris SG/14
+2017-03-12 - 23-00 Lorient 1 - 2 Paris SG/22_0
+2017-03-12 - 23-00 Lorient 1 - 2 Paris SG/22
+2017-03-12 - 23-00 Lorient 1 - 2 Paris SG/23
+2017-03-12 - 23-00 Lorient 1 - 2 Paris SG/23_0
+2017-03-18 - 18-15 Ath Bilbao 1 - 2 Real Madrid/15_4
+2017-03-18 - 18-15 Ath Bilbao 1 - 2 Real Madrid/15
+2017-03-18 - 18-15 Ath Bilbao 1 - 2 Real Madrid/6_0
+2017-03-18 - 18-15 Ath Bilbao 1 - 2 Real Madrid/6
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/11
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/11_0
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/2
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/2_3
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/26
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/26_0
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/33_0
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/33
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/9
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/9_4
+2017-03-19 - 14-30 Empoli 2 - 3 Napoli/9_2
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/11
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/11_0
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/24
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/24_0
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/27
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/27_0
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/3
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/3_1
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/3_2
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/4
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/4_0
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/5_0
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/5
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/6
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/6_2
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/6_1
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/7
+2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo/7_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/12
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/12_4
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/12_2
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/13
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/13_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/19
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/19_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/22_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/22
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/25_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/25
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/29_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/29
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/34
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/34_1
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/41
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/41_1
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/44_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/44
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/5
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/5_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/8_0
+2017-03-19 - 22-45 Barcelona 4 - 2 Valencia/8
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/15_1
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/15_0
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/15
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/18
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/18_1
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/2
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/2_0
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/2_4
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/2_3
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/26_1
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/26
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/32
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/32_1
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/4
+2017-03-19 - 23-00 Paris SG 2 - 1 Lyon/4_2
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/17
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/17_1
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/22_0
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/22_1
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/25_0
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/25
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/30_1
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/30
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/35_0
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/35
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/4
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/4_0
+2017-04-01 - 21-45 AS Roma 2 - 0 Empoli/6_3
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/0_0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/1_1
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/1
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/16_0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/16
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/19
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/19_0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/20_0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/20_2
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/23_0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/23_2
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/33
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/33_0
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/43
+2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona/43_1
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/15
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/15_0
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/19
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/19_1
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/4
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/4_0
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/6_3
+2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid/6_2
+2017-04-08 - 21-45 Malaga 2 - 0 Barcelona/32
+2017-04-08 - 21-45 Malaga 2 - 0 Barcelona/32_1
+2017-04-08 - 21-45 Malaga 2 - 0 Barcelona/43
+2017-04-08 - 21-45 Malaga 2 - 0 Barcelona/43_1
+2017-04-08 - 21-45 Malaga 2 - 0 Barcelona/50_2
+2017-04-08 - 21-45 Malaga 2 - 0 Barcelona/50
+2017-04-09 - 18-00 Everton 4 - 2 Leicester/5_0
+2017-04-09 - 18-00 Everton 4 - 2 Leicester/5
+2017-04-09 - 21-45 Lazio 0 - 3 Napoli/11
+2017-04-09 - 21-45 Lazio 0 - 3 Napoli/11_1
+2017-04-09 - 21-45 Lazio 0 - 3 Napoli/17
+2017-04-09 - 21-45 Lazio 0 - 3 Napoli/17_3
+2017-04-09 - 21-45 Lazio 0 - 3 Napoli/18_0
+2017-04-09 - 21-45 Lazio 0 - 3 Napoli/18
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/12_0
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/12
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/27
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/27_2
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/27_0
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/29_1
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/29
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/30
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/30_0
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/35_1
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/35
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/43_0
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/43
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/5
+2017-04-09 - 22-00 Paris SG 4 - 0 Guingamp/5_1
+2017-04-12 - 21-45 Bayern Munich 1 - 2 Real Madrid/15
+2017-04-12 - 21-45 Bayern Munich 1 - 2 Real Madrid/15_0
+2017-04-12 - 21-45 Bayern Munich 1 - 2 Real Madrid/26_0
+2017-04-12 - 21-45 Bayern Munich 1 - 2 Real Madrid/26
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/20_1
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/20
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/24_1
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/24
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/27_0
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/27
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/35_0
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/35_4
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/4_0
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/4
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/7_0
+2017-04-14 - 21-45 Angers 0 - 2 Paris SG/7
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/0
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/0_1
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/23
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/23_1
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/26_1
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/26
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/28
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/28_0
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/30
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/30_1
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/5_0
+2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta/5
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/10
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/10_0
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/21_4
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/21_5
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/24_0
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/24
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/24_1
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/26
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/26_0
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/36
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/36_4
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/36_2
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/36_3
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/5_0
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/5_5
+2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid/5
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/18_2
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/18_3
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/23_0
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/23
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/5
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/5_0
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/9
+2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad/9_2
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/20_0
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/20
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/21_1
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/21
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/25_2
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/25
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/3_0
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/3
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/32_0
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/32
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/33
+2017-04-18 - 19-30 Metz 2 - 3 Paris SG/33_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/15
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/15_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/16
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/16_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/19_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/19
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/2_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/2
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/23_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/23
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/26
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/26_2
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/27_0
+2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich/27
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/13_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/13
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/15
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/15_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/16
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/16_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/17_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/17_3
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/2_1
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/2
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/22_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/22_1
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/22
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/24
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/24_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/4
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/4_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/6
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/6_0
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/9_2
+2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier/9
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/10_0
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/10
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/25_0
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/25
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/26_0
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/26
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/9_0
+2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli/9
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/27
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/27_0
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/28
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/28_1
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/37
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/37_0
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/39_2
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/39
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/6_0
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/6
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/7
+2017-04-24 - 21-45 Pescara 1 - 4 AS Roma/7_1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/1_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/1_1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/11_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/11
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/13
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/13_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/17
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/17_1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/19_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/19
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/2_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/2
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/20
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/20_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/26_1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/26
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/29
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/29_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/30_1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/30_2
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/30_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/30
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/34_0
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/34
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/5_1
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/5
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/8
+2017-04-26 - 21-45 Arsenal 1 - 0 Leicester/8_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/0_1
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/0_4
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/15_1
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/15_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/18_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/18
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/2_1
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/2_3
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/2
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/24
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/24_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/25_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/25
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/26_1
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/26
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/28_1
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/28
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/29_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/29
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/3_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/4
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/4_3
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/4_1
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/6
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/6_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/9_0
+2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid/9
+2017-04-29 - 16-30 Dortmund 0 - 0 FC Koln/11
+2017-04-29 - 16-30 Dortmund 0 - 0 FC Koln/11_0
+2017-04-29 - 16-30 Dortmund 0 - 0 FC Koln/17
+2017-04-29 - 16-30 Dortmund 0 - 0 FC Koln/17_0
+2017-04-29 - 16-30 Dortmund 0 - 0 FC Koln/6
+2017-04-29 - 16-30 Dortmund 0 - 0 FC Koln/6_1
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/1_1
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/1_0
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/12_0
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/12
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/19_5
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/19
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/19_1
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/4_0
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/4
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/4_1
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/5_0
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/5
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/7_3
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/7
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/8_0
+2017-04-30 - 22-00 Nice 3 - 1 Paris SG/8
+2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid/22_0
+2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid/22
+2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid/5_0
+2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid/5
+2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid/9
+2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid/9_0
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/0_2
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/0
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/13_3
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/13
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/22_0
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/22
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/26_3
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/26
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/26_2
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/27_2
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/27
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/28_0
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/28_3
+2017-05-06 - 18-00 Paris SG 5 - 0 Bastia/28
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/1_0
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/1
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/11_1
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/11
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/14_2
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/14
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/17
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/17_0
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/2_0
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/2
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/25_0
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/25
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/28_4
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/28
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/3_3
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/3_4
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/3
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/8
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/8_0
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/9_1
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/9
+2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal/9_0
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/1
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/1_0
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/16
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/16_1
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/2
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/2_3
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/21
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/21_0
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/23_0
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/23
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/24
+2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid/24_0
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/13
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/13_0
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/20
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/20_1
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/26
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/26_1
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/29_0
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/29
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/30_0
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/30_1
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/5
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/5_1
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/6
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/6_0
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/7_0
+2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma/7
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/12
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/12_0
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/14_1
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/14_0
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/15
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/15_2
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/22
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/22_0
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/23
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/23_1
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/28
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/28_0
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/9_0
+2017-05-13 - 14-30 Manchester City 2 - 1 Leicester/9
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/10
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/10_0
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/23
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/23_0
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/5_2
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/5
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/8
+2017-05-13 - 16-30 FC Augsburg 1 - 1 Dortmund/8_2
+2017-05-14 - 16-00 Torino 0 - 5 Napoli/1_1
+2017-05-14 - 16-00 Torino 0 - 5 Napoli/1
+2017-05-14 - 16-00 Torino 0 - 5 Napoli/11_0
+2017-05-14 - 16-00 Torino 0 - 5 Napoli/11
+2017-05-14 - 16-00 Torino 0 - 5 Napoli/20_3
+2017-05-14 - 16-00 Torino 0 - 5 Napoli/20
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/1
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/1_0
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/11
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/11_2
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/14_5
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/14
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/14_0
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/21
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/21_1
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/24_4
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/24_0
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/28_0
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/28
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/28_5
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/29_0
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/29
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/4
+2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla/4_0
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/10_1
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/10
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/14_0
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/14
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/27
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/27_0
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/31
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/31_2
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/34_3
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/34_2
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/34
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/37_0
+2017-05-14 - 21-45 AS Roma 3 - 1 Juventus/37
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/1
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/1_0
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/2
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/2_0
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/3_1
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/3
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/6
+2017-05-14 - 22-00 St Etienne 0 - 5 Paris SG/6_1
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/15_0
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/15
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/2
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/2_1
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/21
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/21_1
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/4
+2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid/4_0
+2017-05-20 - 19-00 Chievo 3 - 5 AS Roma/2_0
+2017-05-20 - 19-00 Chievo 3 - 5 AS Roma/2
+2017-05-20 - 19-00 Chievo 3 - 5 AS Roma/22
+2017-05-20 - 19-00 Chievo 3 - 5 AS Roma/22_1
+2017-05-20 - 19-00 Chievo 3 - 5 AS Roma/9_3
+2017-05-20 - 19-00 Chievo 3 - 5 AS Roma/9
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/1
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/1_1
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/13_0
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/13
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/17
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/17_0
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/20
+2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina/20_0
+2017-05-20 - 22-00 Paris SG 1 - 1 Caen/13_0
+2017-05-20 - 22-00 Paris SG 1 - 1 Caen/13
+2017-05-20 - 22-00 Paris SG 1 - 1 Caen/17
+2017-05-20 - 22-00 Paris SG 1 - 1 Caen/17_1
+2017-05-20 - 22-00 Paris SG 1 - 1 Caen/25_2
+2017-05-20 - 22-00 Paris SG 1 - 1 Caen/25
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/10
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/10_0
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/12
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/12_0
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/14_0
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/14
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/18
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/18_1
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/19_3
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/19
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/2
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/2_0
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/2_2
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/3
+2017-05-21 - 21-00 Barcelona 4 - 2 Eibar/3_1
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/1_5
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/1
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/11
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/11_0
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/20_0
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/20
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/21
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/21_0
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/4_0
+2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid/4
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/11
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/11_3
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/13_0
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/13
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/20_1
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/20
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/22_2
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/22
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/4
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/4_2
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/4_1
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/9
+2017-05-28 - 19-00 AS Roma 3 - 2 Genoa/9_0
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/12_0
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/12
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/15_0
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/15
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/19_1
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/19
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/23
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/23_0
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/28_0
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/28
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/3
+2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli/3_1

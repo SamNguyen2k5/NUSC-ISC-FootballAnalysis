@@ -1,0 +1,19 @@
+# Core frameworks
+# torch>=2.0.0 -- Installed from conda
+# torchvision>=0.15.0 -- Installed from conda
+# torchaudio>=2.0.0 -- Installed from conda
+# opencv-python>=4.8.0 -- Installed from conda
+
+# Dataset
+SoccerNet
+
+# Data handling and augmentation
+numpy
+pandas
+matplotlib
+scikit-learn
+scipy
+Pillow
+
+# Python-specific
+pylint
