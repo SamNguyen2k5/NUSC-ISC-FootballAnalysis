@@ -17,3 +17,6 @@ Pillow
 
 # Python-specific
 pylint
+
+# Models
+ultralytics
