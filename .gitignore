@@ -1,6 +1,6 @@
 # Raw data & export files
-data/raw
-exports/2506 - Preliminary
+data
+exports
 weights
 
 # Byte-compiled / optimized / DLL files
