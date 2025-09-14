@@ -29,6 +29,6 @@ if __name__ == '__main__':
 
     download_calibration_task_from(
         SoccerNetDownloader(LocalDirectory="data"),
-        split=['test', 'challenge']
+        split=['train', 'test', 'valid']
     )
         
