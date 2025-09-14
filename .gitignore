@@ -1,6 +1,7 @@
 # Raw data & export files
 data/raw
 exports/2506 - Preliminary
+weights
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
