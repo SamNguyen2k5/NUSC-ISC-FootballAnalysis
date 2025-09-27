@@ -22,7 +22,8 @@
 # rm ~/miniconda3/miniconda.sh
 # source ~/miniconda3/bin/activate
 
-# conda create -n ISC-Football
-# conda activate ISC-Football
-conda install opencv pytorch torchvision torchaudio
+conda create -n ISC-Football
+conda activate ISC-Football
+conda install ipykernel opencv pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 pip3 install -r requirements.txt
+python -m ipykernel install --user --name=ISC-Football
