@@ -58,14 +58,18 @@ class CalibrationLabels:
 class CalibrationDataset(Dataset):
     img_folder: str
     raw_folder: str
+    width: int
+    height: int
     annotations_df: pd.DataFrame 
     keys: List[str]
     mode: str
     transform: any
     target_transform: any
 
-    def __init__(self, img_folder, keys, mode='none', transform=None, target_transform=None):
+    def __init__(self, img_folder, keys, width=None, height=None, mode='none', transform=None, target_transform=None):
         self.img_folder = img_folder
+        self.width = width
+        self.height = height
         self.keys = keys
         self.mode = mode
         self.transform = transform
@@ -76,12 +80,12 @@ class CalibrationDataset(Dataset):
             self.match_infos = json.load(f)
 
     @classmethod
-    def from_folder(cls, img_folder, mode, transform=None, target_transform=None):
+    def from_folder(cls, img_folder, width=None, height=None, mode='none', transform=None, target_transform=None):
         keys = [
             re.search(r'(\d+)\.jpg$', file).group(1) 
             for file in glob.glob(f'{img_folder}/*.jpg')
         ]
-        return cls(img_folder, keys, mode=mode, transform=transform, target_transform=target_transform)
+        return cls(img_folder, keys, width=width, height=height, mode=mode, transform=transform, target_transform=target_transform)
 
     def match_info(self, key):
         return self.match_infos.get(f'{key}.jpg')
@@ -98,7 +102,13 @@ class CalibrationDataset(Dataset):
         image = cv2.imread(image_path)
         image = image.astype('float32') / 255.0                     # Normalisation
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)              # Colour scale conversion
-        height, width, _ = image.shape
+
+        height, width = None, None
+        if not self.width or not self.height:
+            height, width, _ = image.shape
+        else:
+            image = cv2.resize(image, (self.width, self.height))
+            height, width = self.height, self.width
 
         # Get calibration labels
         label = None
