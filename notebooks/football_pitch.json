@@ -1,0 +1,58 @@
+{
+    "field_top_left": [
+        0.00,
+        0.00
+    ],
+    "field_bottom_left": [
+        75.00,
+        0.00
+    ],
+    "field_top_right": [
+        0.00,
+        110.00
+    ],
+    "field_bottom_right": [
+        75.00,
+        110.00
+    ],
+    "midfield_top": [
+        0.00,
+        55.00
+    ],
+    "midfield_bottom": [
+        75.00,
+        55.00
+    ],
+    "left_penalty_top_left": [
+        18.24,
+        0.00
+    ],
+    "left_penalty_top_right": [
+        18.24,
+        16.50
+    ],
+    "left_penalty_bottom_left": [
+        56.76,
+        0.00
+    ],
+    "left_penalty_bottom_right": [
+        56.76,
+        16.50
+    ],
+    "right_penalty_top_left": [
+        18.24,
+        93.50
+    ],
+    "right_penalty_top_right": [
+        18.24,
+        110.00
+    ],
+    "right_penalty_bottom_left": [
+        56.76,
+        93.50
+    ],
+    "right_penalty_bottom_right": [
+        56.76,
+        110.00
+    ]
+}
