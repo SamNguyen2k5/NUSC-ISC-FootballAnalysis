@@ -10,7 +10,7 @@ import pandas as pd
 from typing import List
 from dataclasses import dataclass
 
-class CalibrationLabels:
+class CalibrationLabelsMapping:
     """
     https://github.com/SoccerNet/sn-calibration > Soccer pitch annotations
     """
@@ -47,6 +47,34 @@ class CalibrationLabels:
     CALIBRATION_LABELS_BACKWARD = dict((v, k) for k, v in enumerate(CALIBRATION_LABELS))
     ALL_LABELS = range(len(CALIBRATION_LABELS))
 
+    NOT_FIELD = 0
+    BIG_RECT_LEFT_BOTTOM = 1
+    BIG_RECT_LEFT_MAIN = 2
+    BIG_RECT_LEFT_TOP = 3
+    BIG_RECT_RIGHT_BOTTOM = 4
+    BIG_RECT_RIGHT_MAIN = 5
+    BIG_RECT_RIGHT_TOP = 6
+    CIRCLE_CENTRAL = 7
+    CIRCLE_LEFT = 8
+    CIRCLE_RIGHT = 9
+    GOAL_LEFT_CROSSBAR = 10
+    GOAL_LEFT_POST_LEFT  = 11
+    GOAL_LEFT_POST_RIGHT = 12
+    GOAL_RIGHT_CROSSBAR = 13
+    GOAL_RIGHT_POST_LEFT = 14
+    GOAL_RIGHT_POST_RIGHT = 15
+    MIDDLE_LINE = 16
+    SIDE_LINE_BOTTOM = 17
+    SIDE_LINE_LEFT = 18
+    SIDE_LINE_RIGHT = 19
+    SIDE_LINE_TOP = 20
+    SMALL_RECT_LEFT_BOTTOM = 21
+    SMALL_RECT_LEFT_MAIN = 22
+    SMALL_RECT_LEFT_TOP = 23
+    SMALL_RECT_RIGHT_BOTTOM = 24
+    SMALL_RECT_RIGHT_MAIN = 25
+    SMALL_RECT_RIGHT_TOP = 26
+
     @classmethod
     def forward(cls, idx: int):
         return cls.CALIBRATION_LABELS[idx]
@@ -60,37 +88,42 @@ class CalibrationDataset(Dataset):
     raw_folder: str
     width: int
     height: int
+    n_limit: int
     annotations_df: pd.DataFrame 
     keys: List[str]
     mode: str
     transform: any
     target_transform: any
 
-    def __init__(self, img_folder, keys, width=None, height=None, mode='none', transform=None, target_transform=None):
+    def __init__(self, img_folder, keys, width, height, centered=False, n_limit=None, mode='none', transform=None, target_transform=None):
         self.img_folder = img_folder
         self.width = width
         self.height = height
+        self.n_limit = n_limit
         self.keys = keys
         self.mode = mode
         self.transform = transform
         self.target_transform = target_transform
+        self.centered = centered
 
         matches_path = f'{self.img_folder}/match_info.json'
         with open(matches_path, "r") as f:
             self.match_infos = json.load(f)
 
     @classmethod
-    def from_folder(cls, img_folder, width=None, height=None, mode='none', transform=None, target_transform=None):
+    def from_folder(cls, img_folder, width=None, height=None, centered=False, n_limit=None, mode='none', transform=None, target_transform=None):
         keys = [
             re.search(r'(\d+)\.jpg$', file).group(1) 
             for file in glob.glob(f'{img_folder}/*.jpg')
         ]
-        return cls(img_folder, keys, width=width, height=height, mode=mode, transform=transform, target_transform=target_transform)
+        return cls(img_folder, keys, width=width, height=height, centered=centered, n_limit=n_limit, mode=mode, transform=transform, target_transform=target_transform)
 
     def match_info(self, key):
         return self.match_infos.get(f'{key}.jpg')
 
     def __len__(self):
+        if self.n_limit:
+            return self.n_limit
         return len(self.keys)
 
     def __getitem__(self, idx):
@@ -115,10 +148,17 @@ class CalibrationDataset(Dataset):
         with open(label_path, "r") as f:
             label = json.load(f)
 
-        ordered_label = dict((k, []) for k in CalibrationLabels.ALL_LABELS)
+        OFFSET_DX, OFFSET_DY = 0, 0
+        if self.centered:
+            OFFSET_DX, OFFSET_DY = -0.5, -0.5
+
+        ordered_label = dict((k, np.array([])) for k in CalibrationLabelsMapping.ALL_LABELS)
         for name, coords in label.items():
-            ordered_name = CalibrationLabels.backward(name)
-            stacked_coords = np.vstack([np.array([int(coord['x'] * width), int(coord['y'] * height)]) for coord in coords])
+            ordered_name = CalibrationLabelsMapping.backward(name)
+            stacked_coords = np.vstack([
+                np.array([int((coord['x'] + OFFSET_DX) * width), int((coord['y'] + OFFSET_DY) * height)]) 
+                for coord in coords
+            ])
             ordered_label[ordered_name] = stacked_coords
 
         if self.transform:
