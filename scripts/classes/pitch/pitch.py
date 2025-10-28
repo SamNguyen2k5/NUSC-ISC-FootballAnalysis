@@ -26,6 +26,16 @@ class Pitch(nn.Module):
         (PitchKeypointMapping.ELLIPSES_TEN_YARD, True),
     )
 
+    @staticmethod
+    def LINE_SEGMENTS():
+        segments = []
+        for pts in Pitch.POLYGONS:
+            pts_shift = pts[1:] + pts[:1]
+            for x, y in zip(pts, pts_shift):
+                segments.append([x, y])
+
+        return segments
+
     def __init__(self, height=None, width=None, pitch_data=None):
         super().__init__()
 
