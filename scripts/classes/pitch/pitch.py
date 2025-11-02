@@ -2,6 +2,7 @@ import json
 from scripts.classes.pitch.keypoint_mapping import PitchKeypointMapping
 from scripts.classes.pitch.helper import _after_mappings, _homography_matrix
 from scripts.datasets.calibration import CalibrationLabelsMapping
+from scripts.classes.frame import FrameNumpy
 
 import numpy as np
 import pandas as pd
@@ -105,6 +106,20 @@ class Pitch(nn.Module):
         before_mappings = self.keypoints[idxs].unsqueeze(0)
         after_mappings = after_mappings.unsqueeze(0)
         return _homography_matrix(before_mappings, after_mappings)
+
+    def to_frame_numpy(self):
+        points = self.keypoints.detach().numpy()
+        segments = []
+        # for polygon_labels in Pitch.POLYGONS:
+        #     polygon_labels_shift = polygon_labels[1:] + polygon_labels[:1]
+        #     for x, y in zip(polygon_labels, polygon_labels_shift):
+
+        for x, y in PitchKeypointMapping.EDGES:
+            segments.append([x, y, 1])
+
+        segments = np.array(segments)
+        return FrameNumpy(points, segments)
+
 
     def plot(self, ax=None, scale=1, thickness=None, extra_space_scale=1, has_axes=True):
         if not thickness:
