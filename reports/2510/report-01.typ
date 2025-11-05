@@ -359,7 +359,7 @@ $
      & hvec(p) & mapsto & H hvec(p) = mat(h_11, h_12, h_13; h_21, h_22, h_23; h_31, h_32, h_33) mat(x_1; x_2; x_3)
 $
 
-where $H$
+=== Types of transformations
 
 We consider the following $3$ families of transformation:
 
@@ -384,7 +384,7 @@ We consider the following $3$ families of transformation:
     #image("transforms-2d/similarity.svg")
   ],
   $
-    hvec(p) = mat(k cos theta, -k sin theta, v_x; k sin theta, k cos theta, v_y; 0, 0, 1) hvec(p)
+    hvec(p)' = mat(k cos theta, -k sin theta, v_x; k sin theta, k cos theta, v_y; 0, 0, 1) hvec(p)
   $,
 )
 
@@ -395,7 +395,7 @@ We consider the following $3$ families of transformation:
     #image("transforms-2d/affinity.svg")
   ],
   $
-    hvec(p) = mat(a_11, a_12, v_x; a_21, a_22, v_y; 0, 0, 1) hvec(p)
+    hvec(p)' = mat(a_11, a_12, v_x; a_21, a_22, v_y; 0, 0, 1) hvec(p)
   $,
 )
 
@@ -406,13 +406,46 @@ We consider the following $3$ families of transformation:
     #image("transforms-2d/homography.svg")
   ],
   $
-    hvec(p) = mat(h_11, h_12, h_13; h_21, h_22, h_23; h_31, h_32, h_33) hvec(p)
+    hvec(p)' = mat(h_11, h_12, h_13; h_21, h_22, h_23; h_31, h_32, h_33) hvec(p)
   $,
 )
 
 In field registraion we are interested in recovering the homography matrix in two conditions:
-- Condition 1 (DLT)
-- Condition 2 (Rectification + Bruteforce RANSAC)
+- When all the points, pre-transformed ${hvec(p)^((i))}$ and post-transformed ${hvec(q)^((i))}$ points and their correspondences $hvec(p)^((i)) <-> hvec(q)^((i))$ are well established _(The DLT algorithm)_.
+- When the pre-transformed $P = {hvec(p)^((i))}$ and post-transformed $Q = {hvec(q)^((i))}$ points are not fully known, and no correspondences have been found.  _(Rectification + RANSAC)_.
+
+=== Transformations of geometric objects
+Given a homography $H: hvec(bold(p)) mapsto hvec(bold(p))' = H hvec(bold(p))$. We establish the transformation of other geometric entities under the same transformation:
+
+- *Lines*. Under $H$, a line $hvec(l)$ transforms to $hvec(l)' = H^(-T) hvec(l)$. A short proof is given in @hartley_multiple_2003[p.33].
+
+- *Angles*.
+
+// $
+//   hvec(l)' &= H hvec(p)^((1)) times H hvec(p)^((2)) \
+//            &= mat(
+//               hvec(h)_(1)^T hvec(p)^((1));
+//               hvec(h)_(2)^T hvec(p)^((1));
+//               hvec(h)_(3)^T hvec(p)^((1))
+//             ) times
+//             mat(
+//               hvec(h)_(1)^T hvec(p)^((2));
+//               hvec(h)_(2)^T hvec(p)^((2));
+//               hvec(h)_(3)^T hvec(p)^((2))
+//             ) \
+//             &= mat(delim: "|",
+//               unit(i), hvec(h)_(1)^T hvec(p)^((1)), hvec(h)_(1)^T hvec(p)^((2));
+//               unit(j), hvec(h)_(2)^T hvec(p)^((1)), hvec(h)_(2)^T hvec(p)^((2));
+//               unit(k), hvec(h)_(3)^T hvec(p)^((1)),  hvec(h)_(3)^T hvec(p)^((2))
+//             ) \
+//             &= mat(
+//               hvec(p)^(1)^T (hvec(h)_2 hvec(h)_3^T - hvec(h)_3 hvec(h)_2^T) hvec(p)^((2));
+//               hvec(p)^(1)^T (hvec(h)_3 hvec(h)_1^T - hvec(h)_1 hvec(h)_3^T) hvec(p)^((2));
+//               hvec(p)^(1)^T (hvec(h)_1 hvec(h)_2^T - hvec(h)_2 hvec(h)_1^T) hvec(p)^((2))
+//             )
+//             &= hvec(p)^(1)^T () hvec(p)^((2))
+// $
+
 
 == Solving linear systems using the Singular Value Decomposition (SVD)
 
@@ -427,7 +460,7 @@ $
 
 where $sigma_1 >= sigma_2 >= dots.c.h >= sigma_r > 0$ are the singular values of $A$, and $U = display(mat(unit(u)_1, unit(u)_2, dots.c.h, unit(u)_r))$, and $V = display(mat(unit(v)_1, unit(v)_2, dots.c.h, unit(v)_r))$ satisfying $U^T U = V^T V = I$.
 
-This representation gives us a straightforward solution: $display(arg min_(unit(x): ||unit(x)||=1) ||A unit(x)||^2 = unit(v)_r)$, i.e. the right vector associated with the least non-zero singular value. A short proof is given in @hartley_multiple_2003[A5.3].
+This representation gives us a straightforward solution: $display(arg min_(unit(x): ||unit(x)||=1) ||A unit(x)||^2 = unit(v)_r)$, i.e. the right vector associated with the least non-zero singular value. A short proof is given in @hartley_multiple_2003[A5.3].  The SVD sets the foundations for solving linear systems describing homographic transformations under imperfect conditions.
 
 == Recovering homography using point-to-point correspondence (Direct Linear Transform, DLT)
 
@@ -485,7 +518,7 @@ Note that the left matrix $A^((i))$ has rank $2$, therefore we only need to keep
   $
     A = mat(A^((1)); A^((2)); dots.v; A^((k)))
   $
-  Step 3. Solve for $display(hvec(h) = arg min_(||hvec(h)'||=1) ||A hvec(h)'||^2)$ via SVD. _If $k = 4$, the solution is exact_.
+  Step 3. Solve for $display(hvec(h) = arg min_(||hvec(h)'||=1) ||A hvec(h)'||^2)$ via the SVD. _If $k = 4$, the linear system is consistent_.
 
   Step 4. Reshape $hvec(h)$ from size $9 times 1$ to the matrix $H in RR^(3 times 3)$.
 ]
@@ -515,25 +548,95 @@ The homography for affine rectification is thus, $display(H_P = mat(1; , 1; v_x^
 
 For metric rectification, we either need a pair of vanishing points and a pair of orthogonal lines, or five pairs of orthogonal lines @hartley_multiple_2003[p.57]. It is clear that for our application, the former option is more optimal.
 
-Consider each pair of lines in the affine-rectified space $(hvec(l)_A^((i)), hvec(m)_A^((j)))$. Note that the first two components of $hvec(l)^((i)) = (l_1^((i)), l_2^((i)), l_3^((i)))$ and $hvec(m)^((j)) = (m_1^((j)), m_2^((j)), m_3^((j)))$ are the slope vector of the respective lines. Because the original lines are orthogonal, $l_1^((i))m_1^((j)) + l_2^((i))m_2^((j))=0$, or in matrix form,
+Consider each pair of lines in the affinely rectified space $(hvec(l)_A^((i)), hvec(m)_A^((j)))$. Note that the first two components of the original lines $hvec(l)^((i)) = (l_1^((i)), l_2^((i)), l_3^((i)))$ and $hvec(m)^((j)) = (m_1^((j)), m_2^((j)), m_3^((j)))$ are the slope vector of the respective lines. Because the original lines are orthogonal, $l_1^((i))m_1^((j)) + l_2^((i))m_2^((j))=0$, or in matrix form,
 
 $
-  hvec(l)^(i)^T C^*_infinity hvec(m)^((j)) = 0
-$
-where $display(C_infinity^* = mat(1; , 1; , , 0))$ is the dual conic #footnote[Some remarks about the dual conic].
-
-An affinity $H_A$
-$
-          & (H_A hvec(l)_A^((i)))^T C^*_infinity (H_A hvec(m)_A^((j))) = 0 \
-  => quad & hvec(l)_A^(i)^T (H_A^T C^*_infinity H_A) hvec(m)_A^((j)) = 0 \
-  => quad & hvec(l)^(i)^T mat(bold(K)^T; , 1) mat(bold(I); , 0) mat(bold(K); , 1) hvec(m)^((j)) = 0 \
-  => quad & hvec(l)^(i)^T mat(bold(K)^T bold(K); , 0) hvec(m)^((j)) = 0 \
+  hvec(l)^(i)^T mat(1; , 1; , , 0) hvec(m)^((j)) = 0
 $
 
-
-
+An affinity $H_A$ transforms the lines $hvec(l)_A^((i)), hvec(m)_A^((j))$ to $H_A^(-T) hvec(l)_A^((i)), H_A^(-T) hvec(m)_A^((j))$ respectively @hartley_multiple_2003[p.33].
+$
+          & (H_A^(-T) hvec(l)_A^((i)))^T mat(1; , 1; , , 0) (H_A^(-T) hvec(m)_A^((j))) = 0 \
+  => quad & hvec(l)_A^(i)^T (H_A mat(1; , 1; , , 0) H_A^T) hvec(m)_A^((j)) = 0 \
+  => quad & hvec(l)_A^(i)^T mat(bold(K); , 1) mat(bold(I); , 0) mat(bold(K)^T; , 1) hvec(m)_A^((j)) = 0 \
+  => quad & hvec(l)_A^(i)^T mat(bold(K) bold(K)^T; , 0) hvec(m)_A^((j)) = 0 \
+$
 
 === Similarity rectification
+
+#figure(caption: [Transformation $H_P H_A$ from original segments (red) to metrically rectified segments (blue) (left); Metrically rectified segments (blue) and the target field (green)])[
+  #image("rectification/similarity-rectification.png", width: 140%)
+],
+
+The task at this stage is to find a similarity $H_S$ to map a set of keypoints and segments $bold(P)$ and the original field $bold(Q)$, with the notice that
+- Only a small subset of keypoints and segments in $bold(Q)$ has a correspondence in $bold(P)$;
+- No direct correspondence between segments or keypoints are known; and
+- A segment $bold(p)^((i j)) := (vec(p)^((i)), vec(p)^((j)))$ may only map to a portion of the segment $bold(q)^((i j)) := (vec(q)^((i)), vec(q)^((j)))$. Nonetheless, there is a high chance that there exists a segment in $bold(P)$ that perfectly maps onto $bold(Q)$.
+
+Moreover, we notice that a similarity has $4$ degrees of freedom. Indeed, let $(a,b,c,d) := (k cos theta, k sin theta, t_x, t_y)$, the similarity takes the form $display(H_S = mat(a, -b, c; b, a, d; , , 1))$. Therefore, it is sufficient to indicate a segment at pre-transformation $(vec(p)^((i)), vec(p)^((j)))$ and post-transformation $(vec(q)^((i)), vec(q)^((j)))$.
+
+#colored-quote(fill: red.transparentize(66%))[
+  *Similarity rectification from a correspondence of two segments*.
+
+  - _Input_: Four points $vec(p)^((1)), vec(p)^((2)), vec(q)^((1)), vec(q)^((2))$ indicating two segments $vec(p)^((1)), vec(p)^((2))$ and $vec(q)^((1)), vec(q)^((2))$.
+  - _Output_: The similarity $H_S$.
+
+  _Step 1_. Let $(p_1^((i)), p_2^((i)), 1) := hvec(p)^((i))$, $(q_1^((i)), q_2^((i)), 1) := hvec(q)^((i))$ for $i=1,2$.
+
+  _Step 2_. Solve the linear system $H_S hvec(p)^((i)) = hvec(q)^((i))$.
+  $
+    cases(
+      a p_1^((1)) - b p_2^((1)) + c = q_1^((1)),
+      a p_2^((1)) + b p_1^((1)) + d = q_2^((1)),
+      a p_1^((2)) - b p_2^((2)) + c = q_1^((2)),
+      a p_2^((2)) + b p_1^((2)) + d = q_2^((2))
+    )
+    quad therefore quad
+    mat(
+      p_1^((1)), - p_2^((1)), 1, 0;
+      p_2^((1)), p_1^((1)), 0, 1;
+      p_1^((2)), - p_2^((2)), 1, 0;
+      p_2^((2)), p_1^((2)), 0, 1
+    )
+    mat(a; b; c; d) = mat(
+      q_1^((1)); q_2^((1));
+      q_1^((2)); q_2^((2))
+    )
+  $
+
+  The similarity can thus be solved using any linear solver such as the SVD.
+]
+
+The final task is to actually find such a correspondence of segments. With non-labelled segments, the only method is to bruteforce through each pair of segments. The question is how to derive a metric to evaluate if a correspondence is "appropriate."
+
+We borrow some ideas from the "RANdom SAmple Consensus" (RANSAC) @hartley_multiple_2003[p.117, Section 4.7.1] to propose an evaluation metric of a segment correspondence, using the pairwise "count of inliers" metric. Suppose after the similarity transformation we find the correspondences $bold(p)^((a_i b_i)) <-> bold(q)^((c_i, d_i))$. Then we want to the maximise the number of segments in $P$ having a $Q$-correspondence, and vice versa. Formally, denote $S_P$ be the set of segments in $P$ whose $Q$-correspondence exists, and similarity denote $S_Q$. Then the quantity $|S_P| + |S_Q|$ represents the "inliers" and is desired to be maximised.
+
+#colored-quote(fill: red.transparentize(66%))[
+  *Modified RANSAC to find segment correspondence*.
+
+  // - _Input_:
+  //   - All segments
+  //   - A threshold $T$
+  // - _Output_:
+
+  _Step 1_. Let $S_P := emptyset$ and $S_Q := emptyset$
+
+  _Step 1_. Select a random segment $bold(p)^((alpha beta)) = (vec(p)^((alpha)), vec(p)^((beta)))$ in $bold(P)$ and a random segment $bold(q)^((gamma delta)) = (vec(q)^((gamma)), vec(q)^((delta)))$.
+
+  _Step 2_. Find a similarity $H_S$ such that the segment $bold(p)^((alpha beta))$ is mapped to $bold(q)^((gamma delta))$.
+
+  _Step 3_. For each segment $bold(p)^((a b))$ in $bold(P)$ and $bold(q)^((c d))$
+
+  - Calculate the distance between each point in segment $bold(p)^((a b))$ to the line containing $bold(q)^((c d))$:
+  $
+    d_a := op("dist")(vec(p)^((a)), bold(q)^((c d))) \
+    d_b := op("dist")(vec(p)^((b)), bold(q)^((c d)))
+  $
+
+  - Let $display(d_"avg" = 1/2 (d_a + d_b))$. If $d_"avg" <= T$, $S_P := S_P union {a b}, S_Q := S_Q union {c d}$.
+
+  _Step 4_. Let $"Score" = |S_P| + |S_Q|$. If $"Score" >= "Score"_"Accept"$, return $H_S$. Otherwise, repeat the process.
+]
 
 
 == Camera calibration
@@ -560,26 +663,25 @@ The SoccerNet Calibration Dataset (`sn_calibration`) @noauthor_soccernet_2025 co
   )
 ]
 
-Each sample contains two files: a `PNG` colour image and a `JSON` data file containing
+Each sample contains two files: a `PNG` colour image of size $960 times 540$px and a `JSON` data file containing the coordinates of $26$ different field lines and curves. For this project, we ignore the three curves (the 10-yard kick-off circle and the two semicircles). Each of the lines is described by a segment (or a poly-segment) of two or more keypoints.
 
-@noauthor_soccernet_2025
-
-#figure(
-  caption: [The thing @noauthor_soccernet_2025],
-)[
-  #image("prep/annotations.png", width: 60%)
-]
-
-#figure(
-  caption: [Keypoint refill],
-)[
-  #image("prep/annotation-fill.svg", width: 70%)
-]
+Assuming every football field has the same size and layout #footnote[This is not always the case. The current regulation allows for fields to have a variable size of 90-120m in length and 50-90m in width, therefore each field may have a different size than another. Our project uses the field size of $110 times 75$m.] of $110 times 75$m, we can always map a template football field to the actual field displayed on the image via a homography $H$. Such homography can be reconstructed using the DLT algorithm when more than $4$ point-to-point correspondences are found.
 
 For instance, given the coordinates of the field's top and left border lines, the top left corner keypoint can be computed as:
 $ hvec(p)_"FIELD_TOP_LEFT" = hvec(l)_"FIELD_BOX_TOP" times hvec(l)_"FIELD_BOX_LEFT" $
 
-This can be done for all the visible keypoints on the field, as well as off-screen keypoints whose constituent lines are visible.
+This can be done for all the visible keypoints on the field, as well as off-screen keypoints whose constituent lines are visible. Using the found correspondences, apply the DLT algorithm directly to find the homography $H$. All other keypoints can be found by applying the homography on the template field.
+
+
+#figure(
+  caption: [Defined field lines in the dataset @noauthor_soccernet_2025 (left); Keypoint recovery method (right)],
+)[
+  #grid(
+    columns: (50%, 50%),
+    gutter: 10pt,
+    image("prep/annotations.png"), image("prep/annotation-fill.svg"),
+  )
+]
 
 Given that at least $4$ non-collinear keypoints are positioned, the coordinates of the other of the $27$ keypoints can be detected via a homography transformation. This can be done via the DLT algorithm.
 
