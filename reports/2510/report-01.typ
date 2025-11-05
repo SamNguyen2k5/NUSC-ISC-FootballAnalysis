@@ -502,6 +502,8 @@ We can approach this problem in a step-by-step manner, implying each additional 
 
 - Finally, to restore the original coordinates of the lines, that is, to apply a similarity $ display(H_S = mat(k cos theta, - k sin theta, t_x; k sin theta, k cos theta, t_y; , , 1)) $ such that if $L_A mapsto^(H_S) L_S$ and $M_A mapsto^(H_P) M_S$, then $L_S = L$ and $M_S = M$, that is the original lines are fully recovered.
 
+The rectification homography is thus $H' = H_P H_A H_S$, therefore the homography from the original image to the transformed image is the inverse, $H = H'^(-1) = H_S^(-1) H_A^(-1) H_P^(-1)$.
+
 
 === Affine rectification
 
