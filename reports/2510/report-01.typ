@@ -191,11 +191,17 @@ During the course of implementation,
 // == Practical
 
 = Feature masks generation via generative models
+== Generative models as feature generators
+- Strengths of UNet @ronneberger_u-net_2015:
+  - Localisation
+  - Low data
+  - Based on a DCN that won ISBI 2012
+  - Best model for segmentation (won EM segmentation challenge at ISBI 2015)
+
 // == YOLO-based methods
 // - YOLO segmentation models
 
-// == Generative models
-// - UNet
+== ...
 
 = Detecting keypoints and edges of the skeleton graph via clustering
 After segmentation and keypoint concentration, we obtain two image masks: an outline mask and a keypoint concentrated mask. $dash dash dash$
@@ -207,18 +213,19 @@ From the keypoint concentrated mask, we extract all coordinates $(x^((i)), y^((i
 The above observation motivates us for a keypoint positioning algorithm via clustering methods as follows:
 
 #colored-quote(fill: yellow.transparentize(66%))[
-  _Input_.
-  - Keypoint concentrated mask $I_K$ of size $H times W$.
-  - Threshold $T approx 0.8$
-
-  _Output_. List of keypoints $display(
-    P = mat(
-      x^((1)), x^((2)), dots.c.h, x^((n));
-      y^((1)), y^((2)), dots.c.h, y^((n));
+  - _Input_.
+    - Keypoint concentrated mask $I_K$ of size $H times W$.
+    - Threshold $T approx 0.8$
+  - _Output_. List of keypoints
+  $
+    display(
+      P = mat(
+        x^((1)), x^((2)), dots.c.h, x^((n));
+        y^((1)), y^((2)), dots.c.h, y^((n));
+      )
     )
-  )$.
-
-  _Hyperparameters_. A clustering algorithm $cal(C)$.
+  $
+  - _Hyperparameters_. A clustering algorithm $cal(C)$.
 
   Step 1.
   From the keypoint concentrated mask, extract all coordinates $(x^((i)), y^((i)))$ whose pixel intensity level exceeds a threshold level $T$, thus obtaining a list of "white" pixels $display(bold(Q) = mat(vec(q)^((1)), vec(q)^((2)), dots.c.h, vec(q)^((m))))$.
@@ -231,7 +238,7 @@ A similar approach can be seen in @schlag_ancient_2017.
 #figure(
   caption: [Clustering method for keypoint detection],
 )[
-  #image("clustering/keypoint-clustering.svg", width: 60%)
+  #image("clustering/keypoint-clustering.svg", width: 40%)
 ]
 
 #figure(
@@ -247,7 +254,7 @@ A similar approach can be seen in @schlag_ancient_2017.
 
 For each pair of keypoints, we want to establish a graph of connecting edges between the keypoints if there is a line segment connecting them on the image. As the segmented mask has seperated the filed lines with the rest of the image, yet still noisy, we need a robust algorithm to detect an edge between any keypoints pair.
 
-Our idea is to sample as many points as possible lying between the two keypoints $vec(p)_1$ and $vec(p)_2$. Such sampled points will take the form $vec(q) = (1-t) vec(p)_1 + t vec(p)_2$, where $t$ is a parameter within the $[0,1]$ range. For additional robustness, an error term $vec(bold(epsilon))$ is added to the sampled point $vec(q)$. This prevents us from misdetecting edges whose endpoints lie at the border of the edge (as all edges in this case have thickness, therefore it matters where the keypoints are located). The number of sampled points, $T$, can be taken in proportion with the length of the segment $vec(p)_1 vec(p)_2$.
+Our idea is to sample as many points as possible lying between the two keypoints $vec(p)_1$ and $vec(p)_2$. Such sampled points will take the form $vec(q) = (1-t) vec(p)_1 + t vec(p)_2$, where $t$ is a parameter within the $[0,1]$ range. For additional robustness, an error term $vec(bold(epsilon))$ is added to the sampled point $vec(q)$. This prevents us from misdetecting edges whose endpoints lie at the border of the edge (as all edges in this case have thickness, therefore it matters where the keypoints are located). The number of sampled points, $T$, can be taken in proportion with the length of the segment $bold(p)_(12) = (vec(p)_1, vec(p)_2)$.
 
 
 
@@ -263,12 +270,11 @@ Our idea is to sample as many points as possible lying between the two keypoints
 
 
 #colored-quote(fill: yellow.transparentize(66%))[
-  _Input_.
-  - Edge mask $I_E$ of size $H times W$;
-  - Two keypoints $vec(p)_1$ and $vec(p)_2$;
-  - $gamma approx 0.01$
-
-  _Output_. Confidence if there is an edge connecting $vec(p)_1$ and $vec(p)_2$, between $0$ and $1$.
+  - _Input_.
+    - Edge mask $I_E$ of size $H times W$;
+    - Two keypoints $vec(p)_1$ and $vec(p)_2$;
+    - $gamma approx 0.01$
+  - _Output_. Confidence if there is an edge connecting $vec(p)_1$ and $vec(p)_2$, between $0$ and $1$.
 
   Step 1. Let $T := ceil(||vec(p)_1 - vec(p)_2||)$.
 
@@ -276,7 +282,7 @@ Our idea is to sample as many points as possible lying between the two keypoints
 
   Step 3. For each $t^((i))$, the sampled point is $vec(q)^((i)) := (1 - t^((i))) vec(p)_1 + t^((i)) vec(p)_2 + vec(bold(epsilon))$, where $vec(bold(epsilon))$ is a random noise vector, taking range $[-2, 2]$ for each dimension.
 
-  Step 4. Calculate the sum of intensities of the sampled points, up to a power of $gamma$:
+  Step 4. Return confidence as the sum of the points' intensities raised to the power of $gamma$:
   $ "Confidence" := sum_i I_E (q^((i))_x, q^((i))_y)^gamma $
 ]
 
@@ -611,6 +617,10 @@ The final task is to actually find such a correspondence of segments. With non-l
 
 We borrow some ideas from the "RANdom SAmple Consensus" (RANSAC) @hartley_multiple_2003[p.117, Section 4.7.1] to propose an evaluation metric of a segment correspondence, using the pairwise "count of inliers" metric. Suppose after the similarity transformation we find the correspondences $bold(p)^((a_i b_i)) <-> bold(q)^((c_i, d_i))$. Then we want to the maximise the number of segments in $P$ having a $Q$-correspondence, and vice versa. Formally, denote $S_P$ be the set of segments in $P$ whose $Q$-correspondence exists, and similarity denote $S_Q$. Then the quantity $|S_P| + |S_Q|$ represents the "inliers" and is desired to be maximised.
 
+#figure()[
+  #image("rectification/inlier.svg", width: 60%)
+]
+
 #colored-quote(fill: red.transparentize(66%))[
   *Modified RANSAC to find segment correspondence*.
 
@@ -684,6 +694,36 @@ This can be done for all the visible keypoints on the field, as well as off-scre
 ]
 
 Given that at least $4$ non-collinear keypoints are positioned, the coordinates of the other of the $27$ keypoints can be detected via a homography transformation. This can be done via the DLT algorithm.
+
+The dataset is then catered to different types of problem via `pytorch`'s `Dataset`s. For efficient batching, the labels must be in a `Tensor` form for stacking and parallel computation. Therefore, we implemented a `Dataset` interface for every use case in the pipeline, each reading from the same original dataset from SoccerNet @noauthor_soccernet_2025, but with additional preprocessing (such as grayscaling, homography reconstruction and transformation, etc.).
+
+#figure(
+  caption: [],
+)[
+  #table(
+    columns: (42%, 21%, 40%),
+    table.header([*Task / `Dataset` name*], [*Input*], [*Output / Labels*]),
+    [_General_ \ `CalibrationDataset`], [Raw image \ $(3 times H times W)$], [Raw `JSON` dictionary],
+
+    [_Edge segmentation_ \ `MaskingCalibrationDataset`],
+    [Grayscaled image \ $(H times W)$],
+    [Image mask, highlighted field lines \ $(H times W)$],
+
+    [_Keypoint concentration_ \ `MaskingCalibrationDataset` \ `(keypoint_only=True)`],
+    [Grayscaled image \ $(H times W)$],
+    [Image mask, highlighted keypoints \ $(H times W)$],
+
+    [_Keypoints_ \ `PitchKeypointCalibrationDataset`],
+    [Grayscaled image \ $(H times W)$],
+    [List of all keypoints, reconstructed via homography \ $(27 times 3)$],
+
+    [_Homography reconstruction_ \ `PitchHomographyCalibrationDataset`],
+    [Grayscaled image \ $(H times W)$],
+    [The homography matrix \ $(3 times 3)$],
+  )
+]
+
+
 
 == Image segmentation
 
