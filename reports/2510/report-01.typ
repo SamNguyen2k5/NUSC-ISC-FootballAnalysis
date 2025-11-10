@@ -98,11 +98,7 @@ In light of the mentioned shortcomings, this project aims to build an end-to-end
 
 The first stage of the project will be a survey of foundational methods in the field registration stage. The aim is to reconstruct a model of a football field
 
-== Dataset & Problem analysis
-
-=== Dataset
-
-=== Suggested pipeline
+== The suggested pipeline
 
 #figure(
   caption: [Summary of the suggested automated pipeline for field registration],
@@ -173,25 +169,19 @@ The first stage of the project will be a survey of foundational methods in the f
 
 We propose the above automated pipeline for the field registration problem, which can be divided into three smaller subtasks with its respective domain of knowledge:
 
-- *Feature masks generation*. @ronneberger_u-net_2015
+- *Feature masks generation*. Using a generative image model (for instance, U-Net @ronneberger_u-net_2015), we seperate the important features from the raw image of the field, i.e. the field lines and keypoints, in the form of a gray-scale image mask.
 
-- *Graph creation*. @schlag_ancient_2017
+- *Graph creation*. From the image masks, we detect the keypoints in coordinates form and construct the edges between them. Due to the potential noise of the masks, however, the challenge is to make the algorithms robust through techniques such as gamma correction and sampling. Finally, exploiting the orthogonal structure of the field lines, we classify each field line as either 'vertical' or 'horizontal.' This additional information will assist the following step.
 
-- *Homography reconstruction*. @hartley_multiple_2003
-
-=== Limitations and Mitigations
-
-During the course of implementation,
-
-- ..
-
-// = Related Works
-
-// == Academic
-// == Practical
+- *Homography reconstruction*. From the constructed graph and the coordinates of each keypoint, we shall reconstruct a transformation from the world view (described by a template field) to the camera view (given by the image). Such a transformation from a template, planar field to the transformed field is called a homography, the process of recovering which is well described in textbooks such as @hartley_multiple_2003. However, as we do not have a correspondence keypoint-keypoint mapping, ...
 
 = Feature masks generation via generative models
 == Generative models as feature generators
+
+The first step for field registration is to
+
+Notice that the objects for detection, i.e. field lines, are not suitable for a object detection framework.
+
 - Strengths of UNet @ronneberger_u-net_2015:
   - Localisation
   - Low data
@@ -203,16 +193,27 @@ During the course of implementation,
 
 == ...
 
+
+
 = Detecting keypoints and edges of the skeleton graph via clustering
-After segmentation and keypoint concentration, we obtain two image masks: an outline mask and a keypoint concentrated mask. $dash dash dash$
 
 == Detecting keypoints through clustering methods
+#figure(
+  caption: [Outline mask (left) and keypoint concentrated mask (right)],
+)[
+  #grid(
+    columns: (50%, 50%),
+    image("masks/image-segmentation-mask.png"), image("masks/image-keypoint-mask.png"),
+  )
+]
 
-From the keypoint concentrated mask, we extract all coordinates $(x^((i)), y^((i)))$ whose pixel intensity level exceeds a threshold level $T$ ($T approx 0.8$). We shall thus obtain a list of "white" pixels $display(bold(P) = mat(vec(p)_1, vec(p)_2, dots.c.h, vec(p)_m))$. This list is yet the desired keypoints list, instead we observe from the mask that each keypoint is associated with a "cluster" of "white" pixels, which means that a keypoint is the average of some "white" points $vec(p)_i$ within its clutser.
+
+From the keypoint concentrated mask, we extract all coordinates $(x^((i)), y^((i)))$ whose pixel intensity level exceeds a threshold level $T$ ($T approx 0.8$). We shall thus obtain a list of "white" pixels $display(bold(P) = mat(vec(p)_1, vec(p)_2, dots.c.h, vec(p)_m))$. This list is yet the desired keypoints list, instead we observe from the mask that each keypoint is associated with a "cluster" of "white" pixels, which means that a keypoint is the average of some "white" points $vec(p)_i$ within its clutser.  A similar approach can be seen in @schlag_ancient_2017.
 
 The above observation motivates us for a keypoint positioning algorithm via clustering methods as follows:
 
 #colored-quote(fill: yellow.transparentize(66%))[
+  *Keypoints detection via clustering of "white" pixels*
   - _Input_.
     - Keypoint concentrated mask $I_K$ of size $H times W$.
     - Threshold $T approx 0.8$
@@ -227,27 +228,16 @@ The above observation motivates us for a keypoint positioning algorithm via clus
   $
   - _Hyperparameters_. A clustering algorithm $cal(C)$.
 
-  Step 1.
+  _Step 1_.
   From the keypoint concentrated mask, extract all coordinates $(x^((i)), y^((i)))$ whose pixel intensity level exceeds a threshold level $T$, thus obtaining a list of "white" pixels $display(bold(Q) = mat(vec(q)^((1)), vec(q)^((2)), dots.c.h, vec(q)^((m))))$.
 
-  Step 2. Run the clustering algorithm $cal(C)$ on $bold(Q)$, extract all *cluster centroids*  $display(bold(P) = mat(vec(p)^((1)), vec(p)^((2)), dots.c.h, vec(p)^((m))))$.
+  _Step 2_. Run the clustering algorithm $cal(C)$ on $bold(Q)$, extract all *cluster centroids*  $display(bold(P) = mat(vec(p)^((1)), vec(p)^((2)), dots.c.h, vec(p)^((m))))$.
 ]
-
-A similar approach can be seen in @schlag_ancient_2017.
 
 #figure(
   caption: [Clustering method for keypoint detection],
 )[
   #image("clustering/keypoint-clustering.svg", width: 40%)
-]
-
-#figure(
-  caption: [Outline mask (left) and keypoint concentrated mask (right)],
-)[
-  #grid(
-    columns: (50%, 50%),
-    image("masks/image-segmentation-mask.png"), image("masks/image-keypoint-mask.png"),
-  )
 ]
 
 == Detecting edges through sampling
@@ -270,6 +260,7 @@ Our idea is to sample as many points as possible lying between the two keypoints
 
 
 #colored-quote(fill: yellow.transparentize(66%))[
+  *Edge detection via sampling*.
   - _Input_.
     - Edge mask $I_E$ of size $H times W$;
     - Two keypoints $vec(p)_1$ and $vec(p)_2$;
@@ -286,14 +277,6 @@ Our idea is to sample as many points as possible lying between the two keypoints
   $ "Confidence" := sum_i I_E (q^((i))_x, q^((i))_y)^gamma $
 ]
 
-#figure(
-  caption: [Classified segments based on the gradient vector \ _(red for vertical field lines, green for horizontal field lines, and yellow for upright)_],
-)[
-  #image("clustering/edge-detected.png", width: 90%)
-]
-
-
-
 == Detecting groups of orthogonal lines via clustering of gradients
 
 #figure(
@@ -303,26 +286,23 @@ Our idea is to sample as many points as possible lying between the two keypoints
 ]
 
 #colored-quote(fill: yellow.transparentize(66%))[
-  *Grouping lines via gradients*
+  *Grouping lines by the gradient vector*.
 
   _Input_.
-  - Edge mask $I_E$ of size $H times W$;
-  - Two keypoints $vec(p)_1$ and $vec(p)_2$;
-  - $T approx 1000$;
-  - $gamma approx 0.01$
+  - Set of lines $L = {hvec(l)^((i))}$
 
-  _Output_. Confidence if there is an edge connecting $vec(p)_1$ and $vec(p)_2$, between $0$ and $1$.
+  _Output_. Two sets of parallel lines $L_1$ and $L_2$, where each line in $L_1$ is orthogonal with a line in $L_2$ in the original space.
 
-  Step 1. Generate $T$ random values of $t^((i)) in [0, 1]$.
+  Step 1. For each line $hvec(l)^((i))$, compute the normalised gradient vector $display(unit(v)^((i)) = 1/(sqrt(l_1^(i)^2 + l_2^(i)^2)) mat(l_1^((i)); l_2^((i))))$
 
-  Step 2. For each $t^((i))$, the sampled point is $vec(q)^((i)) := (1 - t^((i))) vec(p)_1 + t^((i)) vec(p)_2$.
-
-  Step 3. Calculate the sum of intensities of the sampled points, up to a power of $gamma$:
-  $ "Confidence" := sum_i I_E (q^((i))_x, q^((i))_y)^gamma $
-
-  Step 4. Return the confidence.
+  Step 2. Use a clustering algorithm $cal(C)$ to group the lines into two groups.
 ]
 
+#figure(
+  caption: [Classified segments based on the gradient vector \ _(red for vertical field lines, green for horizontal field lines, and yellow for upright)_],
+)[
+  #image("clustering/edge-detected.png", width: 90%)
+]
 
 
 = Homographic rectification
@@ -353,7 +333,7 @@ $
 
 Thus, a homogenous vector whose last component is zero can be thought of as the "intersection" of parralel lines, representing "the point at infinity."
 
-The projective space is also denoted as $PP^2 = RR^3 - {(0, 0, 0)}$.
+// The projective space is also denoted as $PP^2 = RR^3 - {(0, 0, 0)}$.
 
 == Transformations in 2D
 
@@ -405,7 +385,7 @@ We consider the following $3$ families of transformation:
   $,
 )
 
-- *Homography*. A homography is a transformation that preserves incidence and collinearity, that is, if a point $vec(p)$ belongs to the line $hvec(l)$ (or $hvec(p)^T hvec(l) = 0$), then so is $vec(p')$ on the transformed line $hvec(l)'$ An affinity is a special case of a homography where $h_31 = h_32 = 0$.
+- *Homography*. A homography is a transformation that preserves incidence and collinearity, that is, if a point $vec(p)$ belongs to the line $hvec(l)$ (or $hvec(p)^T hvec(l) = 0$), then so is $vec(p')$ on the transformed line $hvec(l)' = H^(-T) hvec(l)$ @hartley_multiple_2003[p.33]. An affinity is a special case of a homography where $h_31 = h_32 = 0$.
 #grid(
   columns: (70%, 30%),
   figure()[
@@ -417,15 +397,9 @@ We consider the following $3$ families of transformation:
 )
 
 In field registraion we are interested in recovering the homography matrix in two conditions:
-- When all the points, pre-transformed ${hvec(p)^((i))}$ and post-transformed ${hvec(q)^((i))}$ points and their correspondences $hvec(p)^((i)) <-> hvec(q)^((i))$ are well established _(The DLT algorithm)_.
-- When the pre-transformed $P = {hvec(p)^((i))}$ and post-transformed $Q = {hvec(q)^((i))}$ points are not fully known, and no correspondences have been found.  _(Rectification + RANSAC)_.
+- where all the points, pre-transformed ${hvec(p)^((i))}$ and post-transformed ${hvec(q)^((i))}$, and their correspondences $hvec(p)^((i)) <-> hvec(q)^((i))$ are well established _(The DLT algorithm)_; or
+- where the pre-transformed $P = {hvec(p)^((i))}$ and post-transformed $Q = {hvec(q)^((i))}$ points are not fully known, and no correspondences have been found. _(Rectification + RANSAC)_.
 
-=== Transformations of geometric objects
-Given a homography $H: hvec(bold(p)) mapsto hvec(bold(p))' = H hvec(bold(p))$. We establish the transformation of other geometric entities under the same transformation:
-
-- *Lines*. Under $H$, a line $hvec(l)$ transforms to $hvec(l)' = H^(-T) hvec(l)$. A short proof is given in @hartley_multiple_2003[p.33].
-
-- *Angles*.
 
 // $
 //   hvec(l)' &= H hvec(p)^((1)) times H hvec(p)^((2)) \
@@ -470,9 +444,7 @@ This representation gives us a straightforward solution: $display(arg min_(unit(
 
 == Recovering homography using point-to-point correspondence (Direct Linear Transform, DLT)
 
-Given $k$ point-to-point correspondences $vec(p)^((i)) <-> vec(q)^((i))$, where $k >= 4$, find a homographic transformation $H$ that maps every point $vec(p)^((i))$ to $vec(q)^((i))$.
-
-Note that each correspondence $vec(p)^((i)) <-> vec(q)^((i))$ provides the equation $H hvec(p)^((i)) tilde hvec(q)^((i))$ or
+Given $k$ point-to-point correspondences $vec(p)^((i)) <-> vec(q)^((i))$, where $k >= 4$, find a homographic transformation $H$ that maps every point $vec(p)^((i))$ to $vec(q)^((i))$.  Note that each correspondence $vec(p)^((i)) <-> vec(q)^((i))$ provides the equation $H hvec(p)^((i)) tilde hvec(q)^((i))$, or:
 $
       & H hvec(p)^((i)) times hvec(q)^((i)) = hvec(0) \
   // <=>
@@ -560,7 +532,7 @@ $
   hvec(l)^(i)^T mat(1; , 1; , , 0) hvec(m)^((j)) = 0
 $
 
-An affinity $H_A$ transforms the lines $hvec(l)_A^((i)), hvec(m)_A^((j))$ to $H_A^(-T) hvec(l)_A^((i)), H_A^(-T) hvec(m)_A^((j))$ respectively @hartley_multiple_2003[p.33].
+An affinity $display(H_A = mat(bold(K), ; , 1))$ transforms the lines $hvec(l)_A^((i)), hvec(m)_A^((j))$ to $H_A^(-T) hvec(l)_A^((i)), H_A^(-T) hvec(m)_A^((j))$ respectively @hartley_multiple_2003[p.33].
 $
           & (H_A^(-T) hvec(l)_A^((i)))^T mat(1; , 1; , , 0) (H_A^(-T) hvec(m)_A^((j))) = 0 \
   => quad & hvec(l)_A^(i)^T (H_A mat(1; , 1; , , 0) H_A^T) hvec(m)_A^((j)) = 0 \
@@ -570,9 +542,11 @@ $
 
 === Similarity rectification
 
-#figure(caption: [Transformation $H_P H_A$ from original segments (red) to metrically rectified segments (blue) (left); Metrically rectified segments (blue) and the target field (green)])[
-  #image("rectification/similarity-rectification.png", width: 140%)
-],
+#figure(
+  caption: [Transformation $H_P H_A$ from original segments (red) to metrically rectified segments (blue) (left); Metrically rectified segments (blue) and the target field (green)],
+)[
+  #image("rectification/similarity-rectification.png", width: 100%)
+]
 
 The task at this stage is to find a similarity $H_S$ to map a set of keypoints and segments $bold(P)$ and the original field $bold(Q)$, with the notice that
 - Only a small subset of keypoints and segments in $bold(Q)$ has a correspondence in $bold(P)$;
@@ -631,11 +605,11 @@ We borrow some ideas from the "RANdom SAmple Consensus" (RANSAC) @hartley_multip
 
   _Step 1_. Let $S_P := emptyset$ and $S_Q := emptyset$
 
-  _Step 1_. Select a random segment $bold(p)^((alpha beta)) = (vec(p)^((alpha)), vec(p)^((beta)))$ in $bold(P)$ and a random segment $bold(q)^((gamma delta)) = (vec(q)^((gamma)), vec(q)^((delta)))$.
+  _Step 2_. Select a random segment $bold(p)^((alpha beta)) = (vec(p)^((alpha)), vec(p)^((beta)))$ in $bold(P)$ and a random segment $bold(q)^((gamma delta)) = (vec(q)^((gamma)), vec(q)^((delta)))$.
 
-  _Step 2_. Find a similarity $H_S$ such that the segment $bold(p)^((alpha beta))$ is mapped to $bold(q)^((gamma delta))$.
+  _Step 3_. Find a similarity $H_S$ such that the segment $bold(p)^((alpha beta))$ is mapped to $bold(q)^((gamma delta))$.
 
-  _Step 3_. For each segment $bold(p)^((a b))$ in $bold(P)$ and $bold(q)^((c d))$
+  _Step 4_. For each segment $bold(p)^((a b))$ in $bold(P)$ and $bold(q)^((c d))$
 
   - Calculate the distance between each point in segment $bold(p)^((a b))$ to the line containing $bold(q)^((c d))$:
   $
@@ -645,7 +619,7 @@ We borrow some ideas from the "RANdom SAmple Consensus" (RANSAC) @hartley_multip
 
   - Let $display(d_"avg" = 1/2 (d_a + d_b))$. If $d_"avg" <= T$, $S_P := S_P union {a b}, S_Q := S_Q union {c d}$.
 
-  _Step 4_. Let $"Score" = |S_P| + |S_Q|$. If $"Score" >= "Score"_"Accept"$, return $H_S$. Otherwise, repeat the process.
+  _Step 5_. Let $"Score" = |S_P| + |S_Q|$. If $"Score" >= "Score"_"Accept"$, return $H_S$. Otherwise, repeat the process.
 ]
 
 
@@ -668,8 +642,8 @@ The SoccerNet Calibration Dataset (`sn_calibration`) @noauthor_soccernet_2025 co
     columns: (150pt, 75pt, 75pt, 75pt),
     table.header([*Task*], [*Training*], [*Validation*], [*Testing*]),
     [_General_], [$12356$], [$2796$], [$2719$],
-    [_Edge segmentation_], [$128$], [$64$], [$64$],
-    [_Keypoint concentration_], [$128$], [$128$], [$128$],
+    [_Edge segmentation_], [First $128$], [First $64$], [First $64$],
+    [_Keypoint concentration_], [First $128$], [First $128$], [First $128$],
   )
 ]
 
@@ -727,6 +701,17 @@ The dataset is then catered to different types of problem via `pytorch`'s `Datas
 
 == Image segmentation
 
+#figure(
+  caption: [],
+)[
+  #image("unet/unet-seg-metric.png")
+]
+
+#figure(
+  caption: [],
+)[
+  #image("unet/unet-kp-metric.png")
+]
 
 
 == Field registration via homography transformation

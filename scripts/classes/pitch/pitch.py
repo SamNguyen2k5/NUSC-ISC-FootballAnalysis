@@ -4,6 +4,7 @@ from scripts.classes.pitch.helper import _after_mappings, _homography_matrix
 from scripts.datasets.calibration import CalibrationLabelsMapping
 from scripts.classes.frame import FrameNumpy
 
+from copy import deepcopy
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -93,13 +94,15 @@ class Pitch(nn.Module):
     #     all_keypoints = torch.stack([pitch.keypoints] * n_batch, dim=0)                     # n_batch x n_points x 3
     #     return torch.matmul(all_keypoints, H.transpose(2, 1))                # Batch multiplication
 
-    def apply_homography(self, H: torch.Tensor) -> "Pitch":
+    def apply_homography(self, H: torch.Tensor, return_deepcopy=True) -> "Pitch":
         # Need (H * P^T)^T = P * H^T
         # print(self.keypoints, H.T)
         # print(self.keypoints.shape, H.T.shape)
-        self.keypoints = nn.Parameter(torch.matmul(self.keypoints, H.T))
-        self.homography = torch.matmul(self.homography, H)
-        return self
+        instance = self if not return_deepcopy else deepcopy(self)
+
+        instance.keypoints = nn.Parameter(torch.matmul(instance.keypoints, H.T))
+        instance.homography = torch.matmul(instance.homography, H)
+        return instance
 
     # Homography mapping from current field to target field (given keypoints in the target field)
     def forward(self, idxs, after_mappings):

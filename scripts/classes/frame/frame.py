@@ -1,3 +1,4 @@
+from copy import deepcopy
 import json
 import numpy as np
 import pandas as pd
@@ -16,10 +17,11 @@ class FrameNumpy():
         self.points_ /= self.points_[:, [2]]
         return self.points_
 
-    def apply_homography(self, H: torch.Tensor):
+    def apply_homography(self, H, return_deepcopy=True):
         # Need (H * P^T)^T = P * H^T
-        self.points_ = self.points_ @ H.T
-        return self
+        instance = self if not return_deepcopy else deepcopy(self)
+        instance.points_ = instance.points_ @ H.T
+        return instance
 
     def plot(self, ax=None, scale=1, thickness=None, extra_space_scale=1, has_axes=True, color_seg='red', color_pts='red', alpha=1):
         if not thickness:
