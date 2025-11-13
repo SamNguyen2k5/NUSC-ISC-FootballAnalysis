@@ -808,3 +808,14 @@ For the next stage of the project, we aim to mitigate the above limitations and 
 - Use the result of _Camera calibration_ for other 3D reconstruction tasks, such as Human-pose estimation for players.
 
 #bibliography("refs.bib")
+
+#set heading(numbering: "A.1.1.", supplement: [Appendix])
+#counter(heading).update(0)
+
+#v(15pt)
+
+#line(length: 100%)
+
+= Project Github repository
+
+https://github.com/SamNguyen2k5/NUSC-ISC-FootballAnalysis/tree/isc-checkpoint-1
