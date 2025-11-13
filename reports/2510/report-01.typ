@@ -20,9 +20,9 @@
   paper: "a4",
   margin: 2cm,
   background: rotate(24deg, text(15pt, fill: rgb("#ff3f2145"))[
-    * DRAFT * \
-    * DRAFT * \
-    * DRAFT *
+    // * DRAFT * \
+    // * DRAFT * \
+    // * DRAFT *
   ]),
 )
 #set text(size: 12pt)
@@ -70,6 +70,11 @@
 
 // Your content goes below.
 
+#outline(
+  title: [List of Figures],
+  target: figure.where(kind: image),
+)
+
 = Introduction
 
 == Motivation #footnote[Adopted from the ISC application form]
@@ -79,7 +84,11 @@ The Video Assistant Referee (VAR) system was introduced at the 2018 FIFA World C
 #figure(
   caption: [Semi-automated offside technology used in Italy’s Serie A.],
 )[
-
+  #grid(
+    columns: (45%, 45%),
+    column-gutter: 0.01cm,
+    image("motivation/serie-a.png", height: 5cm), image("motivation/serie-a-offside.png", height: 5cm),
+  )
 ]
 
 Lower-tier tournaments such as the 2024 ASEAN Cup (formerly known as AFF Cup) and domestic leagues in Southeast Asia are also improving transparency in refereeing decisions by implementing low-budget versions of the standard Video Assistant Referee (VAR), such as VAR Lite or centralised VAR. However, these budget systems quickly showed vulnerability in operation, especially in high-stakes situations. For instance, in the two legs of the Thailand vs. Philippines match-off in the 2nd semifinal of the ASEAN Cup:
@@ -90,13 +99,17 @@ Lower-tier tournaments such as the 2024 ASEAN Cup (formerly known as AFF Cup) an
 
 #figure(
   caption: [Two of the controversial incidents in the Thailand v Philippines ASEAN Cup semi-final legs.],
-)[]
+)[
+  #image("motivation/asean-cup-phi-tha.png", width: 70%)
+  #image("motivation/asean-cup-tha-phi.png", width: 70%)
+]
 
 In light of the mentioned shortcomings, this project aims to build an end-to-end solution for reconstructing game events in 3D under limited data conditions, with potential applications in refereeing, analytics and broadcasting.
 
 == Scope of the Independent Study Course project
 
-The first stage of the project will be a survey of foundational methods in the field registration stage. The aim is to reconstruct a model of a football field
+The first stage of the project will be a survey of foundational methods in the field registration stage. The aim is to reconstruct a model of a football field by locating all lines with its respected position on the field. Any image of a football can be uniquely described by a homography transformation from a template football field. This transformation will be the input for the _Camera calibration_ task through calibration algorithms such as Zhang's @zhang_flexible_2000 or Bradski's @bradski_icra_2010, which will be part of the second milestone of the project.
+
 
 == The suggested pipeline
 
@@ -173,31 +186,59 @@ We propose the above automated pipeline for the field registration problem, whic
 
 - *Graph creation*. From the image masks, we detect the keypoints in coordinates form and construct the edges between them. Due to the potential noise of the masks, however, the challenge is to make the algorithms robust through techniques such as gamma correction and sampling. Finally, exploiting the orthogonal structure of the field lines, we classify each field line as either 'vertical' or 'horizontal.' This additional information will assist the following step.
 
-- *Homography reconstruction*. From the constructed graph and the coordinates of each keypoint, we shall reconstruct a transformation from the world view (described by a template field) to the camera view (given by the image). Such a transformation from a template, planar field to the transformed field is called a homography, the process of recovering which is well described in textbooks such as @hartley_multiple_2003. However, as we do not have a correspondence keypoint-keypoint mapping, ...
+- *Homography reconstruction*. From the constructed graph and the coordinates of each keypoint, we shall reconstruct a transformation from the world view (described by a template field) to the camera view (given by the image). Such a transformation from a template, planar field to the transformed field is called a homography, the process of recovering which is well described in textbooks such as Hartley and Zisserman @hartley_multiple_2003. However, as we do not have a keypoint-keypoint mapping, such correspondence must be found through an exhaustive search.
 
+#pagebreak()
 = Feature masks generation via generative models
 == Generative models as feature generators
 
-The first step for field registration is to
+The first step for field registration is to extract the field lines and the keypoints on the field, masking out irrelevant portions of the image such as the audience, broadcasting displays, etc.  Notice that these objects for detection are generally not suitable for a object detection framework such as YOLO or CNN-bsaed ones. Such traditional frameworks rely on the object being trustfully detected via a bounding box @neha_classical_2024, which seems not suitable for geometric objects such as lines. Therefore, a generative model approach is adopted: we extract all pixels that contribute to the field lines, after which we use classical algorithms and unsupervised learning methods to extract the coordinates of the keypoints and the line segments.
 
-Notice that the objects for detection, i.e. field lines, are not suitable for a object detection framework.
+We use the U-Net architecture as the generative model for its strength on localisation tasks and its ability to learn fast even in low data conditions @ronneberger_u-net_2015.
 
-- Strengths of UNet @ronneberger_u-net_2015:
-  - Localisation
-  - Low data
-  - Based on a DCN that won ISBI 2012
-  - Best model for segmentation (won EM segmentation challenge at ISBI 2015)
+== Problem formulation and the choice of a loss function <generative_models>
 
-// == YOLO-based methods
-// - YOLO segmentation models
+#figure(
+  caption: [A generative model based pipeline: \ Input image $(H times W)$ $-->$ Target field lines mask $(H times W)$ $-->$ Target keypoints $(H times W)$],
+)[
+  #image("unet/unet-seg-target.png")
+]
 
-== ...
+We formulate the problems as follows: Given a gray-scaled input image $I$ of size $H times W$, we want to train two models $cal(U)_"seg"$ and $cal(U)_"kp"$ such that $cal(U)_"seg" (I)$ intensifies the white pixels representing the field lines and $cal(U)_"kp" (cal(U)_"seg" (I))$ retains only the pixels around the keypoints (intersection between different field lines) of the image. The loss is defined as
+$ cal(L)_"seg" = cal(L)(I, cal(U)_"seg" (I)) $,
+$ cal(L)_"kp" = cal(L)(I, cal(U)_"kp" (cal(U)_"seg" (I))) $
 
+where $cal(L)$ is a loss function, treating the image masks as a column vector of pixel intensities. The training process follows by training and validating $cal(U)_"seg"$ first, then training and validating $cal(U)_"kp"$, considering $cal(U)_"seg"$ as fixed.
 
+For the choice of the loss function, we surveyed the following losses from @noauthor_loss_nodate:
 
-= Detecting keypoints and edges of the skeleton graph via clustering
+- *Cross Binary Entropy Loss*
+$
+  cal(L)_"BCE" (vec(x), vec(y)) = - sum_(i) log(x_i y_i) = - log(vec(x)) dot log(vec(y))
+$
+
+- *Intersection-over-Union (IOU) Loss*
+$
+  cal(L)_"IOU" (vec(x), vec(y)) = (|X inter Y|)/(|X union Y|) = (vec(x) dot vec(y))/(1 - (vec(bb(1)) - vec(x))(vec(bb(1)) - vec(y)))
+$
+
+- *Dice Loss* (for binary classes)
+$
+  cal(L)_"Dice" (vec(x), vec(y)) = (2|X inter Y|)/(|X| + |Y|) = 2 dot (vec(x) dot vec(y))/(vec(x) dot vec(bb(1)) + vec(y) dot vec(bb(1)))
+$
+
+We settled with the Dice Loss due to its interpretability (the loss value proportional to the count of mismatched pixels) and ease of computation (only involves the intersection, compared to the IOU which involves both the intersection and union operator).
+
+Detailed training results are presented under #ref(<section_image_segmentaiton>).
+
+#pagebreak()
+= Detecting keypoints and graph edges via clustering
 
 == Detecting keypoints through clustering methods
+From the keypoint concentrated mask, we extract all coordinates $(x^((i)), y^((i)))$ whose pixel intensity level exceeds a threshold level $T$ ($T approx 0.8$). We shall thus obtain a list of "white" pixels $display(bold(P) = mat(vec(p)_1, vec(p)_2, dots.c.h, vec(p)_m))$. This list is yet the desired keypoints list, instead we observe from the mask that each keypoint is associated with a "cluster" of "white" pixels, which means that a keypoint is the average of some "white" points $vec(p)_i$ within its clutser.  A similar approach can be seen in @schlag_ancient_2017.
+
+The above observation motivates us for a keypoint positioning algorithm via clustering methods as follows:
+
 #figure(
   caption: [Outline mask (left) and keypoint concentrated mask (right)],
 )[
@@ -207,10 +248,6 @@ Notice that the objects for detection, i.e. field lines, are not suitable for a 
   )
 ]
 
-
-From the keypoint concentrated mask, we extract all coordinates $(x^((i)), y^((i)))$ whose pixel intensity level exceeds a threshold level $T$ ($T approx 0.8$). We shall thus obtain a list of "white" pixels $display(bold(P) = mat(vec(p)_1, vec(p)_2, dots.c.h, vec(p)_m))$. This list is yet the desired keypoints list, instead we observe from the mask that each keypoint is associated with a "cluster" of "white" pixels, which means that a keypoint is the average of some "white" points $vec(p)_i$ within its clutser.  A similar approach can be seen in @schlag_ancient_2017.
-
-The above observation motivates us for a keypoint positioning algorithm via clustering methods as follows:
 
 #colored-quote(fill: yellow.transparentize(66%))[
   *Keypoints detection via clustering of "white" pixels*
@@ -234,11 +271,11 @@ The above observation motivates us for a keypoint positioning algorithm via clus
   _Step 2_. Run the clustering algorithm $cal(C)$ on $bold(Q)$, extract all *cluster centroids*  $display(bold(P) = mat(vec(p)^((1)), vec(p)^((2)), dots.c.h, vec(p)^((m))))$.
 ]
 
-#figure(
-  caption: [Clustering method for keypoint detection],
-)[
-  #image("clustering/keypoint-clustering.svg", width: 40%)
-]
+// #figure(
+//   caption: [Clustering method for keypoint detection],
+// )[
+//   #image("clustering/keypoint-clustering.svg", width: 40%)
+// ]
 
 == Detecting edges through sampling
 
@@ -249,7 +286,7 @@ Our idea is to sample as many points as possible lying between the two keypoints
 
 
 #figure(
-  caption: [Clustering method for keypoint detection],
+  caption: [Sampling method for edge detection (left); Gamma corrections amplify pixels with small positive values (right)],
 )[
   #grid(
     columns: (63%, 36%),
@@ -285,6 +322,8 @@ Our idea is to sample as many points as possible lying between the two keypoints
   #image("clustering/gradients-clustering.svg", width: 130%)
 ]
 
+
+
 #colored-quote(fill: yellow.transparentize(66%))[
   *Grouping lines by the gradient vector*.
 
@@ -301,21 +340,24 @@ Our idea is to sample as many points as possible lying between the two keypoints
 #figure(
   caption: [Classified segments based on the gradient vector \ _(red for vertical field lines, green for horizontal field lines, and yellow for upright)_],
 )[
-  #image("clustering/edge-detected.png", width: 90%)
+  #image("clustering/edge-detected.png", width: 80%)
 ]
 
 
+#pagebreak()
 = Homographic rectification
 
 For theoretical and computational methods regarding the homographic transformation, the report refers to Hartley and Zisserman @hartley_multiple_2003[Chapter 2] on _Projective geometry and Transformations of 2D_.
 
 == Projective geometry
 
-Consider the $RR^3$ space with the plane $(pi): z = 1$, which we denote as the *projective plane*. Let $cal(H)$ be a set of points in $RR^3$ (a single point, a line, a shape, etc.) in $RR^3$. Then, for each point $hvec(p)$ in $cal(H)$, the line through $hvec(p)$ and the origin intersects the projective plane $(pi)$ at a point denoted $vec(p)$. _We call $vec(p)$ the projective image of $hvec(p)$ onto the projective plane._
-
-#figure(caption: [])[
-  #image("transforms-2d/projective.svg", width: 60%)
+#figure(
+  caption: [The homogenous coordinates system inspired by projective geometry, where a point in the world space $(X,Y,Z)$ is mapped to the point $(X"/"Z, Y"/"Z)$ in the projective plane $z=1$.],
+)[
+  #image("transforms-2d/projective.svg", width: 70%)
 ]
+
+Consider the $RR^3$ space with the plane $(pi): z = 1$, which we denote as the *projective plane*. Let $cal(H)$ be a set of points in $RR^3$ (a single point, a line, a shape, etc.) in $RR^3$. Then, for each point $hvec(p)$ in $cal(H)$, the line through $hvec(p)$ and the origin intersects the projective plane $(pi)$ at a point denoted $vec(p)$. _We call $vec(p)$ the projective image of $hvec(p)$ onto the projective plane._
 
 This projection motivates us to derive an alternative representation for any point $display(vec(p) = mat(x, y)^T)$ on a 2-dimensional (2D) plane by considering it the projective image onto the plane $z = 1$ of any point $hvec(p)$ in $RR^3$. The coordinates of point $vec(p)$ in $RR^3$ is $display(mat(x, y, 1)^T)$ as $vec(p)$ lies on the $z=1$ plane.  Using the argument of similar triangles, one can derive that all possible representations of the correspondent finite point $hvec(p)$ is thus $display(k mat(x, y, 1)^T = mat(k x, k y, k)^T)$ for any $k != 0$.
 
@@ -323,6 +365,7 @@ Following this representation, any line $a x+b y+c=0$ on the $RR^2$ plane can al
 - A point $hvec(p)$ is incident with (or lies on) a line $hvec(l)$ iff $hvec(l)^T hvec(p)=0$.
 - Two lines $hvec(l)_1$ and $hvec(l)_2$ always intersects at point $hvec(p) = hvec(l)_1 times hvec(l)_2$ (whether the intersection actually corresponds to a real point on the 2D plane is a different problem).
 - The line crossing two points $hvec(p)_1$ and $hvec(p)_2$ is computed as $hvec(l) = hvec(p)_1 times hvec(p)_2$.
+
 
 Note that the second corollary also works for parallel lines, that is, the two lines of form
 $display(hvec(l)_1 = mat(a, b, c_1))^T$ and $display(hvec(l)_2 = mat(a, b, c_2))^T$. The intersection of which is,
@@ -345,8 +388,6 @@ $
      & hvec(p) & mapsto & H hvec(p) = mat(h_11, h_12, h_13; h_21, h_22, h_23; h_31, h_32, h_33) mat(x_1; x_2; x_3)
 $
 
-=== Types of transformations
-
 We consider the following $3$ families of transformation:
 
 // - Translation:
@@ -365,10 +406,9 @@ We consider the following $3$ families of transformation:
 
 - *Similarity*. A similarity is a transformation that preserves angles and length ratios. It can be further decomposed as a chain of a $theta$-rotation about the origin $R(theta)$, followed by a scale $k$ and a translation along the vector $vec(v)$.
 #grid(
-  columns: (70%, 30%),
-  figure()[
-    #image("transforms-2d/similarity.svg")
-  ],
+  columns: (60%, 40%),
+  align: center,
+  image("transforms-2d/similarity.svg"),
   $
     hvec(p)' = mat(k cos theta, -k sin theta, v_x; k sin theta, k cos theta, v_y; 0, 0, 1) hvec(p)
   $,
@@ -376,10 +416,9 @@ We consider the following $3$ families of transformation:
 
 - *Affinity*. An affinity is a transformation that preserves parallelisms and length ratios. It can be described as a linear transformation in $RR^2$ where the basis ${unit(i), unit(j)}$ is transformed into ${a_11 unit(i) + a_21 unit(j), a_12 unit(i) + a_22 unit(j)}$. A similarity is also a special case of an affinity where $a_11 = a_22=k cos theta$ and $-a_12 = a_22 = k sin theta$.
 #grid(
-  columns: (70%, 30%),
-  figure()[
-    #image("transforms-2d/affinity.svg")
-  ],
+  columns: (60%, 40%),
+  align: center,
+  image("transforms-2d/affinity.svg"),
   $
     hvec(p)' = mat(a_11, a_12, v_x; a_21, a_22, v_y; 0, 0, 1) hvec(p)
   $,
@@ -387,10 +426,9 @@ We consider the following $3$ families of transformation:
 
 - *Homography*. A homography is a transformation that preserves incidence and collinearity, that is, if a point $vec(p)$ belongs to the line $hvec(l)$ (or $hvec(p)^T hvec(l) = 0$), then so is $vec(p')$ on the transformed line $hvec(l)' = H^(-T) hvec(l)$ @hartley_multiple_2003[p.33]. An affinity is a special case of a homography where $h_31 = h_32 = 0$.
 #grid(
-  columns: (70%, 30%),
-  figure()[
-    #image("transforms-2d/homography.svg")
-  ],
+  columns: (60%, 40%),
+  align: center,
+  image("transforms-2d/homography.svg"),
   $
     hvec(p)' = mat(h_11, h_12, h_13; h_21, h_22, h_23; h_31, h_32, h_33) hvec(p)
   $,
@@ -431,9 +469,7 @@ In field registraion we are interested in recovering the homography matrix in tw
 
 Often when solving for parameters of a certain geometric entity or transformation, it is needed to solve for the non-trivial roots of the correspondent linear system, for instance, $A vec(x) = vec(0)$. However, due to noise and errors arising from preceding calculations, the system can either be underdetermined or overdetermined.
 
-A common workaround is to frame the problem as a minimisation of the norm of the residual vector $norm(A unit(x))^2$, with the restriction $||unit(x)||^2=1$ to avoid the trivial solution $unit(x) = bold(0)$. One common method for these types of problem is the Singular Value Decomposition (SVD) algorithm.
-
-From the SVD, any matrix $A_(m times n)$ can be written as
+A common workaround is to frame the problem as a minimisation of the norm of the residual vector $norm(A unit(x))^2$, with the restriction $||unit(x)||^2=1$ to avoid the trivial solution $unit(x) = bold(0)$. One common method for these types of problem is the Singular Value Decomposition (SVD) algorithm. From the SVD, any matrix $A_(m times n)$ can be written as
 $
   A = U D V^T = sum_(i=1)^n sigma_i unit(u)_i unit(v)_i^T
 $
@@ -503,50 +539,43 @@ Note that the left matrix $A^((i))$ has rank $2$, therefore we only need to keep
 
 == Rectification
 
-Given two groups of parallel lines $display(L = mat(dots.c.h, hvec(l)^((i)), dots.c.h))$ and $display(M = mat(dots.c.h, hvec(m)^((j)), dots.c.h))$ such that each pair of lines $(hvec(l)^((i)), hvec(m)^((j)))$ is orthogonal. Under the homography $H$, the groups become $display(L' = H L = mat(dots.c.h, hvec(l)'^((i)), dots.c.h))$ and $display(M' = H M = mat(dots.c.h, hvec(m)'^((j)), dots.c.h))$. Find the best-fitting homography $H$.
+Given two groups of parallel lines $display(L = mat(dots.c.h, hvec(l)^((i)), dots.c.h))$ and $display(M = mat(dots.c.h, hvec(m)^((j)), dots.c.h))$ such that each pair of lines $(hvec(l)^((i)), hvec(m)^((j)))$ is orthogonal. Under the homography $H$, the groups become $display(L' = H L = mat(dots.c.h, hvec(l)'^((i)), dots.c.h))$ and $display(M' = H M = mat(dots.c.h, hvec(m)'^((j)), dots.c.h))$. The task here is to recover the homography $H$.
 
-We can approach this problem in a step-by-step manner, implying each additional constraint at each step:
+We can approach this problem step-by-step, implying each additional constraint at each step:
 
-- Firstly, to restore affinity, that is, to apply a "pure" homography $ display(H_P = mat(1; , 1; v_x, v_y, 1)) $ such that if $L' mapsto^(H_P) L_P$ and $M mapsto^(H_P) M_P$, then each line in $L_P$ is pairwise parallel, and each line in $M_P$ is pairwise parallel. The process is called *affine rectification*.
+- Firstly, to restore affinity, that is, to apply a "pure" homography $ display(H_P = mat(1; , 1; v_x, v_y, 1)) $ such that if $L' mapsto^(H_P) L_P$ and $M mapsto^(H_P) M_P$, then each line in $L_P$ is pairwise parallel, and each line in $M_P$ is pairwise parallel. The process is called *affine rectification*. @hartley_multiple_2003[p.49-52, Section 2.7.2].
 
-- Secondly, to restore similarity, that is, to apply a "pure" affinity $ display(H_A = mat(a_11, a_12; a_21, a_22; , , 1)) $ such that if $L_P mapsto^(H_A) L_A$ and $M_P mapsto^(H_P) M_A$, then the transformed image is only different from the original one by a similarity. This process is called *metric recrification*.
+- Secondly, to restore similarity, that is, to apply a "pure" affinity $ display(H_A = mat(a_11, a_12; a_21, a_22; , , 1)) $ such that if $L_P mapsto^(H_A) L_A$ and $M_P mapsto^(H_P) M_A$, then the transformed image is only different from the original one by a similarity. This process is called *metric recrification* @hartley_multiple_2003[p.55-58, Section 2.7.5].
 
 - Finally, to restore the original coordinates of the lines, that is, to apply a similarity $ display(H_S = mat(k cos theta, - k sin theta, t_x; k sin theta, k cos theta, t_y; , , 1)) $ such that if $L_A mapsto^(H_S) L_S$ and $M_A mapsto^(H_P) M_S$, then $L_S = L$ and $M_S = M$, that is the original lines are fully recovered.
 
 The rectification homography is thus $H' = H_P H_A H_S$, therefore the homography from the original image to the transformed image is the inverse, $H = H'^(-1) = H_S^(-1) H_A^(-1) H_P^(-1)$.
 
+// === Affine rectification
 
-=== Affine rectification
+// The two vanishing points $hvec(p)_l^((infinity))$ and $hvec(p)_m^((infinity))$ for the $ell$-direction and $m$-direction can be determined by solving the linear system: $L^T hvec(x) = hvec(0)$ and $M^T hvec(x) = hvec(0)$. This can be done via the SVD. The vanishing line is therefore $hvec(v)^((infinity)) = hvec(p)_l^((infinity)) times hvec(p)_m^((infinity))$.
 
-The two vanishing points $hvec(p)_l^((infinity))$ and $hvec(p)_m^((infinity))$ for the $ell$-direction and $m$-direction can be determined by solving the linear system: $L^T hvec(x) = hvec(0)$ and $M^T hvec(x) = hvec(0)$. This can be done via the SVD. The vanishing line is therefore $hvec(v)^((infinity)) = hvec(p)_l^((infinity)) times hvec(p)_m^((infinity))$.
+// The homography for affine rectification is thus, $display(H_P = mat(1; , 1; v_x^((infinity)), v_y^((infinity)), 1))$.
 
-The homography for affine rectification is thus, $display(H_P = mat(1; , 1; v_x^((infinity)), v_y^((infinity)), 1))$.
+// === Metric rectification
 
-=== Metric rectification
+// For metric rectification, we either need a pair of vanishing points and a pair of orthogonal lines, or five pairs of orthogonal lines @hartley_multiple_2003[p.57]. It is clear that for our application, the former option is more optimal.
 
-For metric rectification, we either need a pair of vanishing points and a pair of orthogonal lines, or five pairs of orthogonal lines @hartley_multiple_2003[p.57]. It is clear that for our application, the former option is more optimal.
+// Consider each pair of lines in the affinely rectified space $(hvec(l)_A^((i)), hvec(m)_A^((j)))$. Note that the first two components of the original lines $hvec(l)^((i)) = (l_1^((i)), l_2^((i)), l_3^((i)))$ and $hvec(m)^((j)) = (m_1^((j)), m_2^((j)), m_3^((j)))$ are the slope vector of the respective lines. Because the original lines are orthogonal, $l_1^((i))m_1^((j)) + l_2^((i))m_2^((j))=0$, or in matrix form,
 
-Consider each pair of lines in the affinely rectified space $(hvec(l)_A^((i)), hvec(m)_A^((j)))$. Note that the first two components of the original lines $hvec(l)^((i)) = (l_1^((i)), l_2^((i)), l_3^((i)))$ and $hvec(m)^((j)) = (m_1^((j)), m_2^((j)), m_3^((j)))$ are the slope vector of the respective lines. Because the original lines are orthogonal, $l_1^((i))m_1^((j)) + l_2^((i))m_2^((j))=0$, or in matrix form,
+// $
+//   hvec(l)^(i)^T mat(1; , 1; , , 0) hvec(m)^((j)) = 0
+// $
 
-$
-  hvec(l)^(i)^T mat(1; , 1; , , 0) hvec(m)^((j)) = 0
-$
-
-An affinity $display(H_A = mat(bold(K), ; , 1))$ transforms the lines $hvec(l)_A^((i)), hvec(m)_A^((j))$ to $H_A^(-T) hvec(l)_A^((i)), H_A^(-T) hvec(m)_A^((j))$ respectively @hartley_multiple_2003[p.33].
-$
-          & (H_A^(-T) hvec(l)_A^((i)))^T mat(1; , 1; , , 0) (H_A^(-T) hvec(m)_A^((j))) = 0 \
-  => quad & hvec(l)_A^(i)^T (H_A mat(1; , 1; , , 0) H_A^T) hvec(m)_A^((j)) = 0 \
-  => quad & hvec(l)_A^(i)^T mat(bold(K); , 1) mat(bold(I); , 0) mat(bold(K)^T; , 1) hvec(m)_A^((j)) = 0 \
-  => quad & hvec(l)_A^(i)^T mat(bold(K) bold(K)^T; , 0) hvec(m)_A^((j)) = 0 \
-$
+// An affinity $display(H_A = mat(bold(K), ; , 1))$ transforms the lines $hvec(l)_A^((i)), hvec(m)_A^((j))$ to $H_A^(-T) hvec(l)_A^((i)), H_A^(-T) hvec(m)_A^((j))$ respectively @hartley_multiple_2003[p.33].
+// $
+//           & (H_A^(-T) hvec(l)_A^((i)))^T mat(1; , 1; , , 0) (H_A^(-T) hvec(m)_A^((j))) = 0 \
+//   => quad & hvec(l)_A^(i)^T (H_A mat(1; , 1; , , 0) H_A^T) hvec(m)_A^((j)) = 0 \
+//   => quad & hvec(l)_A^(i)^T mat(bold(K); , 1) mat(bold(I); , 0) mat(bold(K)^T; , 1) hvec(m)_A^((j)) = 0 \
+//   => quad & hvec(l)_A^(i)^T mat(bold(K) bold(K)^T; , 0) hvec(m)_A^((j)) = 0 \
+// $
 
 === Similarity rectification
-
-#figure(
-  caption: [Transformation $H_P H_A$ from original segments (red) to metrically rectified segments (blue) (left); Metrically rectified segments (blue) and the target field (green)],
-)[
-  #image("rectification/similarity-rectification.png", width: 100%)
-]
 
 The task at this stage is to find a similarity $H_S$ to map a set of keypoints and segments $bold(P)$ and the original field $bold(Q)$, with the notice that
 - Only a small subset of keypoints and segments in $bold(Q)$ has a correspondence in $bold(P)$;
@@ -554,6 +583,12 @@ The task at this stage is to find a similarity $H_S$ to map a set of keypoints a
 - A segment $bold(p)^((i j)) := (vec(p)^((i)), vec(p)^((j)))$ may only map to a portion of the segment $bold(q)^((i j)) := (vec(q)^((i)), vec(q)^((j)))$. Nonetheless, there is a high chance that there exists a segment in $bold(P)$ that perfectly maps onto $bold(Q)$.
 
 Moreover, we notice that a similarity has $4$ degrees of freedom. Indeed, let $(a,b,c,d) := (k cos theta, k sin theta, t_x, t_y)$, the similarity takes the form $display(H_S = mat(a, -b, c; b, a, d; , , 1))$. Therefore, it is sufficient to indicate a segment at pre-transformation $(vec(p)^((i)), vec(p)^((j)))$ and post-transformation $(vec(q)^((i)), vec(q)^((j)))$.
+#figure(
+  caption: [Transformation $H_P H_A$ from original segments (red) to metrically rectified segments (blue) (left); Metrically rectified segments (blue) and the target field (green)],
+)[
+  #image("rectification/similarity-rectification.png", width: 100%)
+]
+
 
 #colored-quote(fill: red.transparentize(66%))[
   *Similarity rectification from a correspondence of two segments*.
@@ -591,7 +626,9 @@ The final task is to actually find such a correspondence of segments. With non-l
 
 We borrow some ideas from the "RANdom SAmple Consensus" (RANSAC) @hartley_multiple_2003[p.117, Section 4.7.1] to propose an evaluation metric of a segment correspondence, using the pairwise "count of inliers" metric. Suppose after the similarity transformation we find the correspondences $bold(p)^((a_i b_i)) <-> bold(q)^((c_i, d_i))$. Then we want to the maximise the number of segments in $P$ having a $Q$-correspondence, and vice versa. Formally, denote $S_P$ be the set of segments in $P$ whose $Q$-correspondence exists, and similarity denote $S_Q$. Then the quantity $|S_P| + |S_Q|$ represents the "inliers" and is desired to be maximised.
 
-#figure()[
+#figure(
+  caption: [A segment $bold(p)^(a_i b_i)$ is considered as "inlier" with respect to the segment $bold(q)^(c_j d_j)$ if $"dist"(bold(p)^(a), bold(q)^(c d)) + "dist"(bold(p)^(b), bold(q)^(c d))$ is less than a certain threshold],
+)[
   #image("rectification/inlier.svg", width: 60%)
 ]
 
@@ -623,13 +660,12 @@ We borrow some ideas from the "RANdom SAmple Consensus" (RANSAC) @hartley_multip
 ]
 
 
-== Camera calibration
+// == Camera calibration
 
-$ P = K R mat(I_3 | vec(t)) $
+// $ P = K R mat(I_3 | vec(t)) $
 
+#pagebreak()
 = Experiments
-
-
 
 == Dataset Preparation
 
@@ -651,12 +687,6 @@ Each sample contains two files: a `PNG` colour image of size $960 times 540$px a
 
 Assuming every football field has the same size and layout #footnote[This is not always the case. The current regulation allows for fields to have a variable size of 90-120m in length and 50-90m in width, therefore each field may have a different size than another. Our project uses the field size of $110 times 75$m.] of $110 times 75$m, we can always map a template football field to the actual field displayed on the image via a homography $H$. Such homography can be reconstructed using the DLT algorithm when more than $4$ point-to-point correspondences are found.
 
-For instance, given the coordinates of the field's top and left border lines, the top left corner keypoint can be computed as:
-$ hvec(p)_"FIELD_TOP_LEFT" = hvec(l)_"FIELD_BOX_TOP" times hvec(l)_"FIELD_BOX_LEFT" $
-
-This can be done for all the visible keypoints on the field, as well as off-screen keypoints whose constituent lines are visible. Using the found correspondences, apply the DLT algorithm directly to find the homography $H$. All other keypoints can be found by applying the homography on the template field.
-
-
 #figure(
   caption: [Defined field lines in the dataset @noauthor_soccernet_2025 (left); Keypoint recovery method (right)],
 )[
@@ -667,12 +697,17 @@ This can be done for all the visible keypoints on the field, as well as off-scre
   )
 ]
 
+For instance, given the coordinates of the field's top and left border lines, the top left corner keypoint can be computed as:
+$ hvec(p)_"FIELD_TOP_LEFT" = hvec(l)_"FIELD_BOX_TOP" times hvec(l)_"FIELD_BOX_LEFT" $
+
+This can be done for all the visible keypoints on the field, as well as off-screen keypoints whose constituent lines are visible. Using the found correspondences, apply the DLT algorithm directly to find the homography $H$. All other keypoints can be found by applying the homography on the template field.
 Given that at least $4$ non-collinear keypoints are positioned, the coordinates of the other of the $27$ keypoints can be detected via a homography transformation. This can be done via the DLT algorithm.
 
-The dataset is then catered to different types of problem via `pytorch`'s `Dataset`s. For efficient batching, the labels must be in a `Tensor` form for stacking and parallel computation. Therefore, we implemented a `Dataset` interface for every use case in the pipeline, each reading from the same original dataset from SoccerNet @noauthor_soccernet_2025, but with additional preprocessing (such as grayscaling, homography reconstruction and transformation, etc.).
+
+The dataset is then catered to different types of problem via `pytorch`'s `Dataset`s. For efficient batching, the labels must be in a `Tensor` form for stacking and parallel computation. Therefore, we implemented a `Dataset` interface for every use case in the pipeline, each reading from the same original dataset from SoccerNet @noauthor_soccernet_2025, but with additional preprocessing (such as downscaling to size $H times W$, grayscaling, homography reconstruction and transformation, etc.).
 
 #figure(
-  caption: [],
+  caption: [Custom `Dataset`s for different tasks. $H = 180, W = 320$],
 )[
   #table(
     columns: (42%, 21%, 40%),
@@ -697,27 +732,79 @@ The dataset is then catered to different types of problem via `pytorch`'s `Datas
   )
 ]
 
+== Image segmentation <section_image_segmentaiton>
 
+Two U-Net models $cal(U)_"seg"$ and $cal(U)_"kp"$ are trained based on the procedure stated in #ref(<generative_models>), for $n_"seg" = 64$ epochs and $n_"kp" = 48$ epochs respectively. From the training and validation losses, we observe that:
 
-== Image segmentation
+- On one hand, the $cal(U)_"seg"$ model performs well with the segmentation task, with both the training loss and validation loss decreasing gradually. A small bump in losses is observed at $n=62$, but it is suspected that for larger batches, the errors will decrease again. Qualitatively, the model is able to extract almost every pixels constituting the field lines. A small set of failed examples are probably caused by irregular recording angles or constrast values.
 
-#figure(
-  caption: [],
+- On the other hand, the $cal(U)_"kp"$ model suffers from overfitting: throughout $48$ epochs, the validating loss is consistently higher than the training loss, despite an overall downward trend. Qualitative results show that despite being able to output an image mask consisting of points with thickness, some keypoints are not the intersection of any two field lines.
+
+#pagebreak()
+#block(
+  height: 100%,
 )[
-  #image("unet/unet-seg-metric.png")
+  #set align(center + horizon)
+  #figure(
+    caption: [Training and Validation metrics for training $cal(U)_"seg"$ and $cal(U)_"kp"$],
+  )[
+    #image("unet/unet-seg-metric.png")
+    #image("unet/unet-kp-metric.png")
+  ]
 ]
-
-#figure(
-  caption: [],
-)[
-  #image("unet/unet-kp-metric.png")
-]
+#pagebreak()
 
 
 == Field registration via homography transformation
+We run the full pipeline for $32$ images in the validation dataset. Overall, the pipeline works best for panaromic views towards the goalkeeper's and the penalty box, as these sections on the field have sufficient orthogonal lines for homography rectification. However, in some certain conditions, the pipeline fails to detect the correct segments on the field, leading to unmeaningful results at the end of the pipeline, or cause the whole process to halt without results. The three figures below illustrate a qualitative evaluation of the results.
 
+#figure(
+  caption: [Correctly registered fields],
+)[
+  #image("../../exports/251108/pipeline/00126.jpg", width: 125%)
+  #image("../../exports/251108/pipeline/01210.jpg", width: 125%)
+]
+
+#block(
+  height: 100%,
+)[
+  #set align(center + horizon)
+  #figure(
+    caption: [Registration failed due to insufficient keypoints and segments],
+  )[
+    #image("../../exports/251108/pipeline/00132.jpg", width: 125%)
+    #image("../../exports/251108/pipeline/01204.jpg", width: 125%)
+  ]
+]
+#pagebreak()
+
+#block(
+  height: 100%,
+)[
+  #set align(center + horizon)
+  #figure(
+    caption: [Registration failed due to mismatches between the criteria and the  actual dataset],
+  )[
+    #image("../../exports/251108/pipeline/02094.jpg", width: 125%)
+    #image("../../exports/251108/pipeline/01238.jpg", width: 125%)
+  ]
+]
+#pagebreak()
 
 = Discussion
 
+== Limitations and Mitigations
+
+*Feature masks generation*.  The choice of the Dice loss function seems to work fine for line extraction; however, it fails for keypoint detection. We aim to imporve this by exploring other augmentations to the loss function, such as regularisation techniques, or enforcing geometric invariants, as the field can be decomposed as a collection of geometrical objects (points, lines, polygons, conics, etc.).  Moreover, additional data augmentation techniques should be applied to achieve more reliable results, especially before feeding to the segmentation model, such as contrast and brightness control, or classical feature extractions algorithms.
+
+*Graph creation*. We found out in the validation process that in a large number of cases, the detected edges are insufficient for the homography recovering step. Therefore, more robust algorithms and techniques should be considered as well.
+
+*Homography reconstruction*. Numerical stability is an issue for extreme cases (for e.g., when lines are almost in parallel). To mitigate this, we will consider different representation of the homography transform (such as the 4-point representation @detone_deep_2016, camera displacement @noauthor_opencv_nodate, etc.)
+
+== Future Plans
+
+For the next stage of the project, we aim to mitigate the above limitations and finish the pipeline with the _Camera calibration_ task via Zhang's @zhang_flexible_2000 or Bradski's @bradski_icra_2010 algorithm. This result will then be verifiable through SoccerNet's @noauthor_soccernet_2025 Camera Calibration task with its predefined metric. Finally, we will consider two possible pathways to extend the project:
+- Expanding the pipeline for other sports field (basketball, hockey, or other field sports)
+- Use the result of _Camera calibration_ for other 3D reconstruction tasks, such as Human-pose estimation for players.
 
 #bibliography("refs.bib")

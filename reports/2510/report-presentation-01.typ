@@ -47,7 +47,7 @@
   )
 ]
 
-== VAR controversies in the 2024 ASEAN Cup
+== VAR controversies in the 2024 ASEAN Cup @asean_united_fc__2024 @asean_united_fc__2024-1
 #figure()[
   #grid(
     columns: (50%, 50%),
@@ -539,6 +539,19 @@ $
 #image("../../exports/251108/pipeline/01210.jpg")
 #image("../../exports/251108/pipeline/00132.jpg")
 #image("../../exports/251108/pipeline/02094.jpg")
+
+== Discussion
+- *Feature masks generation*.
+  - Loss function (Regularisation, geometric invariants, etc.)
+  - Data augmentation techniques (constrast, brightness, etc.)
+
+- *Graph creation*.
+  - More robust algorithms
+  - Improving speed (bottleneck at RANSAC)
+
+- *Homography reconstruction*.
+  - Numerical stability
+  - Different representation of the homography transform (4-point, camera displacement, etc.)
 
 == References
 #bibliography("refs.bib")
