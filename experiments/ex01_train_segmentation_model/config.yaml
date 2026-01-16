@@ -1,0 +1,14 @@
+masking_calibration_dataset:
+  img_folder: 'data/calibration'
+  width: 320
+  height: 180
+  n_limit: 128
+
+masking_calibration_datamodule:
+  batch_size: 4
+  num_workers: 4
+  persistent_workers: True
+
+trainer:
+  accelerator: 'gpu'
+  max_epochs: 16

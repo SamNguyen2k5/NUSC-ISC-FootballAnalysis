@@ -1,11 +1,5 @@
 from copy import deepcopy
-import json
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import torch
-import torch.nn as nn
-import cv2
 
 class FrameNumpy():
     def __init__(self, points, segments):

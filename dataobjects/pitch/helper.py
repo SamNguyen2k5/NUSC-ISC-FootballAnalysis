@@ -1,9 +1,84 @@
+from typing import List
+
 import numpy as np
 import torch
-import torch.nn as nn
+
 from .keypoint_mapping import PitchKeypointMapping
 from .homography_solver import HomographySolver
-from scripts.datasets.calibration import CalibrationLabelsMapping
+
+class CalibrationLabelsMapping:
+    """
+    https://github.com/SoccerNet/sn-calibration > Soccer pitch annotations
+    """
+    CALIBRATION_LABELS: List[str] = [
+        "Not field",
+        "Big rect. left bottom",
+        "Big rect. left main",
+        "Big rect. left top",
+        "Big rect. right bottom",
+        "Big rect. right main",
+        "Big rect. right top",
+        "Circle central",
+        "Circle left",
+        "Circle right",
+        "Goal left crossbar",
+        "Goal left post left ",
+        "Goal left post right",
+        "Goal right crossbar",
+        "Goal right post left",
+        "Goal right post right",
+        "Middle line",
+        "Side line bottom",
+        "Side line left",
+        "Side line right",
+        "Side line top",
+        "Small rect. left bottom",
+        "Small rect. left main",
+        "Small rect. left top",
+        "Small rect. right bottom",
+        "Small rect. right main",
+        "Small rect. right top"
+    ]
+
+    CALIBRATION_LABELS_BACKWARD = dict((v, k) for k, v in enumerate(CALIBRATION_LABELS))
+    ALL_LABELS = range(len(CALIBRATION_LABELS))
+
+    NOT_FIELD = 0
+    BIG_RECT_LEFT_BOTTOM = 1
+    BIG_RECT_LEFT_MAIN = 2
+    BIG_RECT_LEFT_TOP = 3
+    BIG_RECT_RIGHT_BOTTOM = 4
+    BIG_RECT_RIGHT_MAIN = 5
+    BIG_RECT_RIGHT_TOP = 6
+    CIRCLE_CENTRAL = 7
+    CIRCLE_LEFT = 8
+    CIRCLE_RIGHT = 9
+    GOAL_LEFT_CROSSBAR = 10
+    GOAL_LEFT_POST_LEFT  = 11
+    GOAL_LEFT_POST_RIGHT = 12
+    GOAL_RIGHT_CROSSBAR = 13
+    GOAL_RIGHT_POST_LEFT = 14
+    GOAL_RIGHT_POST_RIGHT = 15
+    MIDDLE_LINE = 16
+    SIDE_LINE_BOTTOM = 17
+    SIDE_LINE_LEFT = 18
+    SIDE_LINE_RIGHT = 19
+    SIDE_LINE_TOP = 20
+    SMALL_RECT_LEFT_BOTTOM = 21
+    SMALL_RECT_LEFT_MAIN = 22
+    SMALL_RECT_LEFT_TOP = 23
+    SMALL_RECT_RIGHT_BOTTOM = 24
+    SMALL_RECT_RIGHT_MAIN = 25
+    SMALL_RECT_RIGHT_TOP = 26
+
+    @classmethod
+    def forward(cls, idx: int):
+        return cls.CALIBRATION_LABELS[idx]
+
+    @classmethod
+    def backward(cls, label: str):
+        return cls.CALIBRATION_LABELS_BACKWARD.get(label, None)
+
 
 KEYPOINT_DEFINITION = (
     (PitchKeypointMapping.CENTRE, None),
@@ -92,15 +167,15 @@ def _after_mappings(labels, swap_coords=False):
     if len(after_mapping) <= 1:
         return None, None
         
-    X_COORD, Y_COORD, Z_COORD = 0, 1, 2
+    x_coord, y_coord, z_coord = 0, 1, 2
     if swap_coords:
-        X_COORD, Y_COORD = Y_COORD, X_COORD
+        x_coord, y_coord = y_coord, x_coord
 
     after_mapping = np.array(after_mapping)
     after_mapping = torch.stack((
-        torch.Tensor(after_mapping[:, X_COORD]),
-        torch.Tensor(after_mapping[:, Y_COORD]),
-        torch.Tensor(after_mapping[:, Z_COORD])
+        torch.Tensor(after_mapping[:, x_coord]),
+        torch.Tensor(after_mapping[:, y_coord]),
+        torch.Tensor(after_mapping[:, z_coord])
     ), dim=1)
 
     # print('After mapping:')

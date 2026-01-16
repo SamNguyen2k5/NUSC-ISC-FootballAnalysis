@@ -1,16 +1,13 @@
 import json
-from scripts.classes.pitch.keypoint_mapping import PitchKeypointMapping
-from scripts.classes.pitch.helper import _after_mappings, _homography_matrix
-from scripts.datasets.calibration import CalibrationLabelsMapping
-from scripts.classes.frame import FrameNumpy
-
 from copy import deepcopy
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import cv2
+
+from dataobjects.pitch.keypoint_mapping import PitchKeypointMapping
+from dataobjects.pitch.helper import _after_mappings, _homography_matrix
+from dataobjects.frame import FrameNumpy
 
 class Pitch(nn.Module):
     N_KEYPOINTS = len(PitchKeypointMapping.PITCH_LABELS)

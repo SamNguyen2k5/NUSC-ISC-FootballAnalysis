@@ -1,12 +1,11 @@
 # TODO
 
-## Notes
-
-* SoccerNet-v3D dataset: [SoccerNet-v3D](https://github.com/mguti97/SoccerNet-v3D?tab=readme-ov-file)
-
-
-## Calibration task
-1. Download dataset
-```bash
-python scripts/download.py
-```
+## 25.01.15
+- [x] Folder restructuring
+- [ ] Proper configuration files
+    - [x] PyYAML
+    - [ ] Pydantic?
+        - [ ] [Replace your YAML configs with Pydantic](https://www.youtube.com/watch?v=4JAdedd_G-w)
+            * Type safety & Validation
+            * Dynamic Configuration
+            * Domain Model
