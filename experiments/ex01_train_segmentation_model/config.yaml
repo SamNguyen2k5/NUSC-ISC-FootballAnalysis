@@ -5,10 +5,10 @@ masking_calibration_dataset:
   n_limit: 128
 
 masking_calibration_datamodule:
-  batch_size: 4
-  num_workers: 4
+  batch_size: 8
+  num_workers: 8
   persistent_workers: True
 
 trainer:
   accelerator: 'gpu'
-  max_epochs: 16
+  max_epochs: 32

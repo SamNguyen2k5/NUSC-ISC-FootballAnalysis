@@ -2,10 +2,29 @@
 
 ## 25.01.15
 - [x] Folder restructuring
-- [ ] Proper configuration files
+- [x] Proper configuration
     - [x] PyYAML
-    - [ ] Pydantic?
-        - [ ] [Replace your YAML configs with Pydantic](https://www.youtube.com/watch?v=4JAdedd_G-w)
+    - [x] Pydantic?
+        - [x] [Replace your YAML configs with Pydantic](https://www.youtube.com/watch?v=4JAdedd_G-w)
             * Type safety & Validation
             * Dynamic Configuration
             * Domain Model
+
+## 25.01.17
+- [ ] Migrate training on to NSCC's HPCs
+  * $100k grant
+  - [ ] [NSCC ASPIRE2A: A Beginner's Guide to Running AI Jobs](https://help.nscc.sg/wp-content/uploads/2024/05/ASP2A-AI-Guide-7_March_2024.pdf)
+  - [ ] [NSCC Training on AI and ML](https://youtu.be/x_ArUs_UMxw?si=nqbBzTPKGVLK8p1c)
+  - [ ] [How to run batch jobs on NSCC HPC](https://nusit.nus.edu.sg/services/getting-started/how-to-run-batch-job/)
+
+- [ ] Logging service
+  - [ ] Tensorboard
+
+- [ ] Inference server
+  - [x] [Litserve](https://lightning.ai/blog/evolution-of-model-inference#start-simple)
+    - [x] Pydantic Request/Response setup
+  - [x] Streamlit
+  * To run API servers: 
+    ```python -m apis```
+  * To run inference dashboard: 
+    ```streamlit app/[app-name]/app.py```

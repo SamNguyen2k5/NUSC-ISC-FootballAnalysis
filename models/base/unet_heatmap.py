@@ -22,10 +22,15 @@ class UNetHeatmap(pl.LightningModule):
         Returns:
             _type_: _description_
         """
+        def min_max_scale(x):
+            min_x = torch.amin(x, dim=(-1, -2), keepdim=True)
+            max_x = torch.amax(x, dim=(-1, -2), keepdim=True)
+            return (x - min_x + self.eps) / (max_x - min_x + self.eps)
+
+        x = min_max_scale(x)
         x = self.unet(x)
-        min_x = torch.amin(x, dim=(-1, -2), keepdim=True)
-        max_x = torch.amax(x, dim=(-1, -2), keepdim=True)
-        return (x - min_x + self.eps) / (max_x - min_x + self.eps)
+        x = min_max_scale(x)
+        return x
     
     def _step(self, batch: TensorType['batch', 1, 'row', 'column'], batch_idx):
         img, mask = batch

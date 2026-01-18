@@ -27,3 +27,8 @@ pylint
 
 # Models
 ultralytics
+
+# Serving
+litserve
+streamlit
+python-multipart
