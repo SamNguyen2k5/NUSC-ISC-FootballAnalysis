@@ -1,9 +1,7 @@
 from pathlib import Path
 import yaml
-import json
 
 import requests
-import base64
 import cv2
 from PIL import Image
 import numpy as np
@@ -23,13 +21,7 @@ if img is not None:
     img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2GRAY)
     st.image(Image.fromarray(img_arr))
 
-    # print("Image received:")
-    # print(img_arr.dtype)
-
-    # st.write('Response:')
     payload = NumpyPayload.from_numpy(img_arr)
-
-    # st.write(f'{len(payload.encoded_bytes)} bytes from image sent.')
     response = requests.post(url=config['endpoint'], 
                              json=payload.model_dump(), 
                              timeout=5000)

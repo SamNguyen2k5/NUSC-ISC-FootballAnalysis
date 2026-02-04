@@ -1,6 +1,7 @@
 import base64
-import numpy as np
 from typing import List
+
+import numpy as np
 from pydantic import BaseModel
 
 class NumpyPayload(BaseModel):

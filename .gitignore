@@ -1,9 +1,13 @@
+# Secret API keys
+config
+
 # Raw data & export files
 data
 exports
 weights
 
 lightning_logs
+wandb_logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

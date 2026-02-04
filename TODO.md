@@ -17,8 +17,7 @@
   - [ ] [NSCC Training on AI and ML](https://youtu.be/x_ArUs_UMxw?si=nqbBzTPKGVLK8p1c)
   - [ ] [How to run batch jobs on NSCC HPC](https://nusit.nus.edu.sg/services/getting-started/how-to-run-batch-job/)
 
-- [ ] Logging service
-  - [ ] Tensorboard
+- [ ] ~~Tensorboard Logging service~~
 
 - [ ] Inference server
   - [x] [Litserve](https://lightning.ai/blog/evolution-of-model-inference#start-simple)
@@ -27,4 +26,19 @@
   * To run API servers: 
     ```python -m apis```
   * To run inference dashboard: 
-    ```streamlit app/[app-name]/app.py```
+    * ~~```streamlit app/[app-name]/app.py```~~
+    * ```streamlit home.py```
+
+### 25.01.18
+- [x] (?) Update loss function to account for image derivative (smoothness)
+
+### 25.01.21
+- [x] Integration with Wandb logger
+  - [ ] Consider Pro for Academics
+
+- [ ] Setup dataset: https://github.com/Spiideo/sskit?tab=readme-ov-file
+  - [x] COCO object (translate to Pydantic model?)
+
+## 25.02.04
+- [x] Refactoring LitServe API servers
+  * Always inherit Mixin methods before the base class, due to Python's Multiple Resolution Order (MRO)

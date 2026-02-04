@@ -1,2 +1,18 @@
 checkpoint:
-  segmentation: "lightning_logs/version_10/checkpoints/epoch=31-step=512.ckpt"
+  segmentation_old: "lightning_logs/version_10/checkpoints/epoch=31-step=512.ckpt"
+  segmentation: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
+
+datasets:
+  spiideo:
+    base_folder: 'data/SpiideoSynLoc'
+    width: 960
+    height: 540
+
+  spiideo_datamodule:
+    batch_size: 8
+    num_workers: 8
+    persistent_workers: True
+
+  trainer:
+    accelerator: 'gpu'
+    max_epochs: 32

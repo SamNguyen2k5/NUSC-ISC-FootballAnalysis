@@ -12,12 +12,10 @@ def download_raw_games_from(soccernet_downloader: SoccerNetDownloader, games: Li
         os.system(f'yes | unzip "data/raw/{game}/Frames-v3.zip" -d "/ata/raw/{game}/frames"')
 
 
-def download_calibration_task_from(soccernet_downloader: SoccerNetDownloader, split=["train", "valid", "test", "challenge"]):
-    soccernet_downloader.downloadDataTask(task="calibration", split=split)
-    os.system('yes | unzip data/calibration/train.zip -d data/calibration/')
-    os.system('yes | unzip data/calibration/test.zip -d data/calibration/')
-    os.system('yes | unzip data/calibration/valid.zip -d data/calibration/')
-    os.system('yes | unzip data/calibration/challenge.zip -d data/calibration/challenge')
+def download_task_from(soccernet_downloader: SoccerNetDownloader, task: str, split=["train", "valid", "test", "challenge"], **kwargs):
+    soccernet_downloader.downloadDataTask(task=task, split=split, **kwargs)
+    for split_type in split:
+        os.system(f'yes | unzip data/{task}/{split_type}.zip -d data/{task}/')
 
 if __name__ == '__main__':
     # download_raw_games_from(
@@ -27,8 +25,10 @@ if __name__ == '__main__':
     #     ]
     # )
 
-    download_calibration_task_from(
+    download_task_from(
         SoccerNetDownloader(LocalDirectory="data"),
-        split=['train', 'test', 'valid']
+        task='SpiideoSynLoc',
+        split=['train', 'test', 'valid', 'challenge'],
+        version='fullhd'
     )
         

@@ -1,7 +1,10 @@
 from importlib import resources
 import yaml
 
+import wandb
 import pytorch_lightning as pl
+from pytorch_lightning.loggers import WandbLogger
+
 from datamodules.calibration.field_masking import (
     MaskingCalibrationDataModule, MaskingCalibrationDatasetArgs
 )
@@ -10,7 +13,6 @@ from models.field_registration import Segmentation
 
 with resources.files(__package__).joinpath('config.yaml').open('r', encoding='utf-8') as f: 
     config = yaml.safe_load(f)
-    print(config)
 
 field_masking_data_module = MaskingCalibrationDataModule(
     MaskingCalibrationDatasetArgs(**config['masking_calibration_dataset']), 
@@ -18,5 +20,6 @@ field_masking_data_module = MaskingCalibrationDataModule(
 )
 segmentation_model = Segmentation()
 
-trainer = pl.Trainer(**config['trainer'])
+wandb_logger = WandbLogger(save_dir='wandb_logs', project='ISC-Football', name=config['experiment_name'])
+trainer = pl.Trainer(**config['trainer'], logger=wandb_logger)
 trainer.fit(model=segmentation_model, datamodule=field_masking_data_module)

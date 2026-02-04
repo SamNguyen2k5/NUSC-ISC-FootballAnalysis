@@ -3,14 +3,16 @@ from torch import optim
 from torchtyping import TensorType
 import pytorch_lightning as pl
 
-from losses.dice_loss import DiceLoss
+from losses.dice_loss import DiceLossWithGradient
 
 class UNetHeatmap(pl.LightningModule):
-    def __init__(self, eps=1e-6, loss_fn=DiceLoss()):
+    def __init__(self, eps=1e-6, loss_fn=DiceLossWithGradient()):
         super().__init__()
         self.unet = torch.hub.load('sm00thix/unet', 'unet', 
-                                    pretrained=False, in_channels=1, out_channels=1,
-                                    pad=True, bilinear=True, normalization='bn')
+            pretrained=False, in_channels=1, out_channels=1,
+            pad=True, bilinear=True, normalization='bn'
+        )
+
         self.eps = eps
         self.loss_fn = loss_fn
 

@@ -1,3 +1,5 @@
+experiment_name: 'ex01_train_segmentation_model'
+
 masking_calibration_dataset:
   img_folder: 'data/calibration'
   width: 320

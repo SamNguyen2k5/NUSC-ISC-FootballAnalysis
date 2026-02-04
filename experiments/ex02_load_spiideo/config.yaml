@@ -1,0 +1,17 @@
+experiment_name: 'ex02_load_spiideo'
+
+segmentation_model: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
+
+spiideo_dataset:
+  base_folder: 'data/SpiideoSynLoc'
+  width: 640
+  height: 360
+
+spiideo_datamodule:
+  batch_size: 8
+  num_workers: 8
+  persistent_workers: True
+
+trainer:
+  accelerator: 'gpu'
+  max_epochs: 32

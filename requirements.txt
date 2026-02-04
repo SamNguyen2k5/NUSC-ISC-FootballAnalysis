@@ -21,6 +21,8 @@ Pillow
 
 pyyaml
 pydantic
+numpydantic
+yaml-settings-pydantic
 
 # Python-specific
 pylint
@@ -32,3 +34,6 @@ ultralytics
 litserve
 streamlit
 python-multipart
+
+# Logging
+wandb
