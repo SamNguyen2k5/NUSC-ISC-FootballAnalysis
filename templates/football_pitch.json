@@ -1,0 +1,110 @@
+{
+    "centre": [
+        0,
+        0
+    ],
+    "circle_ten_yard_bottom": [
+        9.15,
+        0
+    ],
+    "circle_ten_yard_top": [
+        -9.15,
+        0
+    ],
+    "circle_ten_yard_left": [
+        0,
+        -9.15
+    ],
+    "circle_ten_yard_right": [
+        0,
+        9.15
+    ],
+    "field_top_left": [
+        -37.5,
+        -55.0
+    ],
+    "field_bottom_left": [
+        37.5,
+        -55.0
+    ],
+    "field_top_right": [
+        -37.5,
+        55.0
+    ],
+    "field_bottom_right": [
+        37.5,
+        55.0
+    ],
+    "midfield_top": [
+        -37.5,
+        0.0
+    ],
+    "midfield_bottom": [
+        37.5,
+        0.0
+    ],
+    "left_penalty_top_left": [
+        -19.26,
+        -55.0
+    ],
+    "left_penalty_top_right": [
+        -19.26,
+        -38.5
+    ],
+    "left_penalty_bottom_left": [
+        19.26,
+        -55.0
+    ],
+    "left_penalty_bottom_right": [
+        19.26,
+        -38.5
+    ],
+    "right_penalty_top_left": [
+        -19.26,
+        38.5
+    ],
+    "right_penalty_top_right": [
+        -19.26,
+        55.0
+    ],
+    "right_penalty_bottom_left": [
+        19.26,
+        38.5
+    ],
+    "right_penalty_bottom_right": [
+        19.26,
+        55.0
+    ],
+    "left_goalkepper_top_left": [
+        -9.16,
+        -55.0
+    ],
+    "left_goalkepper_top_right": [
+        -9.16,
+        -49.5
+    ],
+    "left_goalkepper_bottom_left": [
+        9.16,
+        -55.0
+    ],
+    "left_goalkepper_bottom_right": [
+        9.16,
+        -49.5
+    ],
+    "right_goalkepper_top_left": [
+        -9.16,
+        49.5
+    ],
+    "right_goalkepper_top_right": [
+        -9.16,
+        55.0
+    ],
+    "right_goalkepper_bottom_left": [
+        9.16,
+        49.5
+    ],
+    "right_goalkepper_bottom_right": [
+        9.16,
+        55.0
+    ]
+}

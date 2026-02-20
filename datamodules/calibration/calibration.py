@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from torch.utils.data import Dataset
 
 from dataobjects.pitch import CalibrationLabelsMapping
+from datamodules.base_datamodule import BaseDataModule, BaseDataModuleArgs
 
 class CalibrationDatasetArgs(BaseModel):
     """
@@ -113,3 +114,14 @@ class CalibrationDataset(Dataset):
             ordered_label = self.target_transform(ordered_label)
 
         return image, ordered_label
+
+class CalibrationDataModule(BaseDataModule):
+    def __init__(self, args_dataset: CalibrationDatasetArgs, args_datamodule: BaseDataModuleArgs):
+        super().__init__(args_datamodule)
+        self.args_dataset = args_dataset
+
+    def dataset(self, mode: str):
+        if mode not in ['train', 'valid', 'test']:
+            raise NotImplementedError(f'Got mode = {mode}. Expected either train, valid or test.')
+
+        return CalibrationDataset(self.args_dataset, mode=mode)

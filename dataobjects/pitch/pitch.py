@@ -43,9 +43,9 @@ class Pitch(nn.Module):
         if width is None:
             width = 320
         if pitch_data is None:
-            pitch_data = 'football_pitch.json'
+            pitch_data = 'templates/football_pitch.json'
 
-        if type(pitch_data) == str:
+        if isinstance(pitch_data, str):
             with open(pitch_data) as f:
                 data_dict = json.load(f)
         else:

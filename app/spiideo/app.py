@@ -22,10 +22,22 @@ response = requests.post(url=config['endpoint'],
                             timeout=5000)
 
 print(response.status_code)
-
 try:
     response_payload = NumpyPayload(**response.json())
     img = response_payload.to_numpy()
     st.image(img, width=960)
+
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    payload_2 = NumpyPayload.from_numpy(img_gray)
+    response_2 = requests.post(
+        url=config['endpoint_segmentation'], json=payload_2.model_dump(), timeout=5000)
+
+    print(response_2)
+
+    response_payload_2 = NumpyPayload(**response_2.json())
+    img_2 = response_payload_2.to_numpy()
+    st.image(img_2, width=960)
+
+
 except ValidationError as e:
     st.write('No images are returned.') 

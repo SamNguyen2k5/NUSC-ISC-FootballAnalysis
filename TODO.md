@@ -19,7 +19,7 @@
 
 - [ ] ~~Tensorboard Logging service~~
 
-- [ ] Inference server
+- [x] Inference server
   - [x] [Litserve](https://lightning.ai/blog/evolution-of-model-inference#start-simple)
     - [x] Pydantic Request/Response setup
   - [x] Streamlit
@@ -34,7 +34,7 @@
 
 ### 25.01.21
 - [x] Integration with Wandb logger
-  - [ ] Consider Pro for Academics
+  - [?] Consider Pro for Academics
 
 - [ ] Setup dataset: https://github.com/Spiideo/sskit?tab=readme-ov-file
   - [x] COCO object (translate to Pydantic model?)
@@ -42,3 +42,8 @@
 ## 25.02.04
 - [x] Refactoring LitServe API servers
   * Always inherit Mixin methods before the base class, due to Python's Multiple Resolution Order (MRO)
+
+## 25.02.09. Meeting with Prof Misha
+- [ ] To send Prof:
+  - [ ]  Plan/Skeleton for the model
+  - [ ] Information on the IMS summer research program

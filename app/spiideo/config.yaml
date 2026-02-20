@@ -1,1 +1,2 @@
 endpoint: "http://127.0.0.1:8001/spiideo/visualise"
+endpoint_segmentation: "http://127.0.0.1:8001/segmentation/predict"
