@@ -36,12 +36,12 @@
 ]
 
 #title()[
-  ISC Checkpoint 1
+  ISC 2,  Checkpoint 1
 ]
 
 = Infrastructure
 
-#image("infra/infra-0.svg")
+#image("infra/infra.drawio.png")
 
 #colored-quote()[
   - ⚠️ Wandb account is currently on Trial and will expire soon.
