@@ -21,6 +21,14 @@ class Pitch(nn.Module):
         PitchKeypointMapping.BOX_GOALKEEPER_RIGHT,
     )
 
+    POLYGONS_FIELD = (
+        PitchKeypointMapping.BOX_FIELD_LEFT_HALF,
+        PitchKeypointMapping.BOX_FIELD_RIGHT_HALF,
+    )
+
+    ORIGINAL_HEIGHT = 75
+    ORIGINAL_WIDTH = 110
+
     ELLIPSES = (
         (PitchKeypointMapping.ELLIPSES_TEN_YARD, True),
     )
@@ -57,7 +65,8 @@ class Pitch(nn.Module):
             torch.Tensor(list(data_dict.values())), 
             torch.ones(Pitch.N_KEYPOINTS).unsqueeze(-1)
         ), dim=1)
-        self.keypoints = nn.Parameter(self.keypoints)
+        self.keypoints = self.keypoints.float()
+        # self.keypoints = nn.Parameter(self.keypoints)
         self.homography = torch.eye(3)
 
     @classmethod
@@ -127,40 +136,43 @@ class Pitch(nn.Module):
 
         # Retain normalised x and y.
         # print(self.keypoints, self.keypoints.shape)
-        X = self.keypoints / self.keypoints[:, 2].unsqueeze(-1)
-        X = X[:, [1, 0]] * scale
 
         height = self.height * scale * extra_space_scale
         width = self.width  * scale * extra_space_scale
-        SHIFT = np.array([width // 2, height // 2])  
-        img = np.zeros((height, width), dtype='int32')
+        SHIFT = np.array([(width - self.width) // 2, (height - self.height) // 2])
+
+        X = self.keypoints / self.keypoints[:, 2].unsqueeze(-1)
+        X = X[:, [1, 0]] * scale
+        X = X.detach().numpy()
 
         # Polygons / Lines
+        img = np.zeros((height, width), dtype='int32')
         img = cv2.rectangle(    
             img, 
             ((width - self.width * scale) // 2, (height - self.height * scale) // 2),
             ((width + self.width * scale) // 2, (height + self.height * scale) // 2),
             color=125, thickness=2 * thickness)
 
-        polys = [X[list(polygon_labels)].detach().numpy() for polygon_labels in Pitch.POLYGONS]
+        polys = [X[list(polygon_labels)] for polygon_labels in Pitch.POLYGONS]
         polys = np.array(polys, dtype='int32')
-        polys += SHIFT      # Move image from center to corner
+        polys += SHIFT
         img = cv2.polylines(img, polys, True, 255, thickness)
 
-        # for polygon_labels in Pitch.POLYGONS:
-        #     print(polygon_labels)
-        #     print(X[list(polygon_labels)].detach().numpy().astype('int'))
+        for polygon_labels in Pitch.POLYGONS:
+            print([PitchKeypointMapping.forward(lbl) for lbl in polygon_labels])
+            print(X[list(polygon_labels)])
+            print(X[list(polygon_labels)].astype('int'))
 
         # Conics
         for ((centre, top, bottom, left, right), _has_axes) in Pitch.ELLIPSES:
-            centre_pt = X[centre].detach().numpy() + SHIFT
+            centre_pt = X[centre]
             centre_pt = centre_pt.astype('int32')
             # print(np.linalg.norm(self._xy_point(top) - self._xy_point(bottom)))
 
-            left_pt = X[left].detach().numpy() + SHIFT
-            right_pt = X[right].detach().numpy() + SHIFT
-            top_pt = X[top].detach().numpy() + SHIFT
-            bottom_pt = X[bottom].detach().numpy() + SHIFT
+            left_pt = X[left]
+            right_pt = X[right]
+            top_pt = X[top]
+            bottom_pt = X[bottom]
 
             major_axis = int(np.linalg.norm(top_pt - bottom_pt) / 2)
             minor_axis = int(np.linalg.norm(left_pt - right_pt) / 2)
@@ -181,11 +193,63 @@ class Pitch(nn.Module):
                 img = cv2.arrowedLine(img, centre_pt, right_pt, 125, thickness, tipLength=0.15)
 
         if ax:
-            ax.imshow(img, cmap='gray', extent=[
-                -extra_space_scale * self.width // 2, 
-                extra_space_scale * self.width // 2, 
-                extra_space_scale * self.height // 2, 
-                -extra_space_scale * self.height // 2
-            ])
+            ax.imshow(img, cmap='gray', 
+                extent=[
+                    (-extra_space_scale + 1) * self.width // 2, 
+                    (extra_space_scale + 1) * self.width // 2, 
+                    (extra_space_scale + 1) * self.height // 2, 
+                    (-extra_space_scale + 1) * self.height // 2
+                ]
+            )
 
         return img
+    
+    def plot_filled(self, ax=None, scale=1, thickness=None, extra_space_scale=1, has_axes=True):
+        if not thickness:
+            thickness = (scale + 1) // 2
+
+        height = self.height * scale * extra_space_scale
+        width = self.width  * scale * extra_space_scale
+        SHIFT = np.array([(width - self.width) // 2, (height - self.height) // 2])
+
+        X = self.keypoints / self.keypoints[:, 2].unsqueeze(-1)
+        X = X[:, [1, 0]] * scale
+        X = X.detach().numpy()
+
+        # Polygons / Lines
+        inv_H = torch.inverse(self.homography).numpy()
+
+        y0, x0, z0 = np.meshgrid(
+            np.arange(height),
+            np.arange(width),
+            1
+        )
+
+        pts_0 = np.stack([y0, x0, z0], axis=-1).reshape(-1, 3)
+        pts_1 = pts_0 @ inv_H.T
+        y1, x1 = (pts_1[:, [0, 1]] / pts_1[:, [2]]).T
+
+        is_infield = np.logical_and(
+            abs(y1) <= self.ORIGINAL_HEIGHT,
+            abs(x1) <= self.ORIGINAL_WIDTH
+        )
+
+        print(is_infield)
+
+        # for poly in polys:
+        #     print(poly)
+        #     img = cv2.fillPoly(img, [poly], 125)
+
+        # if ax:
+        #     ax.imshow(img, cmap='gray', 
+        #         extent=[
+        #             (-extra_space_scale + 1) * self.width // 2, 
+        #             (extra_space_scale + 1) * self.width // 2, 
+        #             (extra_space_scale + 1) * self.height // 2, 
+        #             (-extra_space_scale + 1) * self.height // 2
+        #         ]
+        #     )
+
+        # return img
+
+        return None

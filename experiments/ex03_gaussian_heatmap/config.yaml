@@ -1,0 +1,43 @@
+experiment_name: 'ex03_gaussian_heatmap'
+
+# segmentation_model: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
+
+pitch_calibration_dataset:
+  img_folder: 'data/calibration'
+  width: 640
+  height: 360
+  centered: False
+  keypoint_only: False
+  selected_idxs:
+    - 0
+    - 3
+    - 4
+    - 5
+
+pitch_calibration_datamodule:
+  batch_size: 8
+  num_workers: 8
+  persistent_workers: True
+
+# -- Smaller sigma:
+gaussian_heatmap_model: "wandb_logs/ISC-Football/hpaj2e9l/checkpoints/epoch=31-step=128.ckpt"
+
+# -- Larger sigma:
+# gaussian_heatmap_model: "wandb_logs/ISC-Football/ycdtr54x/checkpoints/epoch=31-step=128.ckpt"
+
+spiideo_dataset:
+  base_folder: 'data/SpiideoSynLoc'
+  width: 640
+  height: 360
+  # width: 3840
+  # height: 2160
+  n_limit: 16
+
+spiideo_datamodule:
+  batch_size: 4
+  num_workers: 8
+  persistent_workers: True
+
+trainer:
+  accelerator: 'gpu'
+  max_epochs: 32

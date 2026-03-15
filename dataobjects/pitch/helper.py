@@ -133,6 +133,9 @@ KEYPOINT_DEFINITION = (
 )
 
 def _after_mappings(labels, swap_coords=False):
+    def __normalised(x):
+        return x / x[2]
+
     keypoint_idxs = []
     after_mapping = []
 
@@ -150,8 +153,9 @@ def _after_mappings(labels, swap_coords=False):
         line_a = np.hstack((line_a[[0, -1], :], np.ones((2, 1))))
         line_b = np.hstack((line_b[[0, -1], :], np.ones((2, 1))))
 
-        pt = np.cross(np.cross(line_a[0], line_a[1]), np.cross(line_b[0], line_b[1]))
-        pt /= pt[2]
+        cross_a = __normalised(np.cross(line_a[0], line_a[1]))
+        cross_b = __normalised(np.cross(line_b[0], line_b[1]))
+        pt = __normalised(np.cross(cross_a, cross_b))
 
         if np.isnan(pt).any():
             continue
@@ -178,9 +182,6 @@ def _after_mappings(labels, swap_coords=False):
         torch.Tensor(after_mapping[:, z_coord])
     ), dim=1)
 
-    # print('After mapping:')
-    # print(after_mapping)
-    # print(after_mapping.shape)
     return keypoint_idxs, after_mapping
 
 def _homography_matrix(old_pts, new_pts):

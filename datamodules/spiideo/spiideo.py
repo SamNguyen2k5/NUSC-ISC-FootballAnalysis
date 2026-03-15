@@ -17,14 +17,23 @@ class SpiideoDatasetArgs(BaseModel):
     base_folder: str
     width: int
     height: int
+    n_limit: int | None = None
 
 class SpiideoBaseDataset(Dataset):
     @property
     def annotation_file_path(self) -> str:
-        return f'{self.args.base_folder}/annotations/{self.mode}.json'
+        match self.mode:
+            case 'valid':
+                return f'{self.args.base_folder}/annotations/val.json'
+            case _:
+                return f'{self.args.base_folder}/annotations/{self.mode}.json'
 
     def image_path(self, file_name: str) -> str:
-        return f'{self.args.base_folder}/{self.mode}/{file_name}'
+        match self.mode:
+            case 'valid':
+                return f'{self.args.base_folder}/val/{file_name}'
+            case _:
+                return f'{self.args.base_folder}/{self.mode}/{file_name}'
 
     def _load_coco_model(self) -> COCOModel:
         with open(self.annotation_file_path, 'r', encoding='utf-8') as f:
@@ -36,10 +45,14 @@ class SpiideoBaseDataset(Dataset):
             
             image: COCOImage
             for image in coco_model.images:
+                if image.id >= self.args.n_limit:
+                    break
                 images[image.id] = image
 
             annotation: COCOAnnotation
             for annotation in coco_model.annotations:
+                if annotation.image_id >= self.args.n_limit:
+                    break
                 annotations[annotation.image_id].append(annotation)
 
             category: COCOCategory
@@ -60,15 +73,15 @@ class SpiideoBaseDataset(Dataset):
         self.images, self.annotations, self.categories = self._load_coco_model()
 
     def __len__(self):
-        raise NotImplementedError
+        if self.args.n_limit is None:
+            return len(self.images)
+
+        return self.args.n_limit
 
     def __getitem__(self, idx):
         raise NotImplementedError
         
 class SpiideoDataset(SpiideoBaseDataset):
-    def __len__(self):
-        return len(self.images)
-
     def __getitem__(self, idx):
         # image_name = coco_model.images[idx]
 

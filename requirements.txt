@@ -8,8 +8,10 @@ torchtyping
 lightning
 hydra-core
 
-# Dataset
+# Dataset & Toolkit
 SoccerNet
+sskit
+# xtcocotools
 
 # Data handling and augmentation
 numpy
@@ -29,6 +31,7 @@ pylint
 
 # Models
 ultralytics
+transformers==4.41.0
 
 # Serving
 litserve

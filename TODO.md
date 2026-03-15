@@ -44,6 +44,12 @@
   * Always inherit Mixin methods before the base class, due to Python's Multiple Resolution Order (MRO)
 
 ## 25.02.09. Meeting with Prof Misha
-- [ ] To send Prof:
-  - [ ]  Plan/Skeleton for the model
-  - [ ] Information on the IMS summer research program
+- [x] To send Prof:
+  - [x]  Plan/Skeleton for the model
+  - [x] Information on the IMS summer research program
+
+## 25.03.07. Implement YOLO
+  - [x] Installed sskit
+  - [ ] YOLOx Model
+  - [ ] Dataset
+  - [ ] Experiment

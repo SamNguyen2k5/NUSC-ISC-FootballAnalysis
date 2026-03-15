@@ -3,6 +3,7 @@ import glob
 import json
 import warnings
 from itertools import islice
+from typing import List
 
 import cv2
 import numpy as np
