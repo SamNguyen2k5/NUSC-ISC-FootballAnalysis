@@ -1,4 +1,10 @@
 import torch
+from torchvision.transforms import v2
+import torchvision.transforms.functional as F
+from typing import Literal, List, Dict
+
+import matplotlib.pyplot as plt
+
 import cv2
 import numpy as np
 from datamodules.base_datamodule import BaseDataModule, BaseDataModuleArgs
@@ -31,11 +37,45 @@ def _generate_2d_gmm_heatmap(shape, centers, sigmas):
         # Add the Gaussian to the mixture
         heatmap += np.exp(exponent)
     
+    if heatmap.max() > 0:
+        heatmap /= heatmap.max()
+
     return heatmap
 
+class Spiideo2DGaussianMaskDatasetArgs(SpiideoDatasetArgs):
+    sigma: int = 32
+    n_crops: int
+    crop_width: int
+    crop_height: int
+
 class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
+    def __init__(self, 
+                 args: Spiideo2DGaussianMaskDatasetArgs, 
+                 mode: Literal['mini', 'train', 'valid', 'test'], 
+                 transform=None, 
+                 target_transform=None):
+        super().__init__(args, mode, transform, target_transform)
+        self.args = args
+        self.cropper = v2.RandomCrop(size=(self.args.crop_width, self.args.crop_height))
+
+        self.current_image_idx = None
+        self.current_images: None | List = None
+        self.current_masks: None | List = None
+
+    def __len__(self):
+        return len(self.images) * self.args.n_crops
+
     def __getitem__(self, idx):
-        metadata = self.images[idx]
+        image_idx = idx // self.args.n_crops
+        crop_idx = idx % self.args.n_crops
+
+        # [TODO]: check if crops are appropriately distributed. 
+        # too many negative samples for now.
+
+        if image_idx == self.current_image_idx:
+            return self.current_images[crop_idx], self.current_masks[crop_idx]
+
+        metadata = self.images[image_idx]
         file_name = metadata.file_name
 
         # print(f'Reading from {self.image_path(file_name)}')
@@ -45,17 +85,12 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
         image = image.astype('float32') / 255.0
         image = cv2.resize(image, (self.args.width, self.args.height))
 
-        if self.transform:
-            image = self.transform(image)
-        if self.target_transform:
-            ordered_label = self.target_transform(ordered_label)
-
         height, width = self.args.height, self.args.width
 
         centers = []
         sigmas = []
 
-        for annotation in self.annotations[idx]:
+        for annotation in self.annotations[image_idx]:
             kps = []
             for x, y, z in annotation.keypoints.astype('int'):
                 x0, y0 = int(x / z * width / metadata.width), int(y / z * height / metadata.height)
@@ -66,27 +101,64 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
                 (_, y1), (x0, y0) = kps
 
             centers.append((x0, y0))
-            sigmas.append((abs(y0 - y1), abs(y0 - y1)))
+            # sigmas.append((abs(y0 - y1), abs(y0 - y1)))
+            sigmas.append(self.args.sigma)
 
         gaussian_mask = _generate_2d_gmm_heatmap(
-            shape=(height, width),
+            shape=(self.args.height, self.args.width),
             centers=centers,
             sigmas=sigmas
         )
 
-        # gaussian_mask = np.stack([gaussian_mask] * 3, axis=0)
+        # print(centers)
+
+        # plt.imshow(image)
+        # plt.show()
+
+        # plt.imshow(gaussian_mask)
+        # plt.show()
 
         image = torch.tensor(image).unsqueeze(0)
         gaussian_mask = torch.tensor(gaussian_mask).unsqueeze(0)
-        return image, gaussian_mask
+
+        images, gaussian_masks = [], []
+        for idx in range(self.args.n_crops):
+            cropper_params = self.cropper.get_params(
+                img=image, 
+                output_size=(self.args.crop_height, self.args.crop_width)
+            )
+
+            cropped_image = F.crop(image, *cropper_params)
+            cropped_gaussian_mask = F.crop(gaussian_mask, *cropper_params)
+
+            images.append(cropped_image)
+            gaussian_masks.append(cropped_gaussian_mask)
+
+        images = torch.stack(images)
+        gaussian_masks = torch.stack(gaussian_masks)
+
+        if self.transform:
+            images = self.transform(images)
+        if self.target_transform:
+            gaussian_masks = self.target_transform(gaussian_masks)
+
+        self.current_image_idx = image_idx
+        self.current_images, self.current_masks = images, gaussian_masks
+        return images[crop_idx], gaussian_masks[crop_idx]
 
 class Spiideo2DGaussianMaskDataModule(BaseDataModule):
-    def __init__(self, args_dataset: SpiideoDatasetArgs, args_datamodule: BaseDataModuleArgs):
+    def __init__(self, args_dataset: SpiideoDatasetArgs, args_datamodule: BaseDataModuleArgs, debug=False):
         super().__init__(args_datamodule)
         self.args_dataset = args_dataset
+        self.debug = debug
 
     def dataset(self, mode: str):
         if mode not in ['mini', 'train', 'valid', 'test']:
             raise NotImplementedError(f'Got mode = {mode}. Expected either mini, train, valid or test.')
 
-        return Spiideo2DGaussianMaskDataset(self.args_dataset, mode=mode)
+        if self.debug and mode == 'train':
+            mode = 'mini'
+
+        return Spiideo2DGaussianMaskDataset(
+            self.args_dataset, mode=mode
+        )

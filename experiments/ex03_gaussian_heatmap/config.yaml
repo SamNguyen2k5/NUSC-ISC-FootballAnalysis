@@ -20,18 +20,20 @@ pitch_calibration_datamodule:
   persistent_workers: True
 
 # -- Smaller sigma:
-gaussian_heatmap_model: "wandb_logs/ISC-Football/hpaj2e9l/checkpoints/epoch=31-step=128.ckpt"
+gaussian_heatmap_model: "wandb_logs/ISC-Football/gwqhfk3g/checkpoints/epoch=2-step=192.ckpt"
+# gaussian_heatmap_model: "wandb_logs/ISC-Football/hpaj2e9l/checkpoints/epoch=31-step=128.ckpt"
 
 # -- Larger sigma:
 # gaussian_heatmap_model: "wandb_logs/ISC-Football/ycdtr54x/checkpoints/epoch=31-step=128.ckpt"
 
 spiideo_dataset:
   base_folder: 'data/SpiideoSynLoc'
-  width: 640
-  height: 360
-  # width: 3840
-  # height: 2160
-  n_limit: 16
+  width: 3840
+  height: 2160
+  n_crops: 16
+  crop_width: 512
+  crop_height: 512
+  n_limit: 4
 
 spiideo_datamodule:
   batch_size: 4

@@ -1,5 +1,6 @@
 # Core frameworks
 # torch>=2.0.0 -- Installed from conda
+torchgmm
 torchtyping
 # torchvision>=0.15.0 -- Installed from conda
 # torchaudio>=2.0.0 -- Installed from conda
