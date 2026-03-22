@@ -55,8 +55,8 @@ class Cropper(pl.LightningModule):
         """
         img_batch, offset_batch = self._get_tiled_batch(image)
 
-        img_batchloader = DataLoader(img_batch, batch_size=4)
-        offset_batchloader = DataLoader(offset_batch, batch_size=4)
+        img_batchloader = DataLoader(img_batch, batch_size=self.batch_size_per_image)
+        offset_batchloader = DataLoader(offset_batch, batch_size=self.batch_size_per_image)
 
         for img_pieces, offset_pieces in zip(img_batchloader, offset_batchloader):
             with torch.no_grad():

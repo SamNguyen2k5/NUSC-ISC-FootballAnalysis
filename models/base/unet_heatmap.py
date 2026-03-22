@@ -1,14 +1,27 @@
 import torch
 from torch import optim
+from torch.nn import MSELoss, ModuleDict
+import torch.nn.functional as F
+from torchmetrics import TotalVariation
+
 from torchtyping import TensorType
-import pytorch_lightning as pl
 
 from models.base.base_module import BaseModule
-from losses.dice_loss import DiceLoss, DiceLossWithGradient
+from losses.total_variation import TotalVariationLoss
+from losses.focal_loss import FocalLoss
 
 class UNetHeatmap(BaseModule):
-    def __init__(self, eps=1e-6, loss_fn=DiceLoss()):
-        super().__init__(loss_fn)
+    def __init__(self, eps=1e-6):
+        super().__init__(
+            loss_fns=ModuleDict({
+                # 'mse': MSELoss(),
+                'focal': FocalLoss(),
+                'tv': TotalVariationLoss()
+            }),
+            lambdas=[1, 0.005],
+            log_small_losses=True
+        )
+
         self.unet = torch.hub.load('sm00thix/unet', 'unet', 
             pretrained=False, in_channels=1, out_channels=1,
             pad=True, bilinear=True, normalization='bn'

@@ -1,4 +1,4 @@
-experiment_name: 'ex03_gaussian_heatmap'
+experiment_name: 'ex03_gaussian_heatmap_with_focal_tv_losses'
 
 # segmentation_model: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
 

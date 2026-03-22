@@ -48,8 +48,20 @@
   - [x]  Plan/Skeleton for the model
   - [x] Information on the IMS summer research program
 
-## 25.03.07. Implement YOLO
+## 25.03.07. Implement ~~YOLO~~ Gaussian Heatmap
   - [x] Installed sskit
-  - [ ] YOLOx Model
-  - [ ] Dataset
-  - [ ] Experiment
+  - ~~[ ] YOLOx Model~~
+  - [x] Dataset
+  - [x] Experiment
+
+## 25.03.22. Model tuning
+  - Losses:
+    - [x] Focal Loss
+    - [x] MSE Loss
+    - [x] TotalVariation Loss
+    - [ ] Comparing the derivatives/Laplacian?
+    - [ ] Fourier/Spectral Loss
+
+  - Pipeline:
+    - [?] Gaussian Mixture Model
+    - [?] Bayesian Gaussian Mixture Model
