@@ -36,7 +36,7 @@
 ]
 
 #title()[
-  ISC 2,  Checkpoint 1
+  ISC 2,  Checkpoint 2
 ]
 
 = Infrastructure
@@ -94,12 +94,12 @@
 - Metric: _mAP-LocSim_
   - $"LocSym"(bold(x)_1, bold(x)_2) = display(exp(ln 0.05 dot d(bold(x)_1, bold(x)_2)^2/tau^2))$, where $tau= 1 "m"$ is the tolerance constant --> "target on precise location"
 
-== Ideas
+=== Models
 
 #figure()[
   #table(
     align: (left, left, center),
-    columns: 3,
+    columns: (50%, auto, auto),
     table.header(
       table.cell(
         align: center,
@@ -115,34 +115,41 @@
       ),
     ),
     [
-      - Train a YOLO detector to detect regions associating to each player
+      - Train a *YOLO* detector to detect regions associating to each player
       - Determine the keypoints for each player based on the cropped region
     ],
     [
       - Images are blurry and contain artifacts $-->$ harder to detect objects
+
+      - #text(fill: red)[
+          (Ultralytics) YOLO does not provide a flexible interface for training (no custom dataset, etc.)
+        ]
     ],
     [
-      #text(fill: orange, weight: "bold")[experiment]
+      #text(fill: red, weight: "bold")[-/-]
     ],
     [
-      - Segmentation model (UNet-based)
+      - Segmentation model (*UNet*-based)
       - Determine the keypoints for each player based on the cropped region
+      - Code: `./models/base/unet_heatmap.py`
     ],
     [
-      - UNet isn't stable, may produce false negative pixels. This behaviour can be seen from the `MaskCalibration` model.
+      - UNet isn't stable, may produce false negative pixels.
+      - This behaviour can be seen from the `MaskCalibration` model.
     ],
     [
-      #text(fill: black, weight: "bold")[in research]
+      #text(fill: orange, weight: "bold")[in research]
     ],
     [
-      - Gaussian Mixture Model (?)
+      - *Gaussian Mixture Model* (?)
       - Treat each player as a Gaussian distribution (heatmap, etc.)
+      - Code: `./pipelines/player_detection/location_detector.py`
     ],
     table.cell(
       align: center,
     )[-/-],
     [
-      #text(fill: black, weight: "bold")[in research]
+      #text(fill: orange, weight: "bold")[in research]
     ],
   )
 ]

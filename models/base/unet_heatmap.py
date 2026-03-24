@@ -8,24 +8,27 @@ from torchtyping import TensorType
 
 from models.base.base_module import BaseModule
 from losses.total_variation import TotalVariationLoss
+from losses.dice_loss import DiceLoss
 from losses.focal_loss import FocalLoss
 
 class UNetHeatmap(BaseModule):
-    def __init__(self, eps=1e-6):
+    def __init__(self, unet_path=None, eps=1e-8):
         super().__init__(
             loss_fns=ModuleDict({
                 # 'mse': MSELoss(),
-                'focal': FocalLoss(),
-                'tv': TotalVariationLoss()
+                'focal': FocalLoss(alpha=0.99, gamma=2),
+                # 'dice': DiceLoss(),
+                # 'tv': TotalVariationLoss()
             }),
-            lambdas=[1, 0.005],
+            lambdas=[1],
             log_small_losses=True
         )
 
-        self.unet = torch.hub.load('sm00thix/unet', 'unet', 
-            pretrained=False, in_channels=1, out_channels=1,
-            pad=True, bilinear=True, normalization='bn'
-        )
+        if unet_path is None:
+            self.unet = torch.hub.load('sm00thix/unet', 'unet', 
+                pretrained=False, in_channels=1, out_channels=1,
+                pad=True, bilinear=True, normalization='bn'
+            )
 
         self.eps = eps
 

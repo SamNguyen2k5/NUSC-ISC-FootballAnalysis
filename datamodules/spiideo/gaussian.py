@@ -35,18 +35,32 @@ def _generate_2d_gmm_heatmap(shape, centers, sigmas):
         exponent = -((x_grid - cx)**2 / (2 * sx**2) + (y_grid - cy)**2 / (2 * sy**2))
         
         # Add the Gaussian to the mixture
-        heatmap += np.exp(exponent)
-    
-    if heatmap.max() > 0:
-        heatmap /= heatmap.max()
+        blob = np.exp(exponent).astype(np.float32)
+        blob /= blob.max()
+        heatmap += blob
 
+    heatmap = np.clip(heatmap, 0, 1)
     return heatmap
 
 class Spiideo2DGaussianMaskDatasetArgs(SpiideoDatasetArgs):
-    sigma: int = 32
+    sigma: int = 16
+    positive_sample_rate: float = 0.95
+    oversampling_rate: float = 5.
     n_crops: int
     crop_width: int
     crop_height: int
+
+    @property
+    def n_positive_samples(self):
+        return int(self.n_crops * self.positive_sample_rate)
+
+    @property
+    def n_negative_samples(self):
+        return self.n_crops - int(self.n_crops * self.positive_sample_rate)
+
+    @property
+    def n_oversamples(self):
+        return int(self.oversampling_rate * self.n_crops)
 
 class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
     def __init__(self, 
@@ -110,19 +124,11 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
             sigmas=sigmas
         )
 
-        # print(centers)
-
-        # plt.imshow(image)
-        # plt.show()
-
-        # plt.imshow(gaussian_mask)
-        # plt.show()
-
         image = torch.tensor(image).unsqueeze(0)
         gaussian_mask = torch.tensor(gaussian_mask).unsqueeze(0)
 
-        images, gaussian_masks = [], []
-        for idx in range(self.args.n_crops):
+        selections = []
+        for _ in range(self.args.n_oversamples):
             cropper_params = self.cropper.get_params(
                 img=image, 
                 output_size=(self.args.crop_height, self.args.crop_width)
@@ -130,10 +136,12 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
 
             cropped_image = F.crop(image, *cropper_params)
             cropped_gaussian_mask = F.crop(gaussian_mask, *cropper_params)
+            selections.append((cropped_image, cropped_gaussian_mask, cropped_gaussian_mask.max()))
 
-            images.append(cropped_image)
-            gaussian_masks.append(cropped_gaussian_mask)
+        selections = sorted(selections, key=lambda x: x[-1], reverse=True)
+        selections = selections[:self.args.n_positive_samples] + selections[-self.args.n_negative_samples:]
 
+        images, gaussian_masks, _ = zip(*selections)
         images = torch.stack(images)
         gaussian_masks = torch.stack(gaussian_masks)
 

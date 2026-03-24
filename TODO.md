@@ -65,3 +65,11 @@
   - Pipeline:
     - [?] Gaussian Mixture Model
     - [?] Bayesian Gaussian Mixture Model
+
+  - Model considerations:
+    - UNet heatmap dimensions?
+      - [?] 512 x 512
+      - [ ] 240 x 240
+
+    - Dataset
+      - Take n/2 crops with the most objects and n/2 crops with the least objects. (1:1)

@@ -1,6 +1,5 @@
 experiment_name: 'ex03_gaussian_heatmap_with_focal_tv_losses'
 
-# segmentation_model: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
 
 pitch_calibration_dataset:
   img_folder: 'data/calibration'
@@ -20,6 +19,7 @@ pitch_calibration_datamodule:
   persistent_workers: True
 
 # -- Smaller sigma:
+pitch_segmentation_model: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
 gaussian_heatmap_model: "wandb_logs/ISC-Football/gwqhfk3g/checkpoints/epoch=2-step=192.ckpt"
 # gaussian_heatmap_model: "wandb_logs/ISC-Football/hpaj2e9l/checkpoints/epoch=31-step=128.ckpt"
 
@@ -28,16 +28,16 @@ gaussian_heatmap_model: "wandb_logs/ISC-Football/gwqhfk3g/checkpoints/epoch=2-st
 
 spiideo_dataset:
   base_folder: 'data/SpiideoSynLoc'
+  n_limit: 8
   width: 3840
   height: 2160
-  n_crops: 16
-  crop_width: 512
-  crop_height: 512
-  n_limit: 4
+  n_crops: 8
+  crop_width: 480
+  crop_height: 480
 
 spiideo_datamodule:
-  batch_size: 4
-  num_workers: 8
+  batch_size: 8
+  num_workers: 10
   persistent_workers: True
 
 trainer:

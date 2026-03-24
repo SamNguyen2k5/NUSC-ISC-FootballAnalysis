@@ -27,6 +27,7 @@ class BaseModule(pl.LightningModule):
         y_pred = self.forward(x)
         losses = {loss_name: loss_fn(y_pred, y_true) for loss_name, loss_fn in self.loss_fns.items()}
         total_loss = sum(loss * coeff for loss, coeff in zip(losses.values(), self.lambdas))
+        # [TODO]: possible gradient error here
         return total_loss, losses, y_pred, y_true
 
     def _log_losses(self, mode, total_loss, smaller_losses):
