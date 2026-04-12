@@ -18,6 +18,7 @@ class BaseModule(pl.LightningModule):
 
         self.lambdas = lambdas
         self.log_smaller_losses = log_small_losses
+        self.save_hyperparameters()
 
     def forward(self, x):
         raise NotImplementedError()

@@ -14,9 +14,5 @@ class CropThenStack(Cropper):
         Returns:
         """
 
-        outputs = [
-            output_pieces + offset_pieces
-            for output_pieces, offset_pieces in tqdm(self._for_each_piece_with_result(image))
-        ]
-        
-        return torch.tensor(outputs)
+        outputs = [mask_pieces for mask_pieces, _ in tqdm(self._for_each_piece_with_result(image))]
+        return torch.concatenate(outputs)

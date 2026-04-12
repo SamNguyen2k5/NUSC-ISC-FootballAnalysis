@@ -3,8 +3,10 @@ import numpy as np
 import wandb
 from pytorch_lightning.callbacks import Callback
 
+from losses.total_intensity import TotalIntensity
+
 class LogHeatmapCallback(Callback):
-    def __init__(self, num_samples=4):
+    def __init__(self, num_samples=None):
         super().__init__()
         self.num_samples = num_samples
 
@@ -16,7 +18,10 @@ class LogHeatmapCallback(Callback):
         
         images = []
         # Take up to num_samples from the batch
-        n = min(x.shape[0], self.num_samples)
+        if self.num_samples:
+            n = min(x.shape[0], self.num_samples)
+        else:
+            n = x.shape[0]
         
         for i in range(n):
             # Prepare a side-by-side visualization

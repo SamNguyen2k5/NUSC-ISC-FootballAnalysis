@@ -12,15 +12,17 @@ from losses.dice_loss import DiceLoss
 from losses.focal_loss import FocalLoss
 
 class UNetHeatmap(BaseModule):
-    def __init__(self, unet_path=None, eps=1e-8):
+    def __init__(
+        self, 
+        loss_fns={'focal': FocalLoss(alpha=0.99, gamma=2)}, 
+        lambdas=[1],
+        unet_path=None, 
+        eps=1e-8,
+        lr=2e-4
+    ):
         super().__init__(
-            loss_fns=ModuleDict({
-                # 'mse': MSELoss(),
-                'focal': FocalLoss(alpha=0.99, gamma=2),
-                # 'dice': DiceLoss(),
-                # 'tv': TotalVariationLoss()
-            }),
-            lambdas=[1],
+            loss_fns=ModuleDict(loss_fns),
+            lambdas=lambdas,
             log_small_losses=True
         )
 
@@ -31,6 +33,8 @@ class UNetHeatmap(BaseModule):
             )
 
         self.eps = eps
+        self.lr = lr
+        self.save_hyperparameters()
 
     def forward(self, x: TensorType['batch', 1, 'row', 'column']) -> TensorType['batch', 1, 'row', 'column']:
         """
@@ -52,4 +56,4 @@ class UNetHeatmap(BaseModule):
         return x
     
     def configure_optimizers(self):
-        return optim.Adam(self.parameters(), lr=0.001)
+        return optim.Adam(self.parameters(), lr=self.lr)

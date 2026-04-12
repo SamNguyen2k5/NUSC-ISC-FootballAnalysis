@@ -1,6 +1,7 @@
 import torch
 from torchvision.transforms import v2
-import torchvision.transforms.functional as F
+import torchvision.transforms.functional as TorchVisionF
+import torch.nn.functional as TorchF
 from typing import Literal, List, Dict
 
 import matplotlib.pyplot as plt
@@ -49,6 +50,8 @@ class Spiideo2DGaussianMaskDatasetArgs(SpiideoDatasetArgs):
     n_crops: int
     crop_width: int
     crop_height: int
+    crop_export_width: int
+    crop_export_height: int
 
     @property
     def n_positive_samples(self):
@@ -134,8 +137,8 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
                 output_size=(self.args.crop_height, self.args.crop_width)
             )
 
-            cropped_image = F.crop(image, *cropper_params)
-            cropped_gaussian_mask = F.crop(gaussian_mask, *cropper_params)
+            cropped_image = TorchVisionF.crop(image, *cropper_params)
+            cropped_gaussian_mask = TorchVisionF.crop(gaussian_mask, *cropper_params)
             selections.append((cropped_image, cropped_gaussian_mask, cropped_gaussian_mask.max()))
 
         selections = sorted(selections, key=lambda x: x[-1], reverse=True)
@@ -144,6 +147,18 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
         images, gaussian_masks, _ = zip(*selections)
         images = torch.stack(images)
         gaussian_masks = torch.stack(gaussian_masks)
+
+        images = TorchF.interpolate(images, 
+            size=(self.args.crop_export_height, self.args.crop_export_width), 
+            mode='bilinear', align_corners=False)
+
+        gaussian_masks = TorchF.interpolate(gaussian_masks, 
+            size=(self.args.crop_export_height, self.args.crop_export_width), 
+            mode='bilinear', align_corners=False)
+
+        # gaussian_masks = gaussian_masks.view(-1, 1, self.args.crop_export_height * self.args.crop_export_width)
+        # gaussian_masks = TorchF.softmax(gaussian_masks, dim=-1)
+        # gaussian_masks = gaussian_masks.view(-1, 1, self.args.crop_export_height, self.args.crop_export_width)
 
         if self.transform:
             images = self.transform(images)
