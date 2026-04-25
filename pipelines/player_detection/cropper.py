@@ -22,29 +22,30 @@ class Cropper(pl.LightningModule):
 
         if B != 1:
             raise NotImplementedError("Only supported for single-batched image.")
-        if C != 1:
-            raise NotImplementedError("Only black and white images.")
-        
-        # Calculate number of steps to cover the image with 50% stride (half-tile overlap)
-        num_h = 1 + int(np.ceil((H - H_crop) / (H_crop / 2)))
-        num_w = 1 + int(np.ceil((W - W_crop) / (W_crop / 2)))
+        # if C != 1:
+        #     raise NotImplementedError("Only black and white images.")
 
-        # Coordinates of the CENTERS of the trusted regions
-        y_coords = np.linspace(H_crop / 2, H - H_crop / 2, num_h, dtype=int)
-        x_coords = np.linspace(W_crop / 2, W - W_crop / 2, num_w, dtype=int)
+        num_h = int(np.ceil(H / H_crop))
+        num_w = int(np.ceil(W / W_crop))
 
-        print(W_crop / 2, W - W_crop / 2, x_coords)
+        # Coordinates of the CENTERS for non-overlapping tiles
+        # The first center is at half-crop, the next is at 1.5-crop, etc.
+        y_coords = np.linspace(0, H - H_crop, num_h, dtype=int)
+        x_coords = np.linspace(0, W - W_crop, num_w, dtype=int)
 
         tiles = []
         offsets = [] 
 
         for y in y_coords:
             for x in x_coords:
-                tile = F.crop(image, y - H_crop // 2, x - W_crop // 2, H_crop, W_crop)
+                # F.crop uses (top, left, height, width)
+                tile = F.crop(image, y, x, H_crop, W_crop)
                 tiles.append(tile)
-                offsets.append((y - H_crop // 4, x - W_crop // 4, 
-                                y + H_crop // 4, x + W_crop // 4))
                 
+                # Offsets for the "full" tile (from top-left to bottom-right)
+                offsets.append((y, x, y + H_crop, x + W_crop))
+                
+        # Return as a single batch [N, C, H_crop, W_crop]
         return torch.cat(tiles, dim=0), torch.tensor(offsets)
 
     def _for_each_piece_with_result(self, image: TensorType['batch', 'channel', 'row', 'column']):
@@ -64,9 +65,9 @@ class Cropper(pl.LightningModule):
         for img_pieces, offset_pieces in zip(img_batchloader, offset_batchloader):
             with torch.no_grad():
                 output_pieces = self.model(img_pieces)
-                y0, y1 = H_crop // 4, 3 * H_crop // 4
-                x0, x1 = W_crop // 4, 3 * W_crop // 4
-                output_pieces = output_pieces[:, :, y0:y1, x0:x1]
+                # y0, y1 = H_crop // 4, 3 * H_crop // 4
+                # x0, x1 = W_crop // 4, 3 * W_crop // 4
+                # output_pieces = output_pieces[:, :, y0:y1, x0:x1]
                 yield output_pieces, offset_pieces
 
     def forward(self, image: TensorType['batch', 'channel', 'row', 'column']) -> TensorType['batch', 'channel', 'row', 'column']:

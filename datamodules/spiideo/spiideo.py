@@ -43,16 +43,38 @@ class SpiideoBaseDataset(Dataset):
             annotations: Dict[int, List[COCOAnnotation]] = defaultdict(list)
             categories: Dict[int, str] = defaultdict(str)
             
+            original_width, original_height = 0, 0
+
             image: COCOImage
             for image in coco_model.images:
-                if image.id >= self.args.n_limit:
+                if self.args.n_limit is not None and image.id >= self.args.n_limit:
                     break
+                
+                original_width, original_height = image.width, image.height
                 images[image.id] = image
+                images[image.id].width = self.args.width
+                images[image.id].height = self.args.height
 
             annotation: COCOAnnotation
+            flag = True
+
             for annotation in coco_model.annotations:
-                if annotation.image_id >= self.args.n_limit:
+                if self.args.n_limit is not None and annotation.image_id >= self.args.n_limit:
                     break
+
+                if flag:
+                    print(annotation)
+
+                scale_width = original_width // self.args.width
+                scale_height = original_height // self.args.height 
+                annotation.keypoints[:, 0] /= scale_width
+                annotation.keypoints[:, 1] /= scale_height
+                annotation.bbox //= np.array([scale_width, scale_height] * 2)
+
+                if flag:
+                    print(annotation)
+                    flag = False
+
                 annotations[annotation.image_id].append(annotation)
 
             category: COCOCategory
@@ -63,7 +85,7 @@ class SpiideoBaseDataset(Dataset):
 
     def __init__(self, 
                  args: SpiideoDatasetArgs, 
-                 mode: Literal['mini', 'train', 'valid', 'test'], 
+                 mode: Literal['mini', 'train', 'valid', 'test', 'challenge'], 
                  transform=None, 
                  target_transform=None):
         self.args = args
@@ -104,8 +126,8 @@ class SpiideoDataModule(BaseDataModule):
         self.args_dataset = args_dataset
 
     def dataset(self, mode: str):
-        if mode not in ['mini', 'train', 'valid', 'test']:
-            raise NotImplementedError(f'Got mode = {mode}. Expected either mini, train, valid or test.')
+        if mode not in ['mini', 'train', 'valid', 'test', 'challenge']:
+            raise NotImplementedError(f'Got mode = {mode}. Expected either mini, train, valid, test or challenge.')
 
         return SpiideoDataset(self.args_dataset, mode=mode)
         
@@ -133,7 +155,7 @@ class SpiideoWithMetadataDataModule(BaseDataModule):
         self.args_dataset = args_dataset
 
     def dataset(self, mode: str):
-        if mode not in ['mini', 'train', 'valid', 'test']:
-            raise NotImplementedError(f'Got mode = {mode}. Expected either mini, train, valid or test.')
+        if mode not in ['mini', 'train', 'valid', 'test', 'challenge']:
+            raise NotImplementedError(f'Got mode = {mode}. Expected either mini, train, valid, test or challenge.')
 
         return SpiideoWithMetadataDataset(self.args_dataset, mode=mode)

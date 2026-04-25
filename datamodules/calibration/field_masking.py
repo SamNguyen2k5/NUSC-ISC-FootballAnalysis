@@ -1,3 +1,4 @@
+from typing import List, Literal
 from itertools import pairwise
 import warnings
 from pydantic import BaseModel
@@ -10,30 +11,45 @@ from datamodules.base_datamodule import BaseDataModule, BaseDataModuleArgs
 from .calibration import CalibrationDataset, CalibrationDatasetArgs
 
 class MaskingCalibrationDatasetArgs(CalibrationDatasetArgs, BaseModel):
-    keypoint_only: bool = False
+    fill_mode: Literal['keypoint', 'line', 'fill'] = 'line'
+    excludes: List[int] = []
+    in_channels: int = 1
 
 class MaskingCalibrationDataset(CalibrationDataset):
     def __init__(self, args: MaskingCalibrationDatasetArgs, mode: str):
         super().__init__(args, mode)
-        self.keypoint_only = args.keypoint_only
+        self.args = args
 
     @classmethod
     def from_folder(cls, **kwargs):
         warnings.warn('Depercated! Use the default constructor instead.')
 
     def __getitem__(self, idx):
-        image, label = super().__getitem__(idx)
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        image, labels = super().__getitem__(idx)
+
+        if self.args.in_channels == 1:
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        elif self.args.in_channels != 3:
+            raise NotImplementedError("Function not supported for images with {self.args.in_channels} colour channels")
 
         mask_img = np.zeros(image.shape, dtype='float32')
-        for coords in label.values():
+        for label, coords in labels.items():
+            if label in self.args.excludes:
+                continue
+
             for coord in coords:
                 cv2.circle(mask_img, coord, 2, (1., ), 2)
-            if not self.keypoint_only:
+
+            if self.args.fill_mode != 'keypoint':
+                print(coords)
                 for coord_bef, coord_aft in pairwise(coords):
                     cv2.line(mask_img, coord_bef, coord_aft, (1., ), 2)
 
-        image = torch.tensor(image).unsqueeze(0)
+        if self.args.in_channels == 1:
+            image = torch.tensor(image).unsqueeze(0)
+        elif self.args.in_channels == 3:
+            image = torch.tensor(image).permute((2, 0, 1))
+
         mask_img = torch.tensor(mask_img).unsqueeze(0)
         return image, mask_img
 

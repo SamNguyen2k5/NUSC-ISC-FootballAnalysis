@@ -52,6 +52,7 @@ class Spiideo2DGaussianMaskDatasetArgs(SpiideoDatasetArgs):
     crop_height: int
     crop_export_width: int
     crop_export_height: int
+    in_channels: int = 1
 
     @property
     def n_positive_samples(self):
@@ -98,9 +99,16 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
         # print(f'Reading from {self.image_path(file_name)}')
 
         image = cv2.imread(self.image_path(file_name))
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        image = image.astype('float32') / 255.0
         image = cv2.resize(image, (self.args.width, self.args.height))
+        image = image.astype('float32') / 255.0
+
+        if self.args.in_channels == 1:
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+            image = torch.tensor(image).unsqueeze(0)
+        elif self.args.in_channels == 3:
+            image = torch.tensor(image).permute((2, 0, 1))
+        else:
+            raise NotImplementedError("Function not supported for images with {self.args.in_channels} colour channels")
 
         height, width = self.args.height, self.args.width
 
@@ -114,7 +122,7 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
                 kps.append((x0, y0))
 
             (x0, y0), (_, y1) = kps
-            if y0 > y1:
+            if y0 < y1:
                 (_, y1), (x0, y0) = kps
 
             centers.append((x0, y0))
@@ -127,7 +135,6 @@ class Spiideo2DGaussianMaskDataset(SpiideoWithMetadataDataset):
             sigmas=sigmas
         )
 
-        image = torch.tensor(image).unsqueeze(0)
         gaussian_mask = torch.tensor(gaussian_mask).unsqueeze(0)
 
         selections = []

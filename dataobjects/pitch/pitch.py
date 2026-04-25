@@ -158,39 +158,39 @@ class Pitch(nn.Module):
         polys += SHIFT
         img = cv2.polylines(img, polys, True, 255, thickness)
 
-        for polygon_labels in Pitch.POLYGONS:
-            print([PitchKeypointMapping.forward(lbl) for lbl in polygon_labels])
-            print(X[list(polygon_labels)])
-            print(X[list(polygon_labels)].astype('int'))
+        # for polygon_labels in Pitch.POLYGONS:
+        #     print([PitchKeypointMapping.forward(lbl) for lbl in polygon_labels])
+        #     print(X[list(polygon_labels)])
+        #     print(X[list(polygon_labels)].astype('int'))
 
         # Conics
-        for ((centre, top, bottom, left, right), _has_axes) in Pitch.ELLIPSES:
-            centre_pt = X[centre]
-            centre_pt = centre_pt.astype('int32')
-            # print(np.linalg.norm(self._xy_point(top) - self._xy_point(bottom)))
+        # for ((centre, top, bottom, left, right), _has_axes) in Pitch.ELLIPSES:
+        #     centre_pt = X[centre]
+        #     centre_pt = centre_pt.astype('int32')
+        #     # print(np.linalg.norm(self._xy_point(top) - self._xy_point(bottom)))
 
-            left_pt = X[left]
-            right_pt = X[right]
-            top_pt = X[top]
-            bottom_pt = X[bottom]
+        #     left_pt = X[left]
+        #     right_pt = X[right]
+        #     top_pt = X[top]
+        #     bottom_pt = X[bottom]
 
-            major_axis = int(np.linalg.norm(top_pt - bottom_pt) / 2)
-            minor_axis = int(np.linalg.norm(left_pt - right_pt) / 2)
+        #     major_axis = int(np.linalg.norm(top_pt - bottom_pt) / 2)
+        #     minor_axis = int(np.linalg.norm(left_pt - right_pt) / 2)
 
-            major = left_pt - right_pt
-            alpha = np.arctan2(major[0], major[1]) / np.pi * 180
-            # print(alpha, type(alpha))
+        #     major = left_pt - right_pt
+        #     alpha = np.arctan2(major[0], major[1]) / np.pi * 180
+        #     # print(alpha, type(alpha))
 
-            img = cv2.ellipse(img, centre_pt, (major_axis, minor_axis), -alpha, 0, 360, color=255, thickness=thickness)
-            # print(centre_pt, major_axis, minor_axis)
+        #     img = cv2.ellipse(img, centre_pt, (major_axis, minor_axis), -alpha, 0, 360, color=255, thickness=thickness)
+        #     # print(centre_pt, major_axis, minor_axis)
 
-            bottom_pt = bottom_pt.astype('int32')
-            right_pt = right_pt.astype('int32')
+        #     bottom_pt = bottom_pt.astype('int32')
+        #     right_pt = right_pt.astype('int32')
 
-            # Annotations
-            if _has_axes and has_axes:
-                img = cv2.arrowedLine(img, centre_pt, bottom_pt, 125, thickness, tipLength=0.15)
-                img = cv2.arrowedLine(img, centre_pt, right_pt, 125, thickness, tipLength=0.15)
+        #     # Annotations
+        #     if _has_axes and has_axes:
+        #         img = cv2.arrowedLine(img, centre_pt, bottom_pt, 125, thickness, tipLength=0.15)
+        #         img = cv2.arrowedLine(img, centre_pt, right_pt, 125, thickness, tipLength=0.15)
 
         if ax:
             ax.imshow(img, cmap='gray', 
@@ -209,8 +209,13 @@ class Pitch(nn.Module):
             thickness = (scale + 1) // 2
 
         height = self.height * scale * extra_space_scale
-        width = self.width  * scale * extra_space_scale
+        width = self.width * scale * extra_space_scale
         SHIFT = np.array([(width - self.width) // 2, (height - self.height) // 2])
+
+        min_x = (-extra_space_scale + 1) * self.width // 2
+        max_x = (extra_space_scale + 1) * self.width // 2
+        min_y = (-extra_space_scale + 1) * self.height // 2
+        max_y = (extra_space_scale + 1) * self.height // 2
 
         X = self.keypoints / self.keypoints[:, 2].unsqueeze(-1)
         X = X[:, [1, 0]] * scale
@@ -219,37 +224,28 @@ class Pitch(nn.Module):
         # Polygons / Lines
         inv_H = torch.inverse(self.homography).numpy()
 
-        y0, x0, z0 = np.meshgrid(
-            np.arange(height),
-            np.arange(width),
-            1
+        y0, x0 = np.meshgrid(
+            np.arange(self.height),
+            np.arange(self.width),
+            indexing='ij'
         )
 
-        pts_0 = np.stack([y0, x0, z0], axis=-1).reshape(-1, 3)
+        pts_0 = np.stack([y0, x0, np.ones_like(y0)], axis=-1).reshape(-1, 3)
         pts_1 = pts_0 @ inv_H.T
         y1, x1 = (pts_1[:, [0, 1]] / pts_1[:, [2]]).T
 
         is_infield = np.logical_and(
-            abs(y1) <= self.ORIGINAL_HEIGHT,
-            abs(x1) <= self.ORIGINAL_WIDTH
+            abs(y1) <= self.ORIGINAL_HEIGHT / 2,
+            abs(x1) <= self.ORIGINAL_WIDTH / 2
         )
 
-        print(is_infield)
+        img = is_infield.reshape((self.height, self.width)).astype('float32')
 
-        # for poly in polys:
-        #     print(poly)
-        #     img = cv2.fillPoly(img, [poly], 125)
+        if ax:
+            ax.imshow(img, cmap='gray', 
+                extent=[min_x, max_x, min_y, max_y],
+                vmin=0,
+                vmax=1
+            )
 
-        # if ax:
-        #     ax.imshow(img, cmap='gray', 
-        #         extent=[
-        #             (-extra_space_scale + 1) * self.width // 2, 
-        #             (extra_space_scale + 1) * self.width // 2, 
-        #             (extra_space_scale + 1) * self.height // 2, 
-        #             (-extra_space_scale + 1) * self.height // 2
-        #         ]
-        #     )
-
-        # return img
-
-        return None
+        return img

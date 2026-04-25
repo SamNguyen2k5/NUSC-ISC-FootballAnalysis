@@ -29,8 +29,7 @@ spiideo_2d_gaussian_data_module = Spiideo2DGaussianMaskDataModule(
     debug=True
 )
 
-# unet_model = UNetHeatmap(
-unet_model = UNetHeatmapWithEndBlur(
+unet_model = UNetHeatmap(
     lr=1e-5,
     loss_fns={
         'focal': FocalLoss(alpha=0.99, gamma=2),
@@ -38,6 +37,7 @@ unet_model = UNetHeatmapWithEndBlur(
     }, 
     lambdas=[0.99, 0.01],
     # lambdas=[1],
+    in_channels=3
 )
 
 wandb_logger = WandbLogger(save_dir='wandb_logs', project='ISC-Football', name=config['experiment_name'])
