@@ -130,7 +130,7 @@ class Pitch(nn.Module):
         return FrameNumpy(points, segments)
 
 
-    def plot(self, ax=None, scale=1, thickness=None, extra_space_scale=1, has_axes=True):
+    def plot(self, ax=None, scale=1, thickness=None, extra_space_scale=1, stroke_intensity=255, focus_frame=False, has_axes=True):
         if not thickness:
             thickness = (scale + 1) // 2
 
@@ -147,16 +147,18 @@ class Pitch(nn.Module):
 
         # Polygons / Lines
         img = np.zeros((height, width), dtype='int32')
-        img = cv2.rectangle(    
-            img, 
-            ((width - self.width * scale) // 2, (height - self.height * scale) // 2),
-            ((width + self.width * scale) // 2, (height + self.height * scale) // 2),
-            color=125, thickness=2 * thickness)
+
+        if focus_frame:
+            img = cv2.rectangle(    
+                img, 
+                ((width - self.width * scale) // 2, (height - self.height * scale) // 2),
+                ((width + self.width * scale) // 2, (height + self.height * scale) // 2),
+                color=125, thickness=2 * thickness)
 
         polys = [X[list(polygon_labels)] for polygon_labels in Pitch.POLYGONS]
         polys = np.array(polys, dtype='int32')
         polys += SHIFT
-        img = cv2.polylines(img, polys, True, 255, thickness)
+        img = cv2.polylines(img, polys, True, stroke_intensity, thickness)
 
         # for polygon_labels in Pitch.POLYGONS:
         #     print([PitchKeypointMapping.forward(lbl) for lbl in polygon_labels])

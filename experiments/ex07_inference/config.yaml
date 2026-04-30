@@ -10,8 +10,10 @@ unet_with_gaussian_layer: "wandb_logs/ISC-Football/5yaq0s0v/checkpoints/epoch=31
 
 spiideo_dataset:
   base_folder: 'data/SpiideoSynLoc'
-  width: 720
-  height: 405
+  # width: 720
+  # height: 405
+  width: 960
+  height: 540
   in_channels: 3
 
 spiideo_datamodule:
