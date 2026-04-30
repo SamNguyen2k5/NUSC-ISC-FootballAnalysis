@@ -68,18 +68,19 @@
 
   - Model considerations:
     - UNet heatmap dimensions?
-      - [?] 512 x 512
-      - [ ] 240 x 240
+      - ~[?] 512 x 512~
+      - ~[?] 240 x 240~
 
     - Dataset
-      - Take n/2 crops with the most objects and n/2 crops with the least objects. (1:1)
+      - ~Take n/2 crops with the most objects and n/2 crops with the least objects. (1:1)~
 
 ## 25.04.06 Further tunings
-  - [ ] Losses: MSE, L1
-  - [ ] Try different sigma (8, 16, etc.) —> Adaptive hyperparameter
+  - [x] Losses: MSE, L1
+  - [x] Try different sigma (8, 16, etc.) —> Adaptive hyperparameter
   - [ ] Training regimes (Adam, etc.)
-  - [ ] Force a Gaussian mask
-    - [ ] Objects as Points
-    - [ ] Numerical Coordinate Regression with Convolutional Neural Networks (Nibali et al, 2018)
+    - [x] Learning rate
+  - [x] Force a Gaussian mask
+    - [x] Objects as Points
+    - [x] Numerical Coordinate Regression with Convolutional Neural Networks (Nibali et al, 2018)
 
 
