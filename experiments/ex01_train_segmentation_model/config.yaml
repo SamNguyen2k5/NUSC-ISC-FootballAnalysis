@@ -1,0 +1,16 @@
+experiment_name: 'ex01_train_segmentation_model'
+
+masking_calibration_dataset:
+  img_folder: 'data/calibration'
+  width: 320
+  height: 180
+  n_limit: 128
+
+masking_calibration_datamodule:
+  batch_size: 8
+  num_workers: 8
+  persistent_workers: True
+
+trainer:
+  accelerator: 'gpu'
+  max_epochs: 32

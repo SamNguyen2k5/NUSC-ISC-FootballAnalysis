@@ -1,11 +1,18 @@
 # Core frameworks
 # torch>=2.0.0 -- Installed from conda
+torchgmm
+torchtyping
 # torchvision>=0.15.0 -- Installed from conda
 # torchaudio>=2.0.0 -- Installed from conda
 # opencv-python>=4.8.0 -- Installed from conda
 
-# Dataset
+lightning
+hydra-core
+
+# Dataset & Toolkit
 SoccerNet
+sskit
+# xtcocotools
 
 # Data handling and augmentation
 numpy
@@ -15,8 +22,22 @@ scikit-learn
 scipy
 Pillow
 
+pyyaml
+pydantic
+numpydantic
+yaml-settings-pydantic
+
 # Python-specific
 pylint
 
 # Models
 ultralytics
+transformers==4.41.0
+
+# Serving
+litserve
+streamlit
+python-multipart
+
+# Logging
+wandb

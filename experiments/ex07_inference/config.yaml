@@ -1,0 +1,26 @@
+experiment_name: 'ex06_player_heatmap_after_masking'
+
+pitch_segmentation_model: "lightning_logs/version_13/checkpoints/epoch=17-step=288.ckpt"
+pitch_cover_model: "wandb_logs/ISC-Football/pc7g8srb/checkpoints/epoch=20-step=252.ckpt"
+gaussian_heatmap_model: "wandb_logs/ISC-Football/j333rvqe/checkpoints/epoch=31-step=896.ckpt"
+
+# unet_with_gaussian_layer: "wandb_logs/ISC-Football/9zu5hep9/checkpoints/epoch=31-step=256.ckpt"
+# unet_with_gaussian_layer: "wandb_logs/ISC-Football/4z0b0yf4/checkpoints/epoch=31-step=448.ckpt"
+unet_with_gaussian_layer: "wandb_logs/ISC-Football/5yaq0s0v/checkpoints/epoch=31-step=512.ckpt"
+
+spiideo_dataset:
+  base_folder: 'data/SpiideoSynLoc'
+  # width: 720
+  # height: 405
+  width: 960
+  height: 540
+  in_channels: 3
+
+spiideo_datamodule:
+  batch_size: 16
+  num_workers: 10
+  persistent_workers: True
+
+trainer:
+  accelerator: 'gpu'
+  max_epochs: 32

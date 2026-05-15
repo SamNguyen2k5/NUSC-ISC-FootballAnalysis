@@ -1,0 +1,5 @@
+= Commentary and Future plans
+
+The project has participated in the Spiideo's SoccerNet SynLoc task on the test server, accessible on #link("https://www.codabench.org/competitions/10128", text(fill: blue)[_#underline("CodaBench")_]). At the point of submission (30 April, 2026), our project shows some progress on the top-$5$ metrics but struggles to achieve positive results for the general metrics. More training would need to be devoted for the model, as well as more robust approaches are needed for the inference, non-trainable part of the pipeline.
+
+Looking forward, the next immediate aim for the project is to migrate model training onto the cloud, through either the Lightning.AI platform @noauthor_welcome_nodate or renting High Performance Computes (HPCs) such as ASPIRE 2A, governed by the National Supercomputing Centre (NSCC), which is available for all students studying in autonomous universities in Singapore @ding__2016. This will help the training phase become much faster than training on local processors such as GPUs or Apple's MPS chips, which will speed up the prototyping and batch-inference stages of development.

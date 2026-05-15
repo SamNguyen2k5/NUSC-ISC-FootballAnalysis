@@ -1,7 +1,14 @@
+# Secret API keys
+config
+
 # Raw data & export files
 data
 exports
 weights
+
+wandb
+lightning_logs
+wandb_logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -128,3 +135,4 @@ venv_old/
 *.swp
 *~
 
+experiments/ex07_inference/results/

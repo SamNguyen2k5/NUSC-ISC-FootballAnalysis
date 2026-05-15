@@ -1,6 +1,9 @@
 // #import "@preview/bamdone-ieeeconf:0.1.1": ieee
 #import "@preview/basic-report:0.3.1": *
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "@preview/wordometer:0.1.5": total-words, word-count
+
+#show: word-count
 
 #show: it => basic-report(
   doc-category: "Independent Study Course (NST3901)",
@@ -14,8 +17,6 @@
   it,
 )
 
-// #show: word-count
-
 #set page(
   paper: "a4",
   margin: 2cm,
@@ -24,6 +25,9 @@
     // * DRAFT * \
     // * DRAFT *
   ]),
+  // footer: [
+  //   _Total word count: #total-words words_
+  // ],
 )
 #set text(size: 12pt)
 #set par(leading: 0.8em, justify: true)
