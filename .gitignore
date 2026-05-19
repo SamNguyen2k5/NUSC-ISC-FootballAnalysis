@@ -1,5 +1,6 @@
 # Secret API keys
 config
+*.env
 
 # Raw data & export files
 data

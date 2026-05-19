@@ -22,6 +22,8 @@ scikit-learn
 scipy
 Pillow
 
+# Configs
+dotenv
 pyyaml
 pydantic
 numpydantic
