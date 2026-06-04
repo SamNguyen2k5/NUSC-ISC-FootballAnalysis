@@ -37,5 +37,5 @@ spiideo_datamodule:
   persistent_workers: True
 
 trainer:
-  accelerator: 'gpu'
-  max_epochs: 32
+  accelerator: 'cpu'
+  max_epochs: 8

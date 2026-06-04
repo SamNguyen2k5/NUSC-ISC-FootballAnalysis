@@ -23,7 +23,7 @@ from losses.total_intensity import TotalIntensity
 from datamodules.calibration.field_cover import CoverCalibrationDataModule, CoverCalibrationDatasetArgs, CoverCalibrationDataModule
 from datamodules.base_datamodule import BaseDataModuleArgs
 
-with resources.files(__package__).joinpath('config.yaml').open('r', encoding='utf-8') as f: 
+with resources.files(__package__).joinpath('config-cpu.yaml').open('r', encoding='utf-8') as f: 
     config = yaml.safe_load(f)
 
 pitch_cover_calibration_datamodule = CoverCalibrationDataModule(
