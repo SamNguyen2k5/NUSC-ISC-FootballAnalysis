@@ -17,20 +17,27 @@ def download_task_from(
     soccernet_downloader: SoccerNetDownloader, task: str, 
     split=["train", "valid", "test", "challenge"], **kwargs
 ):
-    soccernet_downloader.user = os.environ["SOCCERNET_SPIIDEO_USER"]
-    soccernet_downloader.password = os.environ["SOCCERNET_SPIIDEO_PASSWORD"]
+    # soccernet_downloader.user = os.environ["SOCCERNET_SPIIDEO_USER"]
+    # soccernet_downloader.password = os.environ["SOCCERNET_SPIIDEO_PASSWORD"]
 
     soccernet_downloader.downloadDataTask(task=task, split=split, **kwargs)
     for split_type in split:
-        os.system(f'yes | unzip data/{task}/{split_type}.zip -d data/{task}/')
+        print(f'Executing: yes | unzip -q data/{task}/{split_type}.zip -d data/{task}/')
+        os.system(f'yes | unzip -q data/{task}/{split_type}.zip -d data/{task}/')
 
 if __name__ == '__main__':
     load_dotenv()
 
+    # download_task_from(
+    #     SoccerNetDownloader(LocalDirectory="data"),
+    #     task='SpiideoSynLoc',
+    #     split=['train', 'test', 'valid', 'challenge'],
+    #     version='fullhd'
+    # )
+        
     download_task_from(
         SoccerNetDownloader(LocalDirectory="data"),
-        task='SpiideoSynLoc',
-        split=['train', 'test', 'valid', 'challenge'],
+        task='calibration',
+        split=['train', 'test', 'valid'],
         version='fullhd'
     )
-        
