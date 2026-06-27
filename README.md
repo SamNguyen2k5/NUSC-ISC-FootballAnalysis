@@ -16,5 +16,5 @@
   conda env create -f environment.yml
 
   # If update
-  conda env update -f envronment.yml --prune
+  conda env update -f environment.yml --prune
   ```

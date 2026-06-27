@@ -4,7 +4,8 @@ pitch_cover_model: "wandb_logs/ISC-Football/pc7g8srb/checkpoints/epoch=20-step=2
 gaussian_heatmap_model: "wandb_logs/ISC-Football/j333rvqe/checkpoints/epoch=31-step=896.ckpt"
 
 pitch_calibration_dataset:
-  img_folder: 'data/calibration'
+  # img_folder: 'data/calibration'
+  img_folder: '~/scratch/data/calibration'
   n_limit: 128
   width: 640
   height: 360
@@ -23,7 +24,8 @@ pitch_calibration_datamodule:
   persistent_workers: True
 
 spiideo_dataset:
-  base_folder: 'data/SpiideoSynLoc'
+  # base_folder: 'data/SpiideoSynLoc'
+  base_folder: '~/scratch/data/SpiideoSynLoc'
   n_limit: 32
   width: 3840
   height: 2160
