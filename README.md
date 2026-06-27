@@ -10,7 +10,9 @@
 
 - Export dependencies:
   ```bash
-  conda env export --no-builds > environment.yml
+  pip install pipreqs
+  pipreqs . --force
+  conda env export --from-history --no-builds > environment.yml
 
   # If create
   conda env create -f environment.yml

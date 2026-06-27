@@ -1,43 +1,23 @@
-# Core frameworks
-# torch>=2.0.0 -- Installed from conda
-torchgmm
-torchtyping
-# torchvision>=0.15.0 -- Installed from conda
-# torchaudio>=2.0.0 -- Installed from conda
-# opencv-python>=4.8.0 -- Installed from conda
-
-lightning
-hydra-core
-
-# Dataset & Toolkit
-SoccerNet
-sskit
-# xtcocotools
-
-# Data handling and augmentation
-numpy
-pandas
-matplotlib
-scikit-learn
-scipy
-Pillow
-
-pyyaml
-pydantic
-numpydantic
-yaml-settings-pydantic
-
-# Python-specific
-pylint
-
-# Models
-ultralytics
+litserve==0.2.17
+matplotlib==3.11.0
+numpy==2.5.0
+numpydantic==1.10.0
+Pillow==12.2.0
+pydantic==2.13.4
+python-dotenv==1.2.2
+pytorch_lightning==2.6.0
+PyYAML==6.0.2
+PyYAML==6.0.3
+Requests==2.34.2
+scikit_learn==1.9.0
+SoccerNet==0.1.62
+SoccerNet==0.1.62
+streamlit==1.53.0
+torch==2.5.1
+torchmetrics==1.8.2
+torchtyping==0.1.5
+torchvision==0.20.1
+tqdm==4.67.1
 transformers==4.41.0
-
-# Serving
-litserve
-streamlit
-python-multipart
-
-# Logging
-wandb
+wandb==0.24.0
+yaml_settings_pydantic==2.3.2

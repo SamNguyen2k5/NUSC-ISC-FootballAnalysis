@@ -1,51 +1,11 @@
 name: ISC-Football
 channels:
-  - conda-forge
   - defaults
 dependencies:
-  # Core Language
-  - python=3.11
-  - pip
-
-  # Essential Scientific Stack
-  - numpy=2.0.1
-  - pandas=2.3.1
-  - scipy=1.16.1
-  - scikit-learn=1.7.1
-  - matplotlib=3.10.5
-  - pillow=11.3.0
-  - tqdm=4.67.1
-  - pyyaml=6.0.2
-
-  # Vision & AI Infrastructure
-  - opencv=4.10.0
-  - pytorch=2.5.1
-  - torchvision=0.20.1
-  - torchaudio=2.5.1
-  - ffmpeg=6.1.1
-  - hdf5=1.14.5
-  - libprotobuf=5.29.3
-  - tesseract=5.2.0
-
-  # Development & Utilities
-  - ipykernel=6.30.1
-  - jupyter_client=8.6.3
-  - psutil=7.1.0
-  - requests=2.32.4
-  - setuptools=80.9.0
-
-  # Pip-installed packages
-  - pip:
-      - ultralytics==8.3.179
-      - lightning==2.6.0
-      - pytorch-lightning==2.6.0
-      - soccernet==0.1.62
-      - streamlit==1.53.0
-      - fastapi==0.128.0
-      - uvicorn==0.40.0
-      - transformers==4.41.0
-      - wandb==0.24.0
-      - pydantic==2.12.5
-      - torchmetrics==1.8.2
-      - pycocotools==2.0.10
-      - albumentations==1.4.24
+  - torchvision
+  - opencv
+  - pytorch
+  - torchaudio
+  - ultralytics
+  - ipykernel
+prefix: /Users/sam/miniconda3/envs/ISC-Football
