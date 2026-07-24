@@ -137,4 +137,4 @@ venv_old/
 *.swp
 *~
 
-experiments/ex07_inference/results/
+.libraries/*
