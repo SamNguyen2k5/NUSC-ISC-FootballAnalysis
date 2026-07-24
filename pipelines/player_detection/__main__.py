@@ -1,1 +1,0 @@
-from pipelines.player_detection.player_detector import PlayerDetector
