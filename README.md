@@ -1,5 +1,17 @@
 # NUSC-ISC-FootballAnalysis
 
+- CMake compile at `build` folder:
+  ```bash
+  cd build
+  cmake ..
+  cmake --build .
+  ```
+
+- To update dependencies from `Brewfile`:
+  ```bash
+  brew bundle
+  ```
+
 - Todo list: [TODO.md](TODO.md)
 
 - Reports:
